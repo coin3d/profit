@@ -1,4 +1,4 @@
 TARGET = profit
-CONFIG = debug sharedlib
+CONFIG = debug staticlib
 DEFINES = 
 OBJECTS_DIR = objects
