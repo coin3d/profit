@@ -67,6 +67,7 @@ ${DIE=false} && echo "" && exit 1
 if test -d $MACRODIR; then
   echo "Running aclocal..."
   aclocal -I $MACRODIR
+  test -f aclocal.m4.diff && patch -p0 <aclocal.m4.diff
 else
   echo "Skipping aclocal since the macro directory is missing..."
 fi
