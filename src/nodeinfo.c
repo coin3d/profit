@@ -120,7 +120,7 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  22, PRF_CONTROL | PRF_POP_NODE,       "Pop Extension",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  23, PRF_CONTINUATION,                 "Continuation", // New in 15.7
+    {  23, PRF_CONTINUATION,                 "Continuation", /* New in 15.7 */
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  31, PRF_ANCILLARY,                    "Text Comment",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
@@ -161,9 +161,9 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  51, PRF_ANCILLARY | PRF_OBSOLETE,     "Bounding Box (obsolete)",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  52, PRF_ANCILLARY,                    "MultiTexture", // New in 15.7
+    {  52, PRF_ANCILLARY,                    "MultiTexture", /* New in 15.7 */
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  53, PRF_ANCILLARY,                    "UV List", // New in 15.7
+    {  53, PRF_ANCILLARY,                    "UV List", /* New in 15.7 */
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  55, PRF_PRIMARY,                      "Binary Separating Plane",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
@@ -214,11 +214,11 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  83, PRF_ANCILLARY,                    "Eyepoint / Trackplane Palette",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  84, PRF_PRIMARY,                      "Mesh", // New in 15.7.0
+    {  84, PRF_PRIMARY,                      "Mesh", /* New in 15.7.0 */
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  85, PRF_PRIMARY,                      "Local Vertex Pool", // New in 15.7.0
+    {  85, PRF_PRIMARY,                      "Local Vertex Pool", /* New in 15.7.0 */
            NULL, NULL, NULL, NULL, NULL, NULL, NULL }, 
-    {  86, PRF_PRIMARY,                      "Mesh Primitive", // New in 15.7.0
+    {  86, PRF_PRIMARY,                      "Mesh Primitive", /* New in 15.7.0 */
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  87, PRF_PRIMARY,                      "Road Segment",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
@@ -316,7 +316,8 @@ prf_nodeinfo_init(
 
     idx = 0;
     while ( idx < (sizeof(prf_nodeinfo_defaults) / sizeof(prf_nodeinfo_defaults[0])) ) {
-        // prf_nodeinfo_defaults[idx].opcode != 0
+      /* FIXME: why is commented out code here? 20030425 mortene. */
+      /* prf_nodeinfo_defaults[idx].opcode != 0 */
         prf_nodeinfo_set(&prf_nodeinfo_defaults[idx]);
         idx++;
     }

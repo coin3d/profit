@@ -253,8 +253,10 @@ prf_model_load_with_callback(
         }
 
         /* fix some moronic MultiGen bugs */
+        /* FIXME: description(s) of the bug(s) fixed by this would
+           have been nice. 20030425 mortene. */
         if ( node->opcode == 0x0b00 ) {
-             // node->opcode == 0xa000 ) {
+          /* node->opcode == 0xa000 ) { */ /* FIXME: why is this here? 20030425 mortene. */
           uint32_t nodedata, temp1, temp2;
           nodedata = bf_get_uint32_be( bfile );
           temp1 = nodedata & 0xff00ff00;
