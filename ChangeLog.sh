@@ -7,7 +7,7 @@
 
 moduledir=${0%/[^/]*}
 module=${moduledir##*/}
-cvs2cl=$HOME/store/cvs/cvs2cl/cvs2cl.pl
+cvs2cl=$HOME/code/misc/src/cvs2cl/cvs2cl.pl
 headerfile=/tmp/$project.header
 cd $moduledir
 
@@ -33,6 +33,7 @@ cvs log | $cvs2cl --stdin --header $headerfile --separate-header --prune \
   --ignore '(Makefile\.in|configure|aclocal\.m4|config\.sub|config\.guess)$' \
   --ignore '(ltconfig|ltmain\.sh|missing|mkinstalldirs|stamp-h.*|install-sh)$' \
   --ignore 'config\.h\.in$' \
+  --ignore 'cfg/m4' \
   --ignore 'conf-macros/' \
   --ignore "src/Inventor/$GUI/common/"
 
