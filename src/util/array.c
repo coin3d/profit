@@ -190,13 +190,22 @@ prf_array_insert_int(void *id, int idx, int elem)
 void *
 prf_array_remove(void *id, int index)
 {
-  array * arr = id_to_array(id);
+  array * arr;
+  assert( id != NULL && index >= 0 );
+  arr = id_to_array(id);
+  assert( index < arr->numelem && arr->numelem >= 0 );
   if ( (arr->numelem - 1) > index ) {
     void ** ptr = (void **) id;
+    assert( ((arr->numelem - index - 1) * sizeof(void *)) > 0 );
     memmove( ((char *) ptr) + (index * sizeof(void *)),
              ((char *) ptr) + ((index + 1) * sizeof(void *)),
              (arr->numelem - index - 1) * sizeof(void *));
   }
+#ifndef NDEBUG
+  else {
+    assert( index == arr->numelem );
+  }
+#endif /* ! NDEBUG */
   arr->numelem--;
   return id;
 } /* prf_array_remove() */
