@@ -1,9 +1,6 @@
 # **************************************************************************
 
-SUBDIRS = src include examples
-
-# noinst_SCRIPTS =
-# 	cfg/m4/msvccc
+SUBDIRS = include src examples
 
 EXTRA_DIST = \
 	LICENSE.GPL \
