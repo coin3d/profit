@@ -21,15 +21,24 @@ CYGWIN=
 export CYGWIN
 AC_CANONICAL_SYSTEM
 
-case $host in
-*-cygwin)
-  SIM_AC_SETUP_MSVC_IFELSE([],
-    [AC_MSG_ERROR([You need Microsoft Visual C++ to build profit on Cygwin])])
-  ;;
-*)
-  BUILD_WITH_MSVC=false
-  ;;
-esac
+# If the Microsoft Visual C++ cl.exe compiler is available, set us up for
+# compiling with it and to generate an MSWindows .dll file.
+
+AC_ARG_ENABLE([msvc],
+  [AC_HELP_STRING([--disable-msvc], [don't require MS Visual C++ on Cygwin])],
+  [case $enableval in
+  no | false) sim_ac_try_msvc=false ;;
+  *)          sim_ac_try_msvc=true ;;
+  esac],
+  [sim_ac_try_msvc=true])
+
+if $sim_ac_try_msvc; then
+  SIM_AC_SETUP_MSVC_IFELSE([], [
+    case $host in
+    *-cygwin) SIM_AC_ERROR([no-msvc++]) ;;
+    esac
+  ])
+fi
 
 AC_PROG_CC
 AM_PROG_CC_STDC
