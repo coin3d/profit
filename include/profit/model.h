@@ -23,8 +23,8 @@
 #ifndef PRF_MODEL_H
 #define PRF_MODEL_H
 
-#include <profit/types.h>
-
+#include <profit/basics.h>
+#include <profit/profit.h>
 #include <profit/callback.h>
 #include <profit/util/mempool.h>
 
@@ -44,38 +44,46 @@ struct prf_model_s {
 
 /**************************************************************************/
 
-prf_model_t * prf_model_create( void );
-void          prf_model_clear( prf_model_t * model );
-void          prf_model_destroy( prf_model_t * model );
-prf_model_t * prf_model_clone( prf_model_t * model, bool_t mempool );
+PROFIT_API  prf_model_t * prf_model_create( void );
+PROFIT_API  void          prf_model_clear( prf_model_t * model );
+PROFIT_API  void          prf_model_destroy( prf_model_t * model );
+PROFIT_API  prf_model_t * prf_model_clone( prf_model_t * model,
+                                           bool_t mempool );
 
-void          prf_model_poolmem( prf_model_t * model );
+PROFIT_API  void    prf_model_poolmem( prf_model_t * model );
 
-bool_t        prf_model_load( prf_model_t * model, bfile_t * bfile );
-bool_t        prf_model_load_with_callback( prf_model_t * model,
-                  bfile_t * bfile, prf_cb_t callback );
-void          prf_model_dump( prf_model_t * model );
-bool_t        prf_model_save( prf_model_t * model, bfile_t * bfile );
-bool_t        prf_model_save_with_callback( prf_model_t * model,
-                  bfile_t * bfile, prf_cb_t callback );
+PROFIT_API  bool_t  prf_model_load( prf_model_t * model, bfile_t * bfile );
+PROFIT_API  bool_t  prf_model_load_with_callback( prf_model_t * model,
+                        bfile_t * bfile, prf_cb_t callback );
+PROFIT_API  void    prf_model_dump( prf_model_t * model );
+PROFIT_API  bool_t  prf_model_save( prf_model_t * model, bfile_t * bfile );
+PROFIT_API  bool_t  prf_model_save_with_callback( prf_model_t * model,
+                        bfile_t * bfile, prf_cb_t callback );
 
-bool_t        prf_model_macros_fix( prf_model_t * model, prf_cb_t callback );
-bool_t        prf_model_vertex_palette_optimize( prf_model_t * model );
+PROFIT_API  bool_t  prf_model_macros_fix( prf_model_t * model,
+                        prf_cb_t callback );
+PROFIT_API  bool_t  prf_model_vertex_palette_optimize( prf_model_t * model );
 
-int           prf_model_traverse_io( prf_model_t * model, prf_cb_t callback );
-int           prf_model_traverse_df( prf_model_t * model, prf_cb_t callback );
-int           prf_model_traverse_bf( prf_model_t * model, prf_cb_t callback );
-int           prf_model_traverse_io_(prf_node_t * root, prf_state_t * state);
+PROFIT_API  int     prf_model_traverse_io( prf_model_t * model,
+                        prf_cb_t callback );
+PROFIT_API  int     prf_model_traverse_df( prf_model_t * model,
+                        prf_cb_t callback );
+PROFIT_API  int     prf_model_traverse_bf( prf_model_t * model,
+                        prf_cb_t callback );
+PROFIT_API  int     prf_model_traverse_io_(prf_node_t * root,
+                        prf_state_t * state);
 
-uint32_t      prf_model_add_vertex( prf_model_t * model,
-                  prf_vertex_t * vertex );
-bool_t        prf_model_vertex_palette_lookup( prf_model_t * model,
-                  uint32_t offset, prf_vertex_t * vertex );
-uint32_t      prf_model_vertex_palette_get_first_index( prf_model_t * model );
-uint32_t      prf_model_vertex_palette_get_next_index( prf_model_t * model,
-                  uint32_t idx );
+PROFIT_API  uint32_t  prf_model_add_vertex( prf_model_t * model,
+                          prf_vertex_t * vertex );
+PROFIT_API  bool_t    prf_model_vertex_palette_lookup( prf_model_t * model,
+                          uint32_t offset, prf_vertex_t * vertex );
+PROFIT_API  uint32_t  prf_model_vertex_palette_get_first_index(
+                          prf_model_t * model );
+PROFIT_API  uint32_t  prf_model_vertex_palette_get_next_index(
+                          prf_model_t * model, uint32_t idx );
 
-bool_t        prf_model_append_node( prf_model_t * model, prf_node_t * node );
+PROFIT_API  bool_t    prf_model_append_node( prf_model_t * model,
+                          prf_node_t * node );
 
 /**************************************************************************/
 

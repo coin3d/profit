@@ -23,7 +23,7 @@
 #ifndef PRF_PUSH_EXTENSION_NODE_H
 #define PRF_PUSH_EXTENSION_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,8 +33,6 @@ struct prf_push_extension_data {
     char reserved[ 18 ];              /* but of course... */
     uint16_t vertex_reference_index;  /* -1 (!!!) if not vertex extension */
 }; /* struct prf_push_extension_data */
-
-void prf_push_extension_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

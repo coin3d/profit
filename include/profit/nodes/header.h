@@ -23,7 +23,8 @@
 #ifndef PRF_HEADER_NODE_H
 #define PRF_HEADER_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -90,8 +91,6 @@ struct prf_header_data {
     int16_t      next_curve;
     int16_t      reserved9;
 }; /* struct prf_header_data */
-
-void prf_header_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

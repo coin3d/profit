@@ -23,7 +23,8 @@
 #ifndef PRF_OBJECT_NODE_H
 #define PRF_OBJECT_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,8 +40,6 @@ struct prf_object_data {
     int16_t    significance;
     int16_t    spare;
 }; /* struct prf_object_data */
-
-void prf_object_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

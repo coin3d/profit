@@ -23,7 +23,8 @@
 #ifndef PRF_GROUP_NODE_H
 #define PRF_GROUP_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,8 +42,6 @@ struct prf_group_data {
     int8_t   reserved2;
     int32_t  reserved3;
 }; /* struct prf_group_data */
-
-void prf_group_init( void );
 
 #define PRF_GROUP_FLAG_FORWARD_ANIMATION (1<<30)
 #define PRF_GROUP_FLAG_SWING_ANIMATION (1<<29)

@@ -23,7 +23,7 @@
 #ifndef PRF_MATERIAL_H
 #define PRF_MATERIAL_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -23,11 +23,11 @@
 #ifndef PRF_POP_ATTRIBUTE_NODE_H
 #define PRF_POP_ATTRIBUTE_NODE_H
 
+#include <profit/profit.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
-
-void prf_pop_attribute_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,7 +23,8 @@
 #ifndef PRF_INSTANCE_REFERENCE_NODE_H
 #define PRF_INSTANCE_REFERENCE_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,8 +35,6 @@ struct prf_instance_reference_data
   int16_t spare;
   int16_t instance_definition_number;
 }; /* struct prf_instance_reference_number */
-
-void prf_instance_reference_init();
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,7 +23,8 @@
 #ifndef PRF_VERTEX_WITH_COLOR_NODE_H
 #define PRF_VERTEX_WITH_COLOR_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,9 +40,8 @@ struct prf_vertex_with_color_data {
     uint32_t    color_index;
 }; /* prf_vertex_with_color_data */
 
-void prf_vertex_with_color_init( void );
-void prf_vertex_with_color_fill_vertex( prf_node_t * node,
-         prf_vertex_t * vertex );
+PROFIT_API  void prf_vertex_with_color_fill_vertex( prf_node_t * node,
+                     prf_vertex_t * vertex );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,7 +23,8 @@
 #ifndef PRF_VERTEX_LIST_NODE_H
 #define PRF_VERTEX_LIST_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,12 +34,12 @@ struct prf_vertex_list_data {
     uint32_t   offset[1]; /* byte offset into vertex palette */
 }; /* struct prf_vertex_list_data */
 
-void         prf_vertex_list_init( void );
-prf_node_t * prf_vertex_list_node_create( prf_model_t * model, int num );
-int          prf_vertex_list_get_count( prf_node_t * node );
-uint32_t *   prf_vertex_list_get_list_ptr( prf_node_t * node );
-void         prf_vertex_list_set_list( prf_node_t * node, int count,
-                 uint32_t * ptr );
+PROFIT_API  prf_node_t * prf_vertex_list_node_create( prf_model_t * model,
+                             int num );
+PROFIT_API  int          prf_vertex_list_get_count( prf_node_t * node );
+PROFIT_API  uint32_t *   prf_vertex_list_get_list_ptr( prf_node_t * node );
+PROFIT_API  void         prf_vertex_list_set_list( prf_node_t * node, int count,
+                             uint32_t * ptr );
 
 #ifdef __cplusplus
 }; /* extern "C" */

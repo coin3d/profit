@@ -23,7 +23,8 @@
 #ifndef PRF_VERTEX_H
 #define PRF_VERTEX_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,8 +44,9 @@ struct prf_vertex_s {
     bool_t     has_texture;
 }; /* struct prf_vertex_s */
 
-void     prf_vertex_clear( prf_vertex_t * vertex );
-bool_t   prf_vertex_lookup( prf_node_t * node, prf_vertex_t * vertex );
+PROFIT_API  void     prf_vertex_clear( prf_vertex_t * vertex );
+PROFIT_API  bool_t   prf_vertex_lookup( prf_node_t * node,
+                         prf_vertex_t * vertex );
 
 #define  PRF_VERTEX_FLAGS_START_HARD_EDGE    0x8000
 #define  PRF_VERTEX_FLAGS_NORMAL_FROZEN      0x4000

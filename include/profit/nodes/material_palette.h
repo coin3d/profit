@@ -23,7 +23,8 @@
 #ifndef PRF_MATERIAL_PALETTE_NODE_H
 #define PRF_MATERIAL_PALETTE_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,8 +49,6 @@ struct prf_material_palette_data {
     char       name[ 12 ];
     uint32_t   reserved1[ 28 ];
 }; /* struct prf_material_palette_data */
-
-void prf_material_palette_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

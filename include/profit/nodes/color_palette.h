@@ -23,7 +23,8 @@
 #ifndef PRF_COLOR_PALETTE_NODE_H
 #define PRF_COLOR_PALETTE_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,9 +44,7 @@ struct prf_color_name_data {
     char       name[ 1 ];
 }; /* struct prf_color_name_data */
 
-void prf_color_palette_init( void );
-
-extern uint32_t prf_color_palette_default_values[];
+PROFIT_API  uint32_t prf_color_palette_default_values[];
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,7 +23,7 @@
 #ifndef PRF_VERTEX_PALETTE_NODE_H
 #define PRF_VERTEX_PALETTE_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,8 +32,6 @@ extern "C" {
 struct prf_vertex_palette_data {
     int32_t  length;
 }; /* struct prf_vertex_palette_data */
-
-void prf_vertex_palette_init( void );
 
 typedef  struct prf_vertex_pool_s  prf_vertex_pool_t;
 

@@ -23,7 +23,8 @@
 #ifndef PRF_VERTEX_WITH_NORMAL_AND_TEXTURE_NODE_H
 #define PRF_VERTEX_WITH_NORMAL_AND_TEXTURE_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,9 +42,8 @@ struct prf_vertex_with_normal_and_texture_data {
     uint32_t   color_index;
 }; /* struct prf_vertex_with_normal_and_texture_data */
 
-void prf_vertex_with_normal_and_texture_init( void );
-void prf_vertex_with_normal_and_texture_fill_vertex( prf_node_t * node,
-         prf_vertex_t * vertex );
+PROFIT_API  void prf_vertex_with_normal_and_texture_fill_vertex(
+                     prf_node_t * node, prf_vertex_t * vertex );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,25 +23,25 @@
 #ifndef PRF_MESSAGES_H
 #define PRF_MESSAGES_H
 
-#include <profit/types.h>
-
 #include <stdarg.h>
+
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-void prf_messages_init( void );
-void prf_messages_exit( void );
+PROFIT_API  void prf_messages_init( void );
+PROFIT_API  void prf_messages_exit( void );
 
-void prf_messages_post( int type, int level, ... );
-void prf_messages_post_va( int type, int level, va_list args );
+PROFIT_API  void prf_messages_post( int type, int level, ... );
+PROFIT_API  void prf_messages_post_va( int type, int level, va_list args );
 
-void prf_messages_add_handler( int type, int level,
-    void (*func)( int, int, const char *, void * ), void * );
+PROFIT_API  void prf_messages_add_handler( int type, int level,
+                void (*func)( int, int, const char *, void * ), void * );
 
-void prf_messages_del_handler( int type, int level,
-    void (*func)(int, int, const char *, void *), void * );
+PROFIT_API  void prf_messages_del_handler( int type, int level,
+                void (*func)(int, int, const char *, void *), void * );
 
 #define PRF_MSG_INFO           1
 #define PRF_MSG_DEBUG          2

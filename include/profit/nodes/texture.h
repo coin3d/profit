@@ -23,7 +23,8 @@
 #ifndef PRF_TEXTURE_NODE_H
 #define PRF_TEXTURE_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,10 +37,8 @@ struct prf_texture_data {
     int32_t y_location;
 }; /* struct prf_texture_data */
   
-void prf_texture_init( void );
-
-prf_node_t * prf_texture_node_create( prf_model_t * model, int index,
-                                      const char * filename );
+PROFIT_API  prf_node_t * prf_texture_node_create( prf_model_t * model,
+                             int index, const char * filename );
 
 #ifdef __cplusplus
 }; /* extern "C" */

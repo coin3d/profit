@@ -23,13 +23,15 @@
 #ifndef PRF_DEBUG_H
 #define PRF_DEBUG_H
 
+#include <profit/basics.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-void prf_warn( int level, ... );
-void prf_debug( int level, ... );
-void prf_error( int level, ... );
+PROFIT_API  void prf_warn( int level, ... );
+PROFIT_API  void prf_debug( int level, ... );
+PROFIT_API  void prf_error( int level, ... );
 
 #ifdef __cplusplus
 }; /* extern "C" */

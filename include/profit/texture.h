@@ -23,18 +23,18 @@
 #ifndef PRF_TEXTURE_H
 #define PRF_TEXTURE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-  struct prf_texture_s {
+struct prf_texture_s {
     char filename[200];
     int32_t pattern_index;
     int32_t x_location;
     int32_t y_location;
-  }; /* struct texture_s */
+}; /* struct texture_s */
   
 #ifdef __cplusplus
 }; /* extern "C" */

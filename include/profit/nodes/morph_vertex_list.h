@@ -23,7 +23,8 @@
 #ifndef PRF_MORPH_VERTEX_LIST_NODE_H
 #define PRF_MORPH_VERTEX_LIST_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,10 +37,8 @@ struct prf_morph_vertex_list_data {
     } morph_vertex[1];
 }; /* struct prf_morph_vertex_list_data */
 
-void prf_morph_vertex_list_init( void );
-
-int prf_morph_vertex_list_get_count( prf_node_t * node );
-uint32_t * prf_morph_vertex_list_get_list_ptr( prf_node_t * node );
+PROFIT_API  int prf_morph_vertex_list_get_count( prf_node_t * node );
+PROFIT_API  uint32_t * prf_morph_vertex_list_get_list_ptr( prf_node_t * node );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,25 +23,25 @@
 #ifndef PRF_PROFIT_H
 #define PRF_PROFIT_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-int prf_profit_major(void);
-int prf_profit_minor(void);
-int prf_profit_micro(void);
+PROFIT_API  int prf_profit_major(void);
+PROFIT_API  int prf_profit_minor(void);
+PROFIT_API  int prf_profit_micro(void);
 
-int prf_interface_version(void);
-int prf_interface_revision(void);
-int prf_interface_age(void);
-int prf_interface_supported( int interface, int revision );
+PROFIT_API  int prf_interface_version(void);
+PROFIT_API  int prf_interface_revision(void);
+PROFIT_API  int prf_interface_age(void);
+PROFIT_API  int prf_interface_supported( int interface, int revision );
 
-bool_t prf_init( void );
-bool_t prf_exit( void );
+PROFIT_API  bool_t prf_init( void );
+PROFIT_API  bool_t prf_exit( void );
 
-bool_t prf_openflight_check_file( const char * filename );
+PROFIT_API  bool_t prf_openflight_check_file( const char * filename );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,11 +23,11 @@
 #ifndef PRF_POP_SUBFACE_NODE_H
 #define PRF_POP_SUBFACE_NODE_H
 
+#include <profit/profit.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
-
-void prf_pop_subface_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

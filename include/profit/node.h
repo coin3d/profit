@@ -23,7 +23,8 @@
 #ifndef PRF_NODE_H
 #define PRF_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 #include <profit/util/mempool.h>
 
 #ifdef __cplusplus
@@ -48,17 +49,18 @@ struct prf_node_s {
 #define PRF_NODE_PERFORMED   0x00008000 /* references and replications */
 #define PRF_NODE_VIRTUAL     0x00004000 /* added for references/replications */
 
-prf_node_t *  prf_node_create( void );
-prf_node_t *  prf_node_create_etc( prf_model_t *model, uint16_t datasize );
-void          prf_node_clear( prf_node_t * node );
-void          prf_node_destroy( prf_node_t * node );
-prf_node_t *  prf_node_clone( prf_node_t * node, prf_model_t * source,
-              prf_model_t * target );
+PROFIT_API  prf_node_t *  prf_node_create( void );
+PROFIT_API  prf_node_t *  prf_node_create_etc( prf_model_t * model,
+                              uint16_t datasize );
+PROFIT_API  void          prf_node_clear( prf_node_t * node );
+PROFIT_API  void          prf_node_destroy( prf_node_t * node );
+PROFIT_API  prf_node_t *  prf_node_clone( prf_node_t * node,
+                              prf_model_t * source, prf_model_t * target );
 
-bool_t        prf_node_is_header( prf_node_t * node );
-bool_t        prf_node_is_face( prf_node_t * node );
-bool_t        prf_node_is_transformation( prf_node_t * node );
-bool_t        prf_node_is_vertex( prf_node_t * node );
+PROFIT_API  bool_t        prf_node_is_header( prf_node_t * node );
+PROFIT_API  bool_t        prf_node_is_face( prf_node_t * node );
+PROFIT_API  bool_t        prf_node_is_transformation( prf_node_t * node );
+PROFIT_API  bool_t        prf_node_is_vertex( prf_node_t * node );
 
 #ifdef __cplusplus
 }; /* extern "C" */

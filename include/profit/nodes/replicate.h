@@ -34,8 +34,6 @@ struct prf_replicate_data {
     int16_t  reserved1;
 }; /* struct prf_replicate_data */
 
-void prf_replicate_init( void );
-
 #ifdef __cplusplus
 }; /* extern "C" */
 #endif /* __cplusplus */

@@ -23,7 +23,8 @@
 #ifndef PRF_FACE_NODE_H
 #define PRF_FACE_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,9 +64,8 @@ struct prf_face_data {
   int16_t   reserved7;
 }; /* struct prf_face_data */
 
-void prf_face_init( void );
-void prf_face_get_material( prf_node_t * node, prf_state_t * state,
-         prf_material_t * material );
+PROFIT_API  void prf_face_get_material( prf_node_t * node, prf_state_t * state,
+                     prf_material_t * material );
 
 #define  PRF_FACE_DRAW_TYPE_SOLID                       0x00
 #define  PRF_FACE_DRAW_TYPE_SOLID_NO_BFCULLING          0x01

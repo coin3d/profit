@@ -27,8 +27,6 @@
 extern "C" {
 #endif /* __cplusplus */
 
-void prf_push_level_init( void );
-
 #ifdef __cplusplus
 }; /* extern "C" */
 #endif /* __cplusplus */

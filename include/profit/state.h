@@ -23,7 +23,8 @@
 #ifndef PRF_STATE_H
 #define PRF_STATE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 #include <profit/callback.h>
 
 #ifdef __cplusplus
@@ -66,32 +67,33 @@ struct prf_state_s {
 #define  PRF_TRAV_DEPTH_FIRST      (2)
 #define  PRF_TRAV_BREADTH_FIRST    (3)
 
-prf_state_t *      prf_state_create( void );
-void               prf_state_reset( prf_state_t * state );
-prf_state_t *      prf_state_clone( prf_state_t * original );
-void               prf_state_copy( prf_state_t * copy, prf_state_t * original );
-void               prf_state_destroy( prf_state_t * state );
+PROFIT_API  prf_state_t *  prf_state_create( void );
+PROFIT_API  void           prf_state_reset( prf_state_t * state );
+PROFIT_API  prf_state_t *  prf_state_clone( prf_state_t * original );
+PROFIT_API  void           prf_state_copy( prf_state_t * copy,
+                               prf_state_t * original );
+PROFIT_API  void           prf_state_destroy( prf_state_t * state );
 
-void               prf_state_push( prf_state_t * state );
-void               prf_state_pop( prf_state_t * state );
+PROFIT_API  void           prf_state_push( prf_state_t * state );
+PROFIT_API  void           prf_state_pop( prf_state_t * state );
 
-matrix4x4_f32_t *  prf_state_get_matrix( prf_state_t * state );
-void               prf_state_matrix_mult_right( prf_state_t * state,
-                       matrix4x4_f32_t * matrix );
-matrix4x4_f32_t *  prf_state_get_inverse_matrix( prf_state_t * state );
+PROFIT_API  matrix4x4_f32_t *  prf_state_get_matrix( prf_state_t * state );
+PROFIT_API  void               prf_state_matrix_mult_right(
+                                   prf_state_t * state,
+                                   matrix4x4_f32_t * matrix );
+PROFIT_API  matrix4x4_f32_t *  prf_state_get_inverse_matrix(
+                                   prf_state_t * state );
 
-bool_t             prf_state_material_lookup( prf_state_t * state,
-                       unsigned int index, prf_material_t * material );
-bool_t             prf_state_texture_lookup( prf_state_t * state,
-                       unsigned int index, prf_texture_t * texture );
-prf_node_t *       prf_state_get_instance(
-                       prf_state_t * state, 
-                       int16_t instance_definition_number );
-prf_node_t *       prf_state_get_instance_from_node(
-                       prf_state_t * state,
-                       prf_node_t * refnode);
-uint32_t           prf_state_color_lookup( prf_state_t * state,
-                       unsigned int index, int intensity );
+PROFIT_API  bool_t        prf_state_material_lookup( prf_state_t * state,
+                              unsigned int index, prf_material_t * material );
+PROFIT_API  bool_t        prf_state_texture_lookup( prf_state_t * state,
+                              unsigned int index, prf_texture_t * texture );
+PROFIT_API  prf_node_t *  prf_state_get_instance( prf_state_t * state, 
+                              int16_t instance_definition_number );
+PROFIT_API  prf_node_t *  prf_state_get_instance_from_node(
+                              prf_state_t * state, prf_node_t * refnode);
+PROFIT_API  uint32_t      prf_state_color_lookup( prf_state_t * state,
+                              unsigned int index, int intensity );
 
 #ifdef __cplusplus
 }; /* extern "C" */

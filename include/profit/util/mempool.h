@@ -23,7 +23,8 @@
 #ifndef PRF_MEMPOOL_H
 #define PRF_MEMPOOL_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,16 +32,16 @@ extern "C" {
 
 typedef  uint16_t  pool_t;
 
-void    pool_system_init( void );
-void    pool_system_exit( void );
+PROFIT_API  void    pool_system_init( void );
+PROFIT_API  void    pool_system_exit( void );
 
-pool_t  pool_create( void );
-pool_t  pool_create_sized( int block_size );
+PROFIT_API  pool_t  pool_create( void );
+PROFIT_API  pool_t  pool_create_sized( int block_size );
 
-void    pool_destroy( pool_t pool_id );
-void    pool_destroy_all( void );
+PROFIT_API  void    pool_destroy( pool_t pool_id );
+PROFIT_API  void    pool_destroy_all( void );
 
-void *  pool_malloc( pool_t pool_id, int size );
+PROFIT_API  void *  pool_malloc( pool_t pool_id, int size );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,17 +23,19 @@
 #ifndef PRF_NODEINFO_H
 #define PRF_NODEINFO_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-void              prf_nodeinfo_init( void );
-void              prf_nodeinfo_exit( void );
+PROFIT_API  void              prf_nodeinfo_init( void );
+PROFIT_API  void              prf_nodeinfo_exit( void );
 
-prf_nodeinfo_t *  prf_nodeinfo_get( uint16_t opcode );
-bool_t            prf_nodeinfo_set( const prf_nodeinfo_t * nodeinfo );
+PROFIT_API  prf_nodeinfo_t *  prf_nodeinfo_get( uint16_t opcode );
+PROFIT_API  bool_t            prf_nodeinfo_set(
+                                  const prf_nodeinfo_t * nodeinfo );
 
 struct prf_nodeinfo_s {
     uint16_t opcode;

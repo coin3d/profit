@@ -23,7 +23,7 @@
 #ifndef PRF_PUSH_SUBFACE_NODE_H
 #define PRF_PUSH_SUBFACE_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,8 +32,6 @@ extern "C" {
 struct prf_push_subface_data {
     int32_t vertex_number;  /* is following a vertex list, else -1 */
 }; /* struct prf_push_subface_data */
-
-void prf_push_subface_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,7 +23,8 @@
 #ifndef PRF_OBSOLETE_VERTEX_WITH_NORMAL_NODE_H
 #define PRF_OBSOLETE_VERTEX_WITH_NORMAL_NODE_H
 
-#include <profit/types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,9 +36,8 @@ struct prf_obsolete_vertex_with_normal_data {
     uint32_t    z;
 }; /* struct prf_obsolete_vertex_with_normal_data */
 
-void prf_obsolete_vertex_with_normal_init( void );
-void prf_obsolete_vertex_with_normal_fill_vertex( prf_node_t * node,
-         prf_vertex_t * vertex );
+PROFIT_API  void prf_obsolete_vertex_with_normal_fill_vertex( prf_node_t * node,
+                     prf_vertex_t * vertex );
 
 #ifdef __cplusplus
 }; /* extern "C" */

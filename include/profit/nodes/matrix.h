@@ -23,7 +23,8 @@
 #ifndef PRF_MATRIX_NODE_H
 #define PRF_MATRIX_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,8 +33,6 @@ extern "C" {
 struct prf_matrix_data {
     float32_t  matrix[ 4 ][ 4 ];
 }; /* struct prf_matrix_data */
-
-void prf_matrix_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */

@@ -23,7 +23,8 @@
 #ifndef PRF_POP_EXTENSION_NODE_H
 #define PRF_POP_EXTENSION_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
+#include <profit/profit.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,8 +34,6 @@ struct prf_pop_extension_data {
     char reserved[ 18 ];              /* wouldn't want it any other way... */
     uint16_t vertex_reference_index;  /* -1 (!!!) if not vertex extension */
 }; /* struct prf_pop_extension_data */
-
-void prf_pop_extension_init( void );
 
 #ifdef __cplusplus
 }; /* extern "C" */
