@@ -6,8 +6,8 @@
 
 /* $Id$ */
 
+#include <profit/basics.h>
 #include <profit/profit.h>
-#include <profit/types.h>
 #include <profit/model.h>
 #include <profit/nodeinfo.h>
 #include <profit/util/bfile.h>

@@ -20,7 +20,7 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#include <profit/basic_types.h>
+#include <profit/basics.h>
 
 /*
  * array arguments that are to be returned are of the type pointer to pointer
