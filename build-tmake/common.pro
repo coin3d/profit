@@ -2,9 +2,7 @@ TEMPLATE	= lib
 
 win32:INCLUDEPATH = .;..\include;
 
-HEADERS		= ../include/profit/basic_funcs.h \
-		  ../include/profit/basic_types.h \
-		  ../include/profit/callback.h \
+HEADERS		= ../include/profit/callback.h \
 		  ../include/profit/debug.h \
 		  ../include/profit/material.h \
 		  ../include/profit/messages.h \
@@ -17,7 +15,6 @@ HEADERS		= ../include/profit/basic_funcs.h \
 		  ../include/profit/nodes/header.h \
 		  ../include/profit/nodes/instance_definition.h \
 		  ../include/profit/nodes/instance_reference.h \
-		  ../include/profit/nodes/material_node.h \
 		  ../include/profit/nodes/material_palette.h \
 		  ../include/profit/nodes/matrix.h \
 		  ../include/profit/nodes/morph_vertex_list.h \
@@ -32,7 +29,6 @@ HEADERS		= ../include/profit/basic_funcs.h \
 		  ../include/profit/nodes/push_extension.h \
 		  ../include/profit/nodes/push_level.h \
 		  ../include/profit/nodes/push_subface.h \
-		  ../include/profit/nodes/texture_node.h \
 		  ../include/profit/nodes/vertex_list.h \
 		  ../include/profit/nodes/vertex_palette.h \
 		  ../include/profit/nodes/vertex_with_color.h \
@@ -42,13 +38,13 @@ HEADERS		= ../include/profit/basic_funcs.h \
 		  ../include/profit/profit.h \
 		  ../include/profit/state.h \
 		  ../include/profit/texture.h \
-		  ../include/profit/types.h \
 		  ../include/profit/util/array.h \
 		  ../include/profit/util/bfile.h \
 		  ../include/profit/util/mempool.h \
 		  ../include/profit/vertex.h
-SOURCES		= ../src/basic_funcs.c \
-		  ../src/debug.c \
+SOURCES		= ../src/basics.c \ 
+                  ../src/cruft.c \ 
+                  ../src/debug.c \
 		  ../src/messages.c \
 		  ../src/model.c \
 		  ../src/node.c \
@@ -59,7 +55,7 @@ SOURCES		= ../src/basic_funcs.c \
 		  ../src/nodes/header.c \
 		  ../src/nodes/instance_definition.c \
 		  ../src/nodes/instance_reference.c \
-		  ../src/nodes/material_node.c \
+		  ../src/nodes/material.c \
 		  ../src/nodes/material_palette.c \
 		  ../src/nodes/matrix.c \
 		  ../src/nodes/morph_vertex_list.c \
@@ -74,7 +70,7 @@ SOURCES		= ../src/basic_funcs.c \
 		  ../src/nodes/push_extension.c \
 		  ../src/nodes/push_level.c \
 		  ../src/nodes/push_subface.c \
-		  ../src/nodes/texture_node.c \
+		  ../src/nodes/texture.c \
 		  ../src/nodes/vertex_list.c \
 		  ../src/nodes/vertex_palette.c \
 		  ../src/nodes/vertex_with_color.c \
