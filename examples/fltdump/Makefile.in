@@ -93,10 +93,13 @@ am__include = @am__include@
 am__quote = @am__quote@
 install_sh = @install_sh@
 
-INCLUDES = -I$(top_srcdir)/include
+DEFAULT_INCLUDES = -I$(top_builddir)/include -I$(top_srcdir)/include
+
 noinst_PROGRAMS = fltdump
 fltdump_SOURCES = fltdump.c
-fltdump_LDADD = $(top_builddir)/src/libprofit.la
+
+@BUILD_WITH_MSVC_TRUE@fltdump_LDFLAGS = -L$(top_builddir)/src -lprofit@PROFIT_MAJOR_VERSION@@SUFFIX@
+@BUILD_WITH_MSVC_FALSE@fltdump_LDADD = $(top_builddir)/src/libprofit.la
 subdir = examples/fltdump
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/include/config.h
@@ -106,11 +109,11 @@ PROGRAMS = $(noinst_PROGRAMS)
 
 am_fltdump_OBJECTS = fltdump.$(OBJEXT)
 fltdump_OBJECTS = $(am_fltdump_OBJECTS)
-fltdump_DEPENDENCIES = $(top_builddir)/src/libprofit.la
-fltdump_LDFLAGS =
+@BUILD_WITH_MSVC_TRUE@fltdump_DEPENDENCIES =
+@BUILD_WITH_MSVC_FALSE@fltdump_DEPENDENCIES = \
+@BUILD_WITH_MSVC_FALSE@	$(top_builddir)/src/libprofit.la
 
 DEFS = @DEFS@
-DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/include
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
