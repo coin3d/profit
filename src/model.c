@@ -235,52 +235,63 @@ prf_model_load_with_callback(
                 goto error;
             }
         } else {
-            node = (prf_node_t *)pool_malloc( model->mempool_id, 
-					      sizeof( prf_node_t ) );
+            node = (prf_node_t *)pool_malloc(model->mempool_id, sizeof(prf_node_t));
             if ( node == NULL ) {
-                prf_error( 6, "could not allocate memory for new node." );
+                prf_error(6, "could not allocate memory for new node.");
                 goto error;
             }
-            prf_node_clear( node );
+            prf_node_clear(node);
             node->flags |= PRF_NODE_MEMPOOLED;
         }
 
-        node->opcode = bf_peek_uint16_be( bfile );
+        /* note that this is just a _peek_ to detect some special cases before reading
+           in the node. */
+        node->opcode = bf_peek_uint16_be(bfile);
 
         if ( node->opcode == 23 ) {
-          prf_debug( 1, "continuation");
-          assert(0);
+          prf_error(1, "detected continuation (>= 15.7) - unsupported");
         }
 
-        /* fix some moronic MultiGen bugs */
-        /* FIXME: description(s) of the bug(s) fixed by this would
-           have been nice. 20030425 mortene. */
+        if ( node->opcode == 0x0000 ||
+             node->opcode == 0xa000 ||
+             node->opcode == 0x3230 ||
+             node->opcode == 11 ) {
+          if ( level > 0 && node->opcode == 0x000b ) {
+            /* this exception is ok */
+          } else {
+            prf_error(1, "bogus node opcode 0x%04x at level %d, location %d/%d",
+             node->opcode, level, bf_get_position(bfile), bf_get_length(bfile));
+            if ( level == 0 ) {
+              garbage = TRUE;
+              goto nullskip;
+            } else {
+              prf_error(1, "since level != 0, can't assume trailing garbage");
+              assert(0);
+            }
+          }
+        }
+
         if ( node->opcode == 0x0b00 ) {
-          /* node->opcode == 0xa000 ) { */ /* FIXME: why is this here? 20030425 mortene. */
+          /* bugfix: this opcode is byteswapped and needs to be flipped.
+             we fix it by read in the int32, flip it and then push it back on the stream
+             and continue as usual. */
           uint32_t nodedata, temp1, temp2;
-          nodedata = bf_get_uint32_be( bfile );
+          nodedata = bf_get_uint32_be(bfile);
           temp1 = nodedata & 0xff00ff00;
           temp2 = nodedata & 0x00ff00ff;
           nodedata = (temp1 >> 8) | (temp2 << 8);
-          bf_unget_uint32_be( bfile, nodedata );
-
-          node->opcode = bf_peek_uint16_be( bfile );
+          bf_unget_uint32_be(bfile, nodedata);
+          node->opcode = bf_peek_uint16_be(bfile);
         }
 
         info = prf_nodeinfo_get( node->opcode );
         if ( (info != NULL) && (info->load_f != NULL) ) {
             state->node = node;
-            if ( ! (*(info->load_f))( node, state, bfile ) )
+            if ( ! (*(info->load_f))(node, state, bfile) )
                 goto error;
         } else { /* unsupported node */
             node->opcode = bf_get_uint16_be( bfile );
             node->length = bf_get_uint16_be( bfile );
-            if ( node->opcode == 0 ) {
-              prf_debug( 1, "opcode null data (garbage) at level %d - breaking read", level);
-              assert(level == 0);
-              garbage = TRUE;
-              goto nullskip;
-            }
             if ( node->length > (bf_get_remaining_length( bfile ) + 4) )
                 goto error;
             if ( node->length > 4 ) {
@@ -338,7 +349,7 @@ prf_model_load_with_callback(
 
         if ( (info->flags & PRF_POP_NODE) != 0 ) {
             int cnt, children, i;
-            assert( level > 0 );
+            assert(level > 0);
             cnt = prf_array_count( stack[level-1] );
             stack[level-1][cnt-1]->children = (prf_node_t **) stack[level];
             children = prf_array_count( stack[level] );
