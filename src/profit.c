@@ -55,14 +55,14 @@ prf_interface_age(void)
 
 int
 prf_interface_supported(
-    int interface,
+    int version,
     int revision )
 {
-    if ( (interface == PROFIT_INTERFACE_VERSION) &&
+    if ( (version == PROFIT_INTERFACE_VERSION) &&
          (revision <= PROFIT_INTERFACE_REVISION) )
         return TRUE;
-    if ( (interface < PROFIT_INTERFACE_VERSION) &&
-         (interface >= (PROFIT_INTERFACE_VERSION - PROFIT_INTERFACE_AGE)) )
+    if ( (version < PROFIT_INTERFACE_VERSION) &&
+         (version >= (PROFIT_INTERFACE_VERSION - PROFIT_INTERFACE_AGE)) )
         return TRUE;
     return FALSE;
 }

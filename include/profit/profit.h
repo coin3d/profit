@@ -36,7 +36,7 @@ PROFIT_API  int prf_profit_micro(void);
 PROFIT_API  int prf_interface_version(void);
 PROFIT_API  int prf_interface_revision(void);
 PROFIT_API  int prf_interface_age(void);
-PROFIT_API  int prf_interface_supported( int interface, int revision );
+PROFIT_API  int prf_interface_supported( int version, int revision );
 
 PROFIT_API  bool_t prf_init( void );
 PROFIT_API  bool_t prf_exit( void );
