@@ -21,13 +21,12 @@ CYGWIN=
 export CYGWIN
 AC_CANONICAL_SYSTEM
 
-SIM_AC_SETUP_MSVC_IFELSE([], [
-  case $host in
-  *-cygwin)
-    AC_MSG_ERROR([You need Microsoft Visual C++ to build profit on Cygwin])
-    ;;
-  esac
-])
+case $host in
+*-cygwin)
+  SIM_AC_SETUP_MSVC_IFELSE([],
+    [AC_MSG_ERROR([You need Microsoft Visual C++ to build profit on Cygwin])])
+  ;;
+esac
 
 AC_PROG_CC
 AM_PROG_CC_STDC
