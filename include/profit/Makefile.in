@@ -89,6 +89,7 @@ PROFIT_MICRO_VERSION = @PROFIT_MICRO_VERSION@
 PROFIT_MINOR_VERSION = @PROFIT_MINOR_VERSION@
 RANLIB = @RANLIB@
 STRIP = @STRIP@
+SUFFIX = @SUFFIX@
 VERSION = @VERSION@
 am__include = @am__include@
 am__quote = @am__quote@
@@ -113,7 +114,7 @@ libprofitinc_HEADERS = \
 
 subdir = include/profit
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
-CONFIG_HEADER = $(top_builddir)/config.h
+CONFIG_HEADER = $(top_builddir)/include/config.h
 CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 HEADERS = $(libprofitinc_HEADERS)

@@ -87,6 +87,7 @@ PROFIT_MICRO_VERSION = @PROFIT_MICRO_VERSION@
 PROFIT_MINOR_VERSION = @PROFIT_MINOR_VERSION@
 RANLIB = @RANLIB@
 STRIP = @STRIP@
+SUFFIX = @SUFFIX@
 VERSION = @VERSION@
 am__include = @am__include@
 am__quote = @am__quote@
@@ -109,7 +110,7 @@ flt2vrml_LDADD = \
 
 subdir = examples/flt2vrml
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
-CONFIG_HEADER = $(top_builddir)/config.h
+CONFIG_HEADER = $(top_builddir)/include/config.h
 CONFIG_CLEAN_FILES =
 bin_PROGRAMS = flt2vrml$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
@@ -121,7 +122,7 @@ flt2vrml_DEPENDENCIES = $(top_builddir)/src/libprofit.la
 flt2vrml_LDFLAGS =
 
 DEFS = @DEFS@
-DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
+DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/include
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@

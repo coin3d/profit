@@ -89,6 +89,7 @@ PROFIT_MICRO_VERSION = @PROFIT_MICRO_VERSION@
 PROFIT_MINOR_VERSION = @PROFIT_MINOR_VERSION@
 RANLIB = @RANLIB@
 STRIP = @STRIP@
+SUFFIX = @SUFFIX@
 VERSION = @VERSION@
 am__include = @am__include@
 am__quote = @am__quote@
@@ -97,7 +98,7 @@ install_sh = @install_sh@
 SUBDIRS = fltdump fltstrip fltnode flt2vrml
 subdir = examples
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
-CONFIG_HEADER = $(top_builddir)/config.h
+CONFIG_HEADER = $(top_builddir)/include/config.h
 CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 
