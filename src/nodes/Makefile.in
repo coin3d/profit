@@ -193,7 +193,7 @@ libnodesinc_HEADERS = \
 	$(top_srcdir)/include/profit/nodes/vertex_with_texture.h
 
 subdir = src/nodes
-mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = ../../config.h
 CONFIG_CLEAN_FILES = 
 LTLIBRARIES =  $(noinst_LTLIBRARIES)
@@ -222,7 +222,7 @@ LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDF
 DIST_SOURCES =  $(libnodes_la_SOURCES)
 HEADERS =  $(libnodesinc_HEADERS)
 
-depcomp = $(SHELL) $(top_srcdir)/depcomp
+depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
 DEP_FILES =  @AMDEP@ $(DEPDIR)/color_palette.Plo $(DEPDIR)/face.Plo \
 $(DEPDIR)/group.Plo $(DEPDIR)/header.Plo \
 $(DEPDIR)/instance_definition.Plo $(DEPDIR)/instance_reference.Plo \

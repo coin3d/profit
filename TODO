@@ -1,5 +1,7 @@
 TODO
 ====
 
-* set up a TODO list (or did I just do that? hmm...)
+* rename src to profit (or src/profit) and merge sources and header hierarchy?
+* rewrite traversal to use recursion
+* release 1.0
 
