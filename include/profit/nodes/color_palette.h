@@ -44,7 +44,9 @@ struct prf_color_name_data {
     char       name[ 1 ];
 }; /* struct prf_color_name_data */
 
-PROFIT_API  uint32_t prf_color_palette_default_values[];
+#ifndef PRF_COLOR_PALETTE_NODE_C
+extern PROFIT_API uint32_t prf_color_palette_default_values[ 1024 ];
+#endif
 
 #ifdef __cplusplus
 }; /* extern "C" */

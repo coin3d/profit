@@ -20,6 +20,7 @@
 
 /* $Id$ */
 
+#define PRF_COLOR_PALETTE_NODE_C
 #include <profit/nodes/color_palette.h>
 #include <profit/basics.h>
 #include <profit/model.h>
@@ -236,7 +237,7 @@ prf_color_palette_init(
 
 /* default ARGB color palette values */
 
-uint32_t prf_color_palette_default_values[ 1024 ] = {
+PROFIT_API uint32_t prf_color_palette_default_values[ 1024 ] = {
     0xffffffff, 0xff000000, 0xffff0000, 0xff00ff00,
     0xff0000ff, 0xffffff00, 0xffff00ff, 0xff00ffff,
     0xff007fff, 0xff7fff00, 0xff00ff7f, 0xffff007f,
