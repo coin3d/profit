@@ -1,0 +1,3 @@
+
+SUBDIRS = fltdump fltstrip fltnode 
+

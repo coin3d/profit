@@ -1,0 +1,6 @@
+future
+*.lo
+.libs
+.deps
+Makefile
+libnodes.la

@@ -1,0 +1,94 @@
+README for profit
+=================
+
+Profit is an Open Flight file format support library released as open
+source.  This file contains general information about the library.
+For compilation and installation information, refer to the file named
+INSTALL.  For copyright and license information, refer to the file
+named COPYING.  Changes in profit since the first release are described
+in the file named ChangeLog.  Documentation on how to program with
+profit can be found in MANUAL.
+
+
+0. CONTENTS
+===========
+
+1. FUNCTIONALITY
+2. TECHNICAL SUPPORT
+3. LICENSE INFORMATION
+A. TRADEMARKS
+
+
+1. FUNCTIONALITY
+================
+
+Profit is a C library for reading and writing Open Flight files, and for
+traversing the Open Flight models once they are loaded.  The name profit
+is sort of an acronym for PRogrammer's Open FlIghT.
+
+The focus of the library is primarily on loading Open Flight files,
+traversing Open Flight files for geometry extraction, and saving Open Flight
+files.  The intended purpose of profit has been on supporting Open Flight
+importing and exporting, and not to be the main library in an Open Flight-
+based application.
+
+Not much functionality has been created for modifying the Open Flight models,
+but modification is possible if you understand how the Open Flight data
+structures are set up in memory.  Systems In Motion is using profit in the
+polygon-reducer product called Rational Reducer with great success without
+having to write too much external code for creating the modified (reduced)
+model.  Most modifications has to be done directly against the structures
+though, and can therefore be somewhat hairy to get right.
+
+A sample program is included in the directory examples/flt2vrml/ which will
+convert an Open Flight file (only the polygon data) to a VRML 1.0 file.
+A sample model file is also included, partly because you will have trouble
+finding Open Flight models publicly available on the Internet.
+
+
+2. TECHNICAL SUPPORT
+====================
+
+Systems in Motion (SIM) has no obligation to provide technical support for
+the GPL-licensed version of profit.  If resources permit, however, SIM will
+of course try to be as helpful as possible.  Do not bother MultiGen, Inc.
+for support since they have had nothing to with the implementation of profit.
+
+SIM has set up two mailing lists for profit support.
+
+profit-announce
+  This mailing list is for announcements regarding profit.  New releases,
+  new functionality, license information, this kind of stuff.
+  This list is moderated (read-only).  Very low-traffic.
+
+profit-discuss
+  This mailing list is for discussing profit.  Technical support can be
+  provided through this discussion forum.  Followups to announcements
+  in dime-announce should also be directed to this list.
+  This list is open for posting for all subscribers.  Also low-traffic.
+
+To subscribe to either of the two lists, send an email to SIM's mailing
+list manager at <listserv@sim.no> with a subject line with the format
+"subscribe <listname>".  To unsubscribe, use a subject line with the
+format "unsubscribe <listname>".  Do not include brackets around the
+mailing list name.  For general information about SIM's mailing list
+manager, use "help" as the subject line.
+
+
+3. LICENSE INFORMATION
+======================
+
+Profit is released publicly under the GNU General Public License, version 2
+(see the file named COPYING).  Profit is also released privately under a
+commercially supported license without GPL restrictions.  If you need profit
+for commercial non-GPL use, you can read about acquiring a commercial
+licensed version of profit at SIM's web page for profit at
+<URL:http://www.sim.no/profit.html>, or you can contact SIM's sales
+department directly at <sales@sim.no>.
+
+
+A. TRADEMARKS
+=============
+
+Open Flight is a trademark of MultiGen, Inc.
+

@@ -1,0 +1,382 @@
+# Makefile.in generated automatically by automake 1.4a from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ../..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL_STRIP_FLAG =
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
+AS = @AS@
+CC = @CC@
+DLLTOOL = @DLLTOOL@
+LD = @LD@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+LT_AGE = @LT_AGE@
+LT_CURRENT = @LT_CURRENT@
+LT_RELEASE = @LT_RELEASE@
+LT_REVISION = @LT_REVISION@
+MAINT = @MAINT@
+MAKEINFO = @MAKEINFO@
+NM = @NM@
+PACKAGE = @PACKAGE@
+PROFIT_BINARY_AGE = @PROFIT_BINARY_AGE@
+PROFIT_INTERFACE_AGE = @PROFIT_INTERFACE_AGE@
+PROFIT_MAJOR_VERSION = @PROFIT_MAJOR_VERSION@
+PROFIT_MICRO_VERSION = @PROFIT_MICRO_VERSION@
+PROFIT_MINOR_VERSION = @PROFIT_MINOR_VERSION@
+PROFIT_VERSION = @PROFIT_VERSION@
+RANLIB = @RANLIB@
+USE_SYMBOL_UNDERSCORE = @USE_SYMBOL_UNDERSCORE@
+VERSION = @VERSION@
+
+noinst_LTLIBRARIES = libnodes.la
+
+LIBS = 
+
+INCLUDES = -I$(top_srcdir)/include
+
+libnodes_la_SOURCES =  	color_palette.c 	color_palette.h 	face.c 	face.h 	group.c 	group.h 	header.c 	header.h 	instance_definition.c 	instance_definition.h 	instance_reference.c 	instance_reference.h 	material_node.c 	material_node.h 	material_palette.c 	material_palette.h 	matrix.c 	matrix.h 	morph_vertex_list.c 	morph_vertex_list.h 	object.c 	object.h 	obsolete_vertex_with_color.c 	obsolete_vertex_with_color.h 	obsolete_vertex_with_normal.c 	obsolete_vertex_with_normal.h 	pop_attribute.c 	pop_attribute.h 	pop_extension.c 	pop_extension.h 	pop_level.c 	pop_level.h 	pop_subface.c 	pop_subface.h 	push_attribute.c 	push_attribute.h 	push_extension.c 	push_extension.h 	push_level.c 	push_level.h 	push_subface.c 	push_subface.h 	texture_node.c 	texture_node.h 	vertex_list.c 	vertex_list.h 	vertex_palette.c 	vertex_palette.h 	vertex_with_color.c 	vertex_with_color.h 	vertex_with_normal.c 	vertex_with_normal.h 	vertex_with_normal_and_texture.c 	vertex_with_normal_and_texture.h 	vertex_with_texture.c 	vertex_with_texture.h
+
+
+libnodesincdir = $(includedir)/profit/nodes
+
+libnodesinc_HEADERS =  	$(top_srcdir)/include/profit/nodes/color_palette.h 	$(top_srcdir)/include/profit/nodes/face.h 	$(top_srcdir)/include/profit/nodes/group.h 	$(top_srcdir)/include/profit/nodes/header.h 	$(top_srcdir)/include/profit/nodes/instance_definition.h 	$(top_srcdir)/include/profit/nodes/instance_reference.h 	$(top_srcdir)/include/profit/nodes/material_node.h 	$(top_srcdir)/include/profit/nodes/material_palette.h 	$(top_srcdir)/include/profit/nodes/matrix.h 	$(top_srcdir)/include/profit/nodes/morph_vertex_list.h 	$(top_srcdir)/include/profit/nodes/object.h 	$(top_srcdir)/include/profit/nodes/obsolete_vertex_with_color.h 	$(top_srcdir)/include/profit/nodes/obsolete_vertex_with_normal.h 	$(top_srcdir)/include/profit/nodes/pop_attribute.h 	$(top_srcdir)/include/profit/nodes/pop_extension.h 	$(top_srcdir)/include/profit/nodes/pop_level.h 	$(top_srcdir)/include/profit/nodes/pop_subface.h 	$(top_srcdir)/include/profit/nodes/push_attribute.h 	$(top_srcdir)/include/profit/nodes/push_extension.h 	$(top_srcdir)/include/profit/nodes/push_level.h 	$(top_srcdir)/include/profit/nodes/push_subface.h 	$(top_srcdir)/include/profit/nodes/replicate.h 	$(top_srcdir)/include/profit/nodes/texture_node.h 	$(top_srcdir)/include/profit/nodes/vertex_list.h 	$(top_srcdir)/include/profit/nodes/vertex_palette.h 	$(top_srcdir)/include/profit/nodes/vertex_with_color.h 	$(top_srcdir)/include/profit/nodes/vertex_with_normal.h 	$(top_srcdir)/include/profit/nodes/vertex_with_normal_and_texture.h 	$(top_srcdir)/include/profit/nodes/vertex_with_texture.h
+
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../../config.h
+CONFIG_CLEAN_FILES = 
+LTLIBRARIES =  $(noinst_LTLIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I../..
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+libnodes_la_LDFLAGS = 
+libnodes_la_LIBADD = 
+libnodes_la_OBJECTS =  color_palette.lo face.lo group.lo header.lo \
+instance_definition.lo instance_reference.lo material_node.lo \
+material_palette.lo matrix.lo morph_vertex_list.lo object.lo \
+obsolete_vertex_with_color.lo obsolete_vertex_with_normal.lo \
+pop_attribute.lo pop_extension.lo pop_level.lo pop_subface.lo \
+push_attribute.lo push_extension.lo push_level.lo push_subface.lo \
+texture_node.lo vertex_list.lo vertex_palette.lo vertex_with_color.lo \
+vertex_with_normal.lo vertex_with_normal_and_texture.lo \
+vertex_with_texture.lo
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+HEADERS =  $(libnodesinc_HEADERS)
+
+DIST_COMMON =  Makefile.am Makefile.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = gtar
+GZIP_ENV = --best
+DEP_FILES =  .deps/color_palette.P .deps/face.P .deps/group.P \
+.deps/header.P .deps/instance_definition.P .deps/instance_reference.P \
+.deps/material_node.P .deps/material_palette.P .deps/matrix.P \
+.deps/morph_vertex_list.P .deps/object.P \
+.deps/obsolete_vertex_with_color.P .deps/obsolete_vertex_with_normal.P \
+.deps/pop_attribute.P .deps/pop_extension.P .deps/pop_level.P \
+.deps/pop_subface.P .deps/push_attribute.P .deps/push_extension.P \
+.deps/push_level.P .deps/push_subface.P .deps/texture_node.P \
+.deps/vertex_list.P .deps/vertex_palette.P .deps/vertex_with_color.P \
+.deps/vertex_with_normal.P .deps/vertex_with_normal_and_texture.P \
+.deps/vertex_with_texture.P
+SOURCES = $(libnodes_la_SOURCES)
+OBJECTS = $(libnodes_la_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .lo .o .s
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu src/nodes/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-noinstLTLIBRARIES:
+
+clean-noinstLTLIBRARIES:
+	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+
+distclean-noinstLTLIBRARIES:
+
+maintainer-clean-noinstLTLIBRARIES:
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+libnodes.la: $(libnodes_la_OBJECTS) $(libnodes_la_DEPENDENCIES)
+	$(LINK)  $(libnodes_la_LDFLAGS) $(libnodes_la_OBJECTS) $(libnodes_la_LIBADD) $(LIBS)
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = src/nodes
+
+distdir: $(DISTFILES)
+	here=`cd $(top_builddir) && pwd`; \
+	top_distdir=`cd $(top_distdir) && pwd`; \
+	distdir=`cd $(distdir) && pwd`; \
+	cd $(top_srcdir) \
+	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu src/nodes/Makefile
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
+
+-include $(DEP_FILES)
+
+mostlyclean-depend:
+
+clean-depend:
+
+distclean-depend:
+	-rm -rf .deps
+
+maintainer-clean-depend:
+
+%.o: %.c
+	@echo '$(COMPILE) -c $<'; \
+	$(COMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-cp .deps/$(*F).pp .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm .deps/$(*F).pp
+
+%.lo: %.c
+	@echo '$(LTCOMPILE) -c $<'; \
+	$(LTCOMPILE) -Wp,-MD,.deps/$(*F).pp -c $<
+	@-sed -e 's/^\([^:]*\)\.o[ 	]*:/\1.lo \1.o :/' \
+	  < .deps/$(*F).pp > .deps/$(*F).P; \
+	tr ' ' '\012' < .deps/$(*F).pp \
+	  | sed -e 's/^\\$$//' -e '/^$$/ d' -e '/:$$/ d' -e 's/$$/ :/' \
+	    >> .deps/$(*F).P; \
+	rm -f .deps/$(*F).pp
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am:
+install-exec: install-exec-am
+
+install-data-am: install-libnodesincHEADERS
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-libnodesincHEADERS
+uninstall: uninstall-am
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(libnodesincdir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-noinstLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-tags mostlyclean-depend \
+		mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-noinstLTLIBRARIES clean-compile clean-libtool \
+		clean-tags clean-depend clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-noinstLTLIBRARIES distclean-compile \
+		distclean-libtool distclean-tags distclean-depend \
+		distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-noinstLTLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-tags maintainer-clean-depend \
+		maintainer-clean-generic distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-noinstLTLIBRARIES distclean-noinstLTLIBRARIES \
+clean-noinstLTLIBRARIES maintainer-clean-noinstLTLIBRARIES \
+mostlyclean-compile distclean-compile clean-compile \
+maintainer-clean-compile mostlyclean-libtool distclean-libtool \
+clean-libtool maintainer-clean-libtool uninstall-libnodesincHEADERS \
+install-libnodesincHEADERS tags mostlyclean-tags distclean-tags \
+clean-tags maintainer-clean-tags distdir mostlyclean-depend \
+distclean-depend clean-depend maintainer-clean-depend info-am info \
+dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+install-exec install-data-am install-data install-am install \
+uninstall-am uninstall all-redirect all-am all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+
+
+install-libnodesincHEADERS: $(libnodesinc_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libnodesincdir)
+	@list='$(libnodesinc_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libnodesincdir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libnodesincdir)/$$f; \
+	done
+
+uninstall-libnodesincHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libnodesinc_HEADERS)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(libnodesincdir)/$$f"; \
+	  rm -f $(DESTDIR)$(libnodesincdir)/$$f; \
+	done
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

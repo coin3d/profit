@@ -1,0 +1,36 @@
+INSTALL
+=======
+
+This library is managed through the standard autoconf/automake/libtool
+build and install routine you should be familiar with.  Options for the
+configure script are described below.
+
+To compile the library, execute the following commands:
+
+  ./configure
+  make
+
+If you want to build profit from a clean directory, do something like this
+instead:
+
+  mkdir build
+  cd build
+  ../configure
+  make
+
+To install the library (after having compiled it), execute the following
+commands:
+
+  make install
+
+That should be all.
+
+
+PACKAGE SPECIFIC CONFIGURE OPTIONS
+==================================
+
+  --with-bigendian=[yes|no|auto]  (default: auto)
+
+	This option can be used to override the endianness detection for the
+	target architecture.
+

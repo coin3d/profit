@@ -1,0 +1,352 @@
+PROGRAMMING MANUAL
+==================
+
+
+INTRODUCTION
+
+    This library was originally developed for internal use only, and
+    has only been in use by it's developers so there has been no need
+    for documentation before we decided to release profit as an open
+    source library.  That is why the documentation is on the brief side.
+    Anyways, you always have the source code if you really need to know
+    something.
+
+    If you have comments or corrections to this document, send them to
+    <profit-patches@sim.no>.  A diff file will do fine (and is very
+    convenient for me).
+
+
+OPEN FLIGHT MODELS
+
+    Open Flight models are stored on file as all the Open Flight nodes
+    in one long sequence (in-order traversal order).  Each node consists
+    of a data chunk starting with a 2-byte opcode and a 2-byte chunk
+    length.  Links to some PDF documents describing the Open Flight file
+    format in more detail (not the amount of detail you would expect for
+    a file format specification, though) can be found at
+    <URL:http://www.multigen.com/docs.htm>.  You will need those documents
+    if you are going to work with profit and Open Flight files - the profit
+    documentation alone is not enough.
+
+    The Open Flight documentation leaves some details out to the readers
+    assumption.  For unspecified issues, we have tried to make the most
+    flexible implementation possible - which has the obvious disadvantage
+    that we break compatibility with Open Flight by allowing things
+    Multigen's Open Flight library does not allow.  Profit has been designed
+    to allow almost anything, and to preserve everything.  If a model is
+    loaded and then saved to another file, profit should create a file that
+    is a bitwise copy of the original model.
+
+    Profit arranges the Open Flight nodes hierarchically in a non-obvious
+    fashion.  Every node has only *one* array of children, although there
+    are many kinds of children a node can have.  The child node array
+    contains all ancillary nodes that follow the node, all the push and
+    pop-nodes, and all the primary nodes between the push and the pop nodes
+    (their children are of course placed in those nodes' child arrays).
+    This arrangement (treating ancillary nodes just as children) has
+    the advantage that traversal state changes caused by ancillary
+    nodes are popped off the state stack at the correct moment during
+    model traversal.  It also preserves the file structure, no matter
+    which children come first of the "Level", "Extension", "Subface", and
+    "Attribute" child-nodes.  You can even have multiple sections of the
+    same child type and profit will preserve and traverse them "correctly".
+    Keep in mind that profit is *very* liberal when it comes to the ordering
+    of children and that sort of things - if you aren't careful you will
+    break compatibility with Multigen's Open Flight library when you
+    export Open Flight files from profit.
+
+
+PROFIT INITIALIZATION
+
+    Before using the profit library, you must ensure that the subsystems
+    in profit are initialized.  You do so by calling prf_init() before you
+    use profit, and you can clean up the subsystems in profit by calling
+    prf_exit() after having finished using profit.
+
+
+LOADING MODELS
+
+    Open Flight models are loaded through the use of "bfile" handles which
+    is a utility module for working with binary files.  All you really need
+    to know is how to open and close a file and get the bfile handle for it.
+    This is done with the following functions which are defined in
+    <profit/util/bfile.h>:
+
+        bfile_t * bf_create_r( const char * filename );
+
+        bfile_t * bf_create_w( const char * filename );
+
+        bfile_t * bf_create_m( const uint8_t * but, int len );
+
+        void bf_destroy( bfile_t * bfile );
+
+    bf_create_r() opens a binary file for reading and returns the bfile
+    handle upon success or NULL upon failure.
+
+    bf_create_w() opens a binary file for writing and returns the bfile
+    handle upon success or NULL upon failure.
+
+    bf_create_m() opens a "memory mapped" binary file for reading and
+    returns the bfile handle upon success or NULL upon failure.
+
+    bf_destroy() will save all the buffered modifications (in the case of
+    bfiles opened for writing), close the file and free up all the memory
+    used by the bfile stuff.  Memory mapped files will of course not be
+    freed.
+
+    The most basic API for managing Open Flight files consists of the
+    following functions defined in <profit/model.h>:
+
+        prf_model_t * prf_model_create( void );
+
+        bool_t prf_model_load( prf_model_t * model, bfile_t * bfile );
+
+        bool_t prf_model_save( prf_model_t * model, bfile_t * bfile );
+
+        void prf_model_destroy( prf_model_t * model );
+
+    prf_model_create() creates a handle for managing one Open Flight model.
+
+    prf_model_load() loads the model a bfile handle points to into memory.
+
+    prf_model_save() stores the model in a file a bfile handle manages.
+
+    prf_model_destroy() frees the memory used by an Open Flight model.
+
+
+TRAVERSING MODELS
+
+    So far you have learnt briefly about loading and saving Open Flight
+    models, but to access the internals of the model (the geometry for
+    instance) you will have to traverse the model.
+
+    There are three common methods for traversing hierarchical data
+    structures, and all three are implemented in profit.  They are:
+
+        in-order traversal              [prf_model_traverse_io()]
+        depth-first traversal           [prf_model_traverse_df()]
+        breadth-first traversal         [prf_model_traverse_bf()]
+
+    There is a 99.9% certainty that you will only need the in-order traversal
+    method (the other methods were implemented just for the challenge).
+
+    The traversals are done by the model_traverse* methods defined in
+    <profit/model.h>.  You should not try to traverse the data structure
+    directly yourself (the data structure may change in the future) -
+    instead call prf_model_traverse_io(), and create a callback for dealing
+    with the nodes as they are traversed.
+
+    The callback you create has to look something like this:
+
+        #include <profit/model.h>
+        #include <profit/state.h>
+        #include <profit/node.h>
+
+        int callback( void * sys, void * user ) {
+            prf_state_t * state;
+            prf_node_t * node;
+            prf_model_t * model;
+
+            state = (prf_state_t *) sys;
+            node = state->node;
+            model = state->model;
+
+            /* do your stuff for 'node' */
+
+            return PRF_TRAV_CONTINUE;
+        }
+
+    What the user argument points to is of course up to you.  To traverse a
+    model with a callback, you first have to set up the callback with its
+    user argument in a prf_cb_t data type.  The key code-lines are listed
+    below.
+
+        #include <profit/callback.h>
+
+        prf_cb_t myCB;
+
+        prf_cb_set( myCB, callback, NULL /* the user arg */ );
+
+        prf_model_traverse_io( model, myCB );
+
+
+    TRAVERSAL CONTROL
+
+    Model traversal maneuvering control is done based on the return value
+    of the traversal callback.  Some of the return have no meaning for other
+    traversal methods than in-order traversal.  The most used return codes
+    are described below:
+
+    PRF_TRAV_CONTINUE
+    - continue traversal as usual
+
+    PRF_TRAV_EXIT
+    - stop traversal here (doesn't work while loading with callback)
+
+    PRF_TRAV_SIBLING
+    - do not traverse into this node's children
+    - treated as PRF_TRAV_CONTINUE for depth-first and breadth-first traversal.
+
+    PRF_TRAV_POP
+    - skip all siblings until a pop is reached (which might be followed by
+      another push for other child types)
+
+    PRF_TRAV_UP
+    - skip the rest of the siblings and go back up to the parent
+    - treated as PRF_TRAV_CONTINUE for breadth-first traversal
+
+    
+    ACCESSING NODE INTERNALS
+
+    So now you have set up a callback that is called as the model is
+    traversed.  What you need now is to access to the node internals.
+
+    First of all, there is a difference between the nodes that are
+    supported, and the nodes that aren't.  Supported nodes are loaded into
+    structures, and data is converted into the native endianness.
+    Unsupported nodes are simply memory blocks with raw data, and accessing
+    the internals of those nodes isn't recommended because you have to
+    deal with endianness and such...
+
+    Let's say you need access to the internals of a "Face" node.  If you
+    have a node_t pointer to a face node, you can do something like this:
+
+        #include <profit/nodes/face.h>
+
+        prf_face_data * fdata;
+        fdata = (prf_face_data *) node->data;
+
+        transparency = fdata->transparency; /* just an example */
+
+    Now, all you need to do is to get an overview over the Open Flight
+    node internals, and figure out how the hell you should use them from
+    revision to revision of the Open Flight file format.  Good luck...
+
+
+    THE TROUBLE WITH DOUBLE
+
+    On a lot of hardware, doubles must be aligned on 64-bit boundaries in
+    memory for the processor to be able to load and store them.  We
+    discovered this problem (which was quite difficult to track down) on an
+    SGI Indy workstation (IRIX).  If you don't care about portability and
+    program on a computer architecture that doesn't have this limitation you
+    can just ignore this section.  If not, keep reading.
+
+    Open Flight files does not align data on 64-bit boundaries, so doubles
+    may have to be read from 32-bit aligned addresses.  Methods for
+    accessing doubles from unaligned addresses has been defined in
+    <profit/basic_funcs.h>.
+
+    prf_dblcpy( fA, fB ) will copy a double from one unaligned address to
+    another.
+
+    prf_dblread( fA ) will read a double from an unaligned address.
+
+    prf_dblwrite( fD, fA ) will write a double (fA) into an unaligned
+    address (fD).
+
+    Using these methods should not slow down execution on other architectures.
+
+
+ADVANCED TOPICS
+
+    SUPPORTING MORE NODE TYPES
+
+    Adding support for a new node type means that you need to add another
+    source file and include file under src/nodes and include/profit/nodes,
+    and create methods for loading, saving, and traversing this node type.
+    You will also have to install the node info structure upon profit
+    initialization, which you do from prf_nodeinfo_init() in src/nodeinfo.c.
+    Be sure you get the flags right (the PRF_ANCILLARY flag especially),
+    or profit won't be able to organize your new nodes correctly in the
+    node hierarchy.
+    
+    Explaining how you add support for a new node in more detail is something
+    I am not going to do - you should do this by example, and there are
+    lots of examples in the profit library already.
+
+
+    OPTIMIZING
+
+    There are several options you can use if you need profit to use less
+    resources.  Some of them are described below.
+
+    Memory Pooling
+
+    The memory pooling in profit is memory allocation without the fine
+    granularity memory management.  Pools are created, from which memory
+    can be allocated, but memory can not be freed again.  You can only
+    free memory from the pool by freeing the whole pool.  This is very
+    efficient for loading models and freeing them again.  You should not
+    try to use this approach on models you need to modify.
+
+
+    Removing Support for Unused Nodes
+
+    Supported nodes are read from file, element by element, converted back
+    and forth between native and the defined file format endianness
+    (bigendian).  They also take up more memory because of structure padding
+    and because nodes tend to grow in size from one Open Flight revision to
+    the next.
+
+    Unsupported nodes, on the other hand, are just read in from file and
+    put in one raw data chunk.  This is much more efficient, and will only
+    use as much memory as the node is large.
+
+    Therefore, by disabling the node types you don't use (and which profit
+    doesn't need for traversal/state management purposes), those nodes will
+    be read (and saved) faster, and kept more compact in memory.
+
+
+    Traversal Optimization
+
+    Aside from controlling that you don't traverse into irrelevant parts of
+    the model through traversal maneuvering control, you can also optimize
+    model traversal by implementing traverse_f methods (see nodeinfo.h),
+    entry_f methods, and exit_f methods for given node types.
+
+    Through traverse_f methods you can make the traversal system avoid doing
+    unnecessary pushing and popping of the state.  For instance, face nodes
+    have children, but will never include nodes that requires pushing the
+    state.  Group nodes only need the state to be pushed if they are
+    followed by ancillary "transformation" nodes, etc.
+
+
+    MODIFYING MODELS
+
+    Modifying data elements in nodes can be done without problems.  When
+    you save the model again, the new file will contain your modifications.
+
+    If you need to change the node hierarchy, you will probably find the
+    functionality of profit very limiting.  You can't create empty nodes
+    from scratch, and you must manually insert the nodes into the child
+    arrays in the right position and move the following children outwards.
+    It shouldn't be necessary to mention that you shouldn't use memory
+    pooling and attempt to modify the node hierarchy at the same time, but
+    I did it anyway to emphasize this point.
+
+    Whenever we have needed to create additional nodes in Open Flight models,
+    we have cloned existing nodes and set the values we needed set.  Cloning
+    a node is done with prf_node_clone() from <profit/node.h>.
+    prf_node_clone() does not clone the node children.  This technique is a
+    hack, and we are the first to admit it.
+
+    When we have needed to create an entire Open Flight model from scratch,
+    we have started with a "template" model without any geometry (except for
+    the few nodes we need to clone ;) and started building the model from
+    this template model.  Instead of leaving template files around, keep
+    the template model raw data in memory, and read it into a prf_model_t
+    by creating a bfile that points to it (bf_create_m()).  Now, this
+    technique isn't just a hack - it's a hack with a dirty trick up the
+    sleeve - or something.
+  
+
+CONCLUSION
+
+    Profit is a library in development.  Its current state is that it has
+    good support for trivial Open Flight model access, and no real support
+    for advanced Open Flight access.  If you can deal with hacks and got
+    some dirty tricks, you can do advanced Open Flight access with profit,
+    nevertheless.
+
+
