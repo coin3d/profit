@@ -1,10 +1,10 @@
 TODO
 ====
 
+* implement read/write/access for clod-node
 * rewrite traversal to use recursion
-* enable compiling dll with MSVC compiler
-* release 1.0
 * rename src to profit (or src/profit) and merge sources and header hierarchy?
+* release 1.0
 * create access methods for the node data fields instead of exposing the
   data structures
 
