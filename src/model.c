@@ -60,6 +60,7 @@
       hook functions...
 
   TODO: (no particular order)
+    - rewrite in-order traversal to a recursive function for readability
     - convert a lot of asserts into fault-management, and deal with errors
     - implement TRAV_UP to skip all remaining siblings
     - implement save callback with traversal management
@@ -673,7 +674,7 @@ prf_model_vertex_palette_optimize(
             free( model->vertex_palette->data );
             model->vertex_palette->data = realloc( buffer, orig_length-offset );
         } else {
-            if ( ((uint32_t *)model->vertex_palette->data)[0] <=
+            if ( ((uint32_t *)model->vertex_palette->data)[0] >=
                  (orig_length - offset) ) {
                 memcpy( model->vertex_palette->data, buffer,
                     orig_length - offset );
