@@ -64,12 +64,14 @@ PROFIT_API  bool_t  prf_model_macros_fix( prf_model_t * model,
                         prf_cb_t callback );
 PROFIT_API  bool_t  prf_model_vertex_palette_optimize( prf_model_t * model );
 
-PROFIT_API  int     prf_model_traverse_io( prf_model_t * model,
-                        prf_cb_t callback );
-PROFIT_API  int     prf_model_traverse_df( prf_model_t * model,
-                        prf_cb_t callback );
-PROFIT_API  int     prf_model_traverse_bf( prf_model_t * model,
-                        prf_cb_t callback );
+PROFIT_API  int     prf_model_traverse(prf_model_t * model,
+                        prf_cb_t callback);
+
+PROFIT_API  int     prf_model_traverse_io(prf_model_t * model,
+                        prf_cb_t callback);
+PROFIT_API  int     prf_model_traverse_df(prf_model_t * model,
+                        prf_cb_t callback);
+
 PROFIT_API  int     prf_model_traverse_io_(prf_node_t * root,
                         prf_state_t * state);
 
