@@ -302,6 +302,16 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
     { 126, PRF_PRIMARY,                      "Curve Bead",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     { 127, PRF_PRIMARY,                      "Road Construction",
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    { 128, PRF_ANCILLARY,                    "Light Point Appearance Palette",
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    { 129, PRF_ANCILLARY,                    "Light Point Animation Palette",
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    { 130, PRF_PRIMARY,                      "Indexed Light Point",
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    { 131, PRF_PRIMARY,                      "Light Point System",
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    { 132, PRF_ANCILLARY,                    "Indexed String",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL }
 }; /* struct prf_nodeinfo_defaults[] */
 
