@@ -41,7 +41,7 @@ pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
 
-top_builddir = ..
+top_builddir = ../..
 
 ACLOCAL = @ACLOCAL@
 AUTOCONF = @AUTOCONF@
@@ -97,17 +97,37 @@ _am_include = @_am_include@
 _am_quote = @_am_quote@
 install_sh = @install_sh@
 
-SUBDIRS = fltdump fltstrip fltnode flt2vrml
-subdir = examples
+SUBDIRS = util nodes
+
+libprofitincdir = $(includedir)/profit
+libprofitinc_HEADERS = \
+        basic_funcs.h \
+        basic_types.h \
+        callback.h \
+        debug.h \
+        material.h \
+        messages.h \
+        model.h \
+        node.h \
+        nodeinfo.h \
+        profit.h \
+        state.h \
+        texture.h \
+        types.h \
+        vertex.h
+
+subdir = include/profit
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 DIST_SOURCES =
+HEADERS = $(libprofitinc_HEADERS)
+
 
 RECURSIVE_TARGETS = all-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
-DIST_COMMON = README Makefile.am Makefile.in
+DIST_COMMON = $(libprofitinc_HEADERS) Makefile.am Makefile.in
 DIST_SUBDIRS = $(SUBDIRS)
 all: all-recursive
 
@@ -115,7 +135,7 @@ all: all-recursive
 
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.ac $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  examples/Makefile
+	  $(AUTOMAKE) --gnu  include/profit/Makefile
 
 Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
@@ -216,7 +236,7 @@ distclean-tags:
 
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 
-top_distdir = ..
+top_distdir = ../..
 distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
@@ -246,10 +266,11 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile
+all-am: Makefile $(HEADERS)
 
 installdirs: installdirs-recursive
 installdirs-am:
+	$(mkinstalldirs) $(DESTDIR)$(libprofitincdir)
 
 install: install-recursive
 install-exec: install-exec-recursive
@@ -293,7 +314,7 @@ info:
 
 info-am:
 
-install-data-am:
+install-data-am: install-libprofitincHEADERS
 
 install-exec-am:
 
@@ -311,19 +332,41 @@ mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-generic
 
+uninstall-am: uninstall-libprofitincHEADERS
+
 .PHONY: $(RECURSIVE_TARGETS) all all-am check check-am clean \
 	clean-generic clean-recursive distclean distclean-generic \
 	distclean-recursive distclean-tags distdir dvi dvi-am info \
 	info-am install install-am install-data install-data-am \
 	install-data-recursive install-exec install-exec-am \
-	install-exec-recursive install-info install-man \
-	install-recursive install-strip installcheck installcheck-am \
-	installdirs installdirs-am installdirs-recursive \
-	maintainer-clean maintainer-clean-generic \
+	install-exec-recursive install-info install-libprofitincHEADERS \
+	install-man install-recursive install-strip installcheck \
+	installcheck-am installdirs installdirs-am \
+	installdirs-recursive maintainer-clean maintainer-clean-generic \
 	maintainer-clean-recursive mostlyclean mostlyclean-generic \
 	mostlyclean-recursive tags tags-recursive uninstall \
-	uninstall-am uninstall-recursive
+	uninstall-am uninstall-libprofitincHEADERS uninstall-recursive
 
+
+# **************************************************************************
+
+install-libprofitincHEADERS: $(libprofitinc_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libprofitincdir)
+	@list='$(libprofitinc_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libprofitincdir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libprofitincdir)/$$f; \
+	done
+
+uninstall-libprofitincHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libprofitinc_HEADERS)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(libprofitincdir)/$$f"; \
+	  rm -f $(DESTDIR)$(libprofitincdir)/$$f; \
+	done
 
 # EOF **********************************************************************
 

@@ -1,7 +1,31 @@
-/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+/* config.h.in.  Generated automatically from configure.ac by autoheader.  */
+
+/* Define if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
+/* Define if you have the <string.h> header file. */
+#undef HAVE_STRING_H
 
 /* Name of package */
 #undef PACKAGE
+
+/* the current profit interface age */
+#undef PROFIT_INTERFACE_AGE
+
+/* the current profit interface revision */
+#undef PROFIT_INTERFACE_REVISION
+
+/* the current profit interface version */
+#undef PROFIT_INTERFACE_VERSION
+
+/* the major part of the profit release version number */
+#undef PROFIT_MAJOR_VERSION
+
+/* the micro part of the profit release version number */
+#undef PROFIT_MICRO_VERSION
+
+/* the minor part of the profit release version number */
+#undef PROFIT_MINOR_VERSION
 
 /* Version number of package */
 #undef VERSION

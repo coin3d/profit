@@ -1,6 +1,7 @@
-# Makefile.in generated automatically by automake 1.4a from Makefile.am
+# Makefile.in generated automatically by automake 1.4e from Makefile.am.
 
-# Copyright (C) 1994, 1995-9, 2000 Free Software Foundation, Inc.
+# Copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001
+# Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
 # with or without modifications, as long as this notice is preserved.
@@ -9,6 +10,12 @@
 # but WITHOUT ANY WARRANTY, to the extent permitted by law; without
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
+
+@SET_MAKE@
+
+# **************************************************************************
+# Process this file with automake to generate Makefile.in.
+
 
 SHELL = @SHELL@
 
@@ -46,7 +53,7 @@ INSTALL = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
-INSTALL_STRIP_FLAG =
+INSTALL_HEADER = $(INSTALL_DATA)
 transform = @program_transform_name@
 
 NORMAL_INSTALL = :
@@ -56,226 +63,159 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 
-@SET_MAKE@
 build_alias = @build_alias@
 build_triplet = @build@
 host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
-AMDEP = @AMDEP@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
 CC = @CC@
-CPP = @CPP@
-CXX = @CXX@
-CXXCPP = @CXXCPP@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
+DSUFFIX = @DSUFFIX@
+ECHO = @ECHO@
+EXEEXT = @EXEEXT@
+INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+INSTALL_STRIP_PROGRAM_ENV = @INSTALL_STRIP_PROGRAM_ENV@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
-LT_AGE = @LT_AGE@
-LT_CURRENT = @LT_CURRENT@
-LT_RELEASE = @LT_RELEASE@
-LT_REVISION = @LT_REVISION@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
-PROFIT_BINARY_AGE = @PROFIT_BINARY_AGE@
-PROFIT_INTERFACE_AGE = @PROFIT_INTERFACE_AGE@
+PROFIT_LIBTOOL_VERSION_INFO = @PROFIT_LIBTOOL_VERSION_INFO@
 PROFIT_MAJOR_VERSION = @PROFIT_MAJOR_VERSION@
 PROFIT_MICRO_VERSION = @PROFIT_MICRO_VERSION@
 PROFIT_MINOR_VERSION = @PROFIT_MINOR_VERSION@
-PROFIT_VERSION = @PROFIT_VERSION@
 RANLIB = @RANLIB@
+STRIP = @STRIP@
 VERSION = @VERSION@
+_am_include = @_am_include@
+_am_quote = @_am_quote@
 install_sh = @install_sh@
 
+INCLUDES = -I$(top_srcdir)/include
+LIBS = 
 
 noinst_LTLIBRARIES = libnodes.la
 
-LIBS = 
-
-INCLUDES = -I$(top_srcdir)/include
-
 libnodes_la_SOURCES = \
 	color_palette.c \
-	color_palette.h \
 	face.c \
-	face.h \
 	group.c \
-	group.h \
 	header.c \
-	header.h \
 	instance_definition.c \
-	instance_definition.h \
 	instance_reference.c \
-	instance_reference.h \
-	material_node.c \
-	material_node.h \
+	material.c \
 	material_palette.c \
-	material_palette.h \
 	matrix.c \
-	matrix.h \
 	morph_vertex_list.c \
-	morph_vertex_list.h \
 	object.c \
-	object.h \
 	obsolete_vertex_with_color.c \
-	obsolete_vertex_with_color.h \
 	obsolete_vertex_with_normal.c \
-	obsolete_vertex_with_normal.h \
 	pop_attribute.c \
-	pop_attribute.h \
 	pop_extension.c \
-	pop_extension.h \
 	pop_level.c \
-	pop_level.h \
 	pop_subface.c \
-	pop_subface.h \
 	push_attribute.c \
-	push_attribute.h \
 	push_extension.c \
-	push_extension.h \
 	push_level.c \
-	push_level.h \
 	push_subface.c \
-	push_subface.h \
-	texture_node.c \
-	texture_node.h \
+	texture.c \
 	vertex_list.c \
-	vertex_list.h \
 	vertex_palette.c \
-	vertex_palette.h \
 	vertex_with_color.c \
-	vertex_with_color.h \
 	vertex_with_normal.c \
-	vertex_with_normal.h \
 	vertex_with_normal_and_texture.c \
-	vertex_with_normal_and_texture.h \
-	vertex_with_texture.c \
-	vertex_with_texture.h
-
-
-libnodesincdir = $(includedir)/profit/nodes
-
-libnodesinc_HEADERS = \
-	$(top_srcdir)/include/profit/nodes/color_palette.h \
-	$(top_srcdir)/include/profit/nodes/face.h \
-	$(top_srcdir)/include/profit/nodes/group.h \
-	$(top_srcdir)/include/profit/nodes/header.h \
-	$(top_srcdir)/include/profit/nodes/instance_definition.h \
-	$(top_srcdir)/include/profit/nodes/instance_reference.h \
-	$(top_srcdir)/include/profit/nodes/material_node.h \
-	$(top_srcdir)/include/profit/nodes/material_palette.h \
-	$(top_srcdir)/include/profit/nodes/matrix.h \
-	$(top_srcdir)/include/profit/nodes/morph_vertex_list.h \
-	$(top_srcdir)/include/profit/nodes/object.h \
-	$(top_srcdir)/include/profit/nodes/obsolete_vertex_with_color.h \
-	$(top_srcdir)/include/profit/nodes/obsolete_vertex_with_normal.h \
-	$(top_srcdir)/include/profit/nodes/pop_attribute.h \
-	$(top_srcdir)/include/profit/nodes/pop_extension.h \
-	$(top_srcdir)/include/profit/nodes/pop_level.h \
-	$(top_srcdir)/include/profit/nodes/pop_subface.h \
-	$(top_srcdir)/include/profit/nodes/push_attribute.h \
-	$(top_srcdir)/include/profit/nodes/push_extension.h \
-	$(top_srcdir)/include/profit/nodes/push_level.h \
-	$(top_srcdir)/include/profit/nodes/push_subface.h \
-	$(top_srcdir)/include/profit/nodes/replicate.h \
-	$(top_srcdir)/include/profit/nodes/texture_node.h \
-	$(top_srcdir)/include/profit/nodes/vertex_list.h \
-	$(top_srcdir)/include/profit/nodes/vertex_palette.h \
-	$(top_srcdir)/include/profit/nodes/vertex_with_color.h \
-	$(top_srcdir)/include/profit/nodes/vertex_with_normal.h \
-	$(top_srcdir)/include/profit/nodes/vertex_with_normal_and_texture.h \
-	$(top_srcdir)/include/profit/nodes/vertex_with_texture.h
+	vertex_with_texture.c
 
 subdir = src/nodes
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
-CONFIG_HEADER = ../../config.h
-CONFIG_CLEAN_FILES = 
-LTLIBRARIES =  $(noinst_LTLIBRARIES)
+CONFIG_HEADER = $(top_builddir)/config.h
+CONFIG_CLEAN_FILES =
+LTLIBRARIES = $(noinst_LTLIBRARIES)
 
-
-DEFS = @DEFS@ -I. -I$(srcdir) -I../..
-CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
-libnodes_la_LDFLAGS = 
-libnodes_la_LIBADD = 
-am_libnodes_la_OBJECTS =  color_palette.lo face.lo group.lo header.lo \
-instance_definition.lo instance_reference.lo material_node.lo \
-material_palette.lo matrix.lo morph_vertex_list.lo object.lo \
-obsolete_vertex_with_color.lo obsolete_vertex_with_normal.lo \
-pop_attribute.lo pop_extension.lo pop_level.lo pop_subface.lo \
-push_attribute.lo push_extension.lo push_level.lo push_subface.lo \
-texture_node.lo vertex_list.lo vertex_palette.lo vertex_with_color.lo \
-vertex_with_normal.lo vertex_with_normal_and_texture.lo \
-vertex_with_texture.lo
-libnodes_la_OBJECTS =  $(am_libnodes_la_OBJECTS)
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+libnodes_la_LDFLAGS =
+libnodes_la_LIBADD =
+am_libnodes_la_OBJECTS = color_palette.lo face.lo group.lo header.lo \
+	instance_definition.lo instance_reference.lo material.lo \
+	material_palette.lo matrix.lo morph_vertex_list.lo object.lo \
+	obsolete_vertex_with_color.lo obsolete_vertex_with_normal.lo \
+	pop_attribute.lo pop_extension.lo pop_level.lo pop_subface.lo \
+	push_attribute.lo push_extension.lo push_level.lo \
+	push_subface.lo texture.lo vertex_list.lo vertex_palette.lo \
+	vertex_with_color.lo vertex_with_normal.lo \
+	vertex_with_normal_and_texture.lo vertex_with_texture.lo
+libnodes_la_OBJECTS = $(am_libnodes_la_OBJECTS)
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CFLAGS = @CFLAGS@
 CCLD = $(CC)
-LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-DIST_SOURCES =  $(libnodes_la_SOURCES)
-HEADERS =  $(libnodesinc_HEADERS)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 
+DEFS = @DEFS@ -I. -I$(srcdir) -I$(top_builddir)
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+DIST_SOURCES = $(libnodes_la_SOURCES)
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-DEP_FILES =  @AMDEP@ $(DEPDIR)/color_palette.Plo $(DEPDIR)/face.Plo \
-$(DEPDIR)/group.Plo $(DEPDIR)/header.Plo \
-$(DEPDIR)/instance_definition.Plo $(DEPDIR)/instance_reference.Plo \
-$(DEPDIR)/material_node.Plo $(DEPDIR)/material_palette.Plo \
-$(DEPDIR)/matrix.Plo $(DEPDIR)/morph_vertex_list.Plo \
-$(DEPDIR)/object.Plo $(DEPDIR)/obsolete_vertex_with_color.Plo \
-$(DEPDIR)/obsolete_vertex_with_normal.Plo $(DEPDIR)/pop_attribute.Plo \
-$(DEPDIR)/pop_extension.Plo $(DEPDIR)/pop_level.Plo \
-$(DEPDIR)/pop_subface.Plo $(DEPDIR)/push_attribute.Plo \
-$(DEPDIR)/push_extension.Plo $(DEPDIR)/push_level.Plo \
-$(DEPDIR)/push_subface.Plo $(DEPDIR)/texture_node.Plo \
-$(DEPDIR)/vertex_list.Plo $(DEPDIR)/vertex_palette.Plo \
-$(DEPDIR)/vertex_with_color.Plo $(DEPDIR)/vertex_with_normal.Plo \
-$(DEPDIR)/vertex_with_normal_and_texture.Plo \
-$(DEPDIR)/vertex_with_texture.Plo
-DIST_COMMON =  $(libnodesinc_HEADERS) Makefile.am Makefile.in
-
-
-DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-
-GZIP_ENV = --best
+@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/color_palette.Plo $(DEPDIR)/face.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/group.Plo $(DEPDIR)/header.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/instance_definition.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/instance_reference.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/material.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/material_palette.Plo $(DEPDIR)/matrix.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/morph_vertex_list.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/object.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/obsolete_vertex_with_color.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/obsolete_vertex_with_normal.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/pop_attribute.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/pop_extension.Plo $(DEPDIR)/pop_level.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/pop_subface.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/push_attribute.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/push_extension.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/push_level.Plo $(DEPDIR)/push_subface.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/texture.Plo $(DEPDIR)/vertex_list.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/vertex_palette.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/vertex_with_color.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/vertex_with_normal.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/vertex_with_normal_and_texture.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/vertex_with_texture.Plo
+DIST_COMMON = Makefile.am Makefile.in
 SOURCES = $(libnodes_la_SOURCES)
 OBJECTS = $(am_libnodes_la_OBJECTS)
 
-all: all-redirect
+all: all-am
+
 .SUFFIXES:
-.SUFFIXES: .c .h .lo .o
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --gnu src/nodes/Makefile
+.SUFFIXES: .c .lo .o .obj
 
-Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
-	cd $(top_builddir) \
-	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.ac $(ACLOCAL_M4)
+	cd $(top_srcdir) && \
+	  $(AUTOMAKE) --gnu  src/nodes/Makefile
 
-
-mostlyclean-noinstLTLIBRARIES:
+Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) && \
+	  CONFIG_HEADERS= CONFIG_LINKS= \
+	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
 
 clean-noinstLTLIBRARIES:
 	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
 
-distclean-noinstLTLIBRARIES:
-
-maintainer-clean-noinstLTLIBRARIES:
+libnodes.la: $(libnodes_la_OBJECTS) $(libnodes_la_DEPENDENCIES)
+	$(LINK)  $(libnodes_la_LDFLAGS) $(libnodes_la_OBJECTS) $(libnodes_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
-	-rm -f *.o core *.core
-
-clean-compile:
+	-rm -f *.$(OBJEXT) core *.core
 
 distclean-compile:
 	-rm -f *.tab.c
-
-maintainer-clean-compile:
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -284,11 +224,7 @@ clean-libtool:
 	-rm -rf .libs _libs
 
 distclean-libtool:
-
-maintainer-clean-libtool:
-
-libnodes.la: $(libnodes_la_OBJECTS) $(libnodes_la_DEPENDENCIES)
-	$(LINK)  $(libnodes_la_LDFLAGS) $(libnodes_la_OBJECTS) $(libnodes_la_LIBADD) $(LIBS)
+	-rm -f libtool
 
 tags: TAGS
 
@@ -314,72 +250,73 @@ TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
 	  || etags $(ETAGS_ARGS) $$tags  $$unique $(LISP)
 
-mostlyclean-tags:
-
-clean-tags:
+GTAGS:
+	here=`CDPATH=: && cd $(top_builddir) && pwd` \
+	  && cd $(top_srcdir) \
+	  && gtags -i $$here
 
 distclean-tags:
 	-rm -f TAGS ID
 
-maintainer-clean-tags:
-
-@AMDEP@include $(DEPDIR)/color_palette.Plo
-@AMDEP@include $(DEPDIR)/face.Plo
-@AMDEP@include $(DEPDIR)/group.Plo
-@AMDEP@include $(DEPDIR)/header.Plo
-@AMDEP@include $(DEPDIR)/instance_definition.Plo
-@AMDEP@include $(DEPDIR)/instance_reference.Plo
-@AMDEP@include $(DEPDIR)/material_node.Plo
-@AMDEP@include $(DEPDIR)/material_palette.Plo
-@AMDEP@include $(DEPDIR)/matrix.Plo
-@AMDEP@include $(DEPDIR)/morph_vertex_list.Plo
-@AMDEP@include $(DEPDIR)/object.Plo
-@AMDEP@include $(DEPDIR)/obsolete_vertex_with_color.Plo
-@AMDEP@include $(DEPDIR)/obsolete_vertex_with_normal.Plo
-@AMDEP@include $(DEPDIR)/pop_attribute.Plo
-@AMDEP@include $(DEPDIR)/pop_extension.Plo
-@AMDEP@include $(DEPDIR)/pop_level.Plo
-@AMDEP@include $(DEPDIR)/pop_subface.Plo
-@AMDEP@include $(DEPDIR)/push_attribute.Plo
-@AMDEP@include $(DEPDIR)/push_extension.Plo
-@AMDEP@include $(DEPDIR)/push_level.Plo
-@AMDEP@include $(DEPDIR)/push_subface.Plo
-@AMDEP@include $(DEPDIR)/texture_node.Plo
-@AMDEP@include $(DEPDIR)/vertex_list.Plo
-@AMDEP@include $(DEPDIR)/vertex_palette.Plo
-@AMDEP@include $(DEPDIR)/vertex_with_color.Plo
-@AMDEP@include $(DEPDIR)/vertex_with_normal.Plo
-@AMDEP@include $(DEPDIR)/vertex_with_normal_and_texture.Plo
-@AMDEP@include $(DEPDIR)/vertex_with_texture.Plo
-
-mostlyclean-depend:
-
-clean-depend:
+@_am_include@ @_am_quote@$(DEPDIR)/color_palette.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/face.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/group.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/header.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/instance_definition.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/instance_reference.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/material.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/material_palette.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/matrix.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/morph_vertex_list.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/object.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/obsolete_vertex_with_color.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/obsolete_vertex_with_normal.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/pop_attribute.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/pop_extension.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/pop_level.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/pop_subface.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/push_attribute.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/push_extension.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/push_level.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/push_subface.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/texture.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/vertex_list.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/vertex_palette.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_color.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_normal.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_normal_and_texture.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_texture.Plo@_am_quote@
 
 distclean-depend:
 	-rm -rf $(DEPDIR)
 
-maintainer-clean-depend:
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
+CCDEPMODE = @CCDEPMODE@
 
 .c.o:
-@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.lo:
-@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
+.c.obj:
+	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(COMPILE) -c -o $@ `cygpath -w $<`
 
-distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
+
+top_distdir = ../..
+distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
-	$(mkinstalldirs) $(distdir)/$(top_srcdir)/include/profit/nodes
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
@@ -391,32 +328,25 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-info-am:
-info: info-am
-dvi-am:
-dvi: dvi-am
 check-am: all-am
 check: check-am
-installcheck-am:
-installcheck: installcheck-am
-install-exec-am:
-install-exec: install-exec-am
+all-am: Makefile $(LTLIBRARIES)
 
-install-data-am: install-libnodesincHEADERS
+installdirs:
+
+install: install-am
+install-exec: install-exec-am
 install-data: install-data-am
+uninstall: uninstall-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
-install: install-am
-uninstall-am: uninstall-libnodesincHEADERS
-uninstall: uninstall-am
-all-am: Makefile $(LTLIBRARIES) $(HEADERS)
-all-redirect: all-am
-install-strip:
-	$(MAKE) $(AM_MAKEFLAGS) INSTALL_STRIP_FLAG=-s install
-installdirs:
-	$(mkinstalldirs)  $(DESTDIR)$(libnodesincdir)
 
+installcheck: installcheck-am
+
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
+	  INSTALL_PROGRAM_ENV='$(INSTALL_STRIP_PROGRAM_ENV)' install
 
 mostlyclean-generic:
 
@@ -427,66 +357,59 @@ distclean-generic:
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
+	@echo "This command is intended for maintainers to use"
+	@echo "it deletes files that may require special tools to rebuild."
 	-rm -f Makefile.in
-mostlyclean-am:  mostlyclean-noinstLTLIBRARIES mostlyclean-compile \
-		mostlyclean-libtool mostlyclean-tags mostlyclean-depend \
-		mostlyclean-generic
-
-mostlyclean: mostlyclean-am
-
-clean-am:  clean-noinstLTLIBRARIES clean-compile clean-libtool \
-		clean-tags clean-depend clean-generic mostlyclean-am
-
 clean: clean-am
 
-distclean-am:  distclean-noinstLTLIBRARIES distclean-compile \
-		distclean-libtool distclean-tags distclean-depend \
-		distclean-generic clean-am
-	-rm -f libtool
+clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
+	mostlyclean-am
 
 distclean: distclean-am
 
-maintainer-clean-am:  maintainer-clean-noinstLTLIBRARIES \
-		maintainer-clean-compile maintainer-clean-libtool \
-		maintainer-clean-tags maintainer-clean-depend \
-		maintainer-clean-generic distclean-am
-	@echo "This command is intended for maintainers to use;"
-	@echo "it deletes files that may require special tools to rebuild."
+distclean-am: clean-am distclean-compile distclean-depend \
+	distclean-generic distclean-libtool distclean-tags
+
+dvi:
+
+dvi-am:
+
+info:
+
+info-am:
+
+install-data-am:
+
+install-exec-am:
+
+install-info:
+
+install-man:
+
+installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 
-.PHONY: mostlyclean-noinstLTLIBRARIES distclean-noinstLTLIBRARIES \
-clean-noinstLTLIBRARIES maintainer-clean-noinstLTLIBRARIES \
-mostlyclean-compile distclean-compile clean-compile \
-maintainer-clean-compile mostlyclean-libtool distclean-libtool \
-clean-libtool maintainer-clean-libtool uninstall-libnodesincHEADERS \
-install-libnodesincHEADERS tags mostlyclean-tags distclean-tags \
-clean-tags maintainer-clean-tags mostlyclean-depend distclean-depend \
-clean-depend maintainer-clean-depend distdir info-am info dvi-am dvi \
-check check-am installcheck-am installcheck install-exec-am \
-install-exec install-data-am install-data install-am install \
-uninstall-am uninstall all-redirect all-am all install-strip \
-installdirs mostlyclean-generic distclean-generic clean-generic \
-maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+maintainer-clean-am: distclean-am maintainer-clean-generic
+
+mostlyclean: mostlyclean-am
+
+mostlyclean-am: mostlyclean-compile mostlyclean-generic \
+	mostlyclean-libtool
+
+.PHONY: all all-am check check-am clean clean-generic clean-libtool \
+	clean-noinstLTLIBRARIES distclean distclean-compile \
+	distclean-depend distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am info info-am install \
+	install-am install-data install-data-am install-exec \
+	install-exec-am install-info install-man install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic mostlyclean-libtool tags uninstall \
+	uninstall-am
 
 
-install-libnodesincHEADERS: $(libnodesinc_HEADERS)
-	@$(NORMAL_INSTALL)
-	$(mkinstalldirs) $(DESTDIR)$(libnodesincdir)
-	@list='$(libnodesinc_HEADERS)'; for p in $$list; do \
-	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
-	  f="`echo $$p | sed -e 's|^.*/||'`"; \
-	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libnodesincdir)/$$f"; \
-	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libnodesincdir)/$$f; \
-	done
-
-uninstall-libnodesincHEADERS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(libnodesinc_HEADERS)'; for p in $$list; do \
-	  f="`echo $$p | sed -e 's|^.*/||'`"; \
-	  echo " rm -f $(DESTDIR)$(libnodesincdir)/$$f"; \
-	  rm -f $(DESTDIR)$(libnodesincdir)/$$f; \
-	done
+# EOF **********************************************************************
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

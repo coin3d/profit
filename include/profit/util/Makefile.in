@@ -13,6 +13,8 @@
 
 @SET_MAKE@
 
+# **************************************************************************
+
 
 SHELL = @SHELL@
 
@@ -39,7 +41,7 @@ pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
 
-top_builddir = ../..
+top_builddir = ../../..
 
 ACLOCAL = @ACLOCAL@
 AUTOCONF = @AUTOCONF@
@@ -95,76 +97,32 @@ _am_include = @_am_include@
 _am_quote = @_am_quote@
 install_sh = @install_sh@
 
-INCLUDES = -I$(top_srcdir)/include
-noinst_PROGRAMS = fltstrip
-fltstrip_SOURCES = fltstrip.c
-fltstrip_LDADD = $(top_builddir)/src/libprofit.la
-subdir = examples/fltstrip
+libprofitutilincdir = $(includedir)/profit/util
+libprofitutilinc_HEADERS = \
+        array.h \
+        bfile.h \
+        mempool.h
+
+subdir = include/profit/util
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-noinst_PROGRAMS = fltstrip$(EXEEXT)
-PROGRAMS = $(noinst_PROGRAMS)
+DIST_SOURCES =
+HEADERS = $(libprofitutilinc_HEADERS)
 
-am_fltstrip_OBJECTS = fltstrip.$(OBJEXT)
-fltstrip_OBJECTS = $(am_fltstrip_OBJECTS)
-fltstrip_DEPENDENCIES = $(top_builddir)/src/libprofit.la
-fltstrip_LDFLAGS =
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	$(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CFLAGS = @CFLAGS@
-CCLD = $(CC)
-LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-
-DEFS = @DEFS@ -I. -I$(srcdir) -I$(top_builddir)
-CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
-LIBS = @LIBS@
-DIST_SOURCES = $(fltstrip_SOURCES)
-depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/fltstrip.Po
-DIST_COMMON = Makefile.am Makefile.in
-SOURCES = $(fltstrip_SOURCES)
-OBJECTS = $(am_fltstrip_OBJECTS)
-
+DIST_COMMON = $(libprofitutilinc_HEADERS) Makefile.am Makefile.in
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .lo .o .obj
 
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.ac $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  examples/fltstrip/Makefile
+	  $(AUTOMAKE) --gnu  include/profit/util/Makefile
 
 Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
-
-clean-noinstPROGRAMS:
-	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
-
-fltstrip$(EXEEXT): $(fltstrip_OBJECTS) $(fltstrip_DEPENDENCIES)
-	@rm -f fltstrip$(EXEEXT)
-	$(LINK) $(fltstrip_LDFLAGS) $(fltstrip_OBJECTS) $(fltstrip_LDADD) $(LIBS)
-
-mostlyclean-compile:
-	-rm -f *.$(OBJEXT) core *.core
-
-distclean-compile:
-	-rm -f *.tab.c
-
-mostlyclean-libtool:
-	-rm -f *.lo
-
-clean-libtool:
-	-rm -rf .libs _libs
-
-distclean-libtool:
-	-rm -f libtool
 
 tags: TAGS
 
@@ -198,35 +156,9 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID
 
-@_am_include@ @_am_quote@$(DEPDIR)/fltstrip.Po@_am_quote@
-
-distclean-depend:
-	-rm -rf $(DEPDIR)
-
-CCDEPMODE = @CCDEPMODE@
-
-.c.o:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(COMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
-
-.c.lo:
-	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
-
-.c.obj:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(COMPILE) -c -o $@ `cygpath -w $<`
-
-
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 
-top_distdir = ../..
+top_distdir = ../../..
 distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
@@ -243,9 +175,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(PROGRAMS)
+all-am: Makefile $(HEADERS)
 
 installdirs:
+	$(mkinstalldirs) $(DESTDIR)$(libprofitutilincdir)
 
 install: install-am
 install-exec: install-exec-am
@@ -275,13 +208,11 @@ maintainer-clean-generic:
 	-rm -f Makefile.in
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstPROGRAMS \
-	mostlyclean-am
+clean-am: clean-generic mostlyclean-am
 
 distclean: distclean-am
 
-distclean-am: clean-am distclean-compile distclean-depend \
-	distclean-generic distclean-libtool distclean-tags
+distclean-am: clean-am distclean-generic distclean-tags
 
 dvi:
 
@@ -291,7 +222,7 @@ info:
 
 info-am:
 
-install-data-am:
+install-data-am: install-libprofitutilincHEADERS
 
 install-exec-am:
 
@@ -307,20 +238,41 @@ maintainer-clean-am: distclean-am maintainer-clean-generic
 
 mostlyclean: mostlyclean-am
 
-mostlyclean-am: mostlyclean-compile mostlyclean-generic \
-	mostlyclean-libtool
+mostlyclean-am: mostlyclean-generic
 
-.PHONY: all all-am check check-am clean clean-generic clean-libtool \
-	clean-noinstPROGRAMS distclean distclean-compile \
-	distclean-depend distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am info info-am install \
-	install-am install-data install-data-am install-exec \
-	install-exec-am install-info install-man install-strip \
+uninstall-am: uninstall-libprofitutilincHEADERS
+
+.PHONY: all all-am check check-am clean clean-generic distclean \
+	distclean-generic distclean-tags distdir dvi dvi-am info \
+	info-am install install-am install-data install-data-am \
+	install-exec install-exec-am install-info \
+	install-libprofitutilincHEADERS install-man install-strip \
 	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool tags uninstall \
-	uninstall-am
+	maintainer-clean-generic mostlyclean mostlyclean-generic tags \
+	uninstall uninstall-am uninstall-libprofitutilincHEADERS
 
+
+# **************************************************************************
+
+install-libprofitutilincHEADERS: $(libprofitutilinc_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libprofitutilincdir)
+	@list='$(libprofitutilinc_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libprofitutilincdir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libprofitutilincdir)/$$f; \
+	done
+
+uninstall-libprofitutilincHEADERS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(libprofitutilinc_HEADERS)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(libprofitutilincdir)/$$f"; \
+	  rm -f $(DESTDIR)$(libprofitutilincdir)/$$f; \
+	done
+
+# EOF **********************************************************************
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
