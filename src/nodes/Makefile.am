@@ -12,11 +12,13 @@ LIBS =
 
 SourceFiles = \
 	color_palette.c \
+	external_reference.c \
 	face.c \
 	group.c \
 	header.c \
 	instance_definition.c \
 	instance_reference.c \
+	level_of_detail.c \
 	material.c \
 	material_palette.c \
 	matrix.c \

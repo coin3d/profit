@@ -104,11 +104,13 @@ LIBS =
 
 SourceFiles = \
 	color_palette.c \
+	external_reference.c \
 	face.c \
 	group.c \
 	header.c \
 	instance_definition.c \
 	instance_reference.c \
+	level_of_detail.c \
 	material.c \
 	material_palette.c \
 	matrix.c \
@@ -149,10 +151,11 @@ LIBRARIES = $(noinst_LIBRARIES)
 nodes_lst_AR = $(AR) cru
 nodes_lst_LIBADD =
 am_nodes_lst_OBJECTS = nodes_lst-color_palette.$(OBJEXT) \
-	nodes_lst-face.$(OBJEXT) nodes_lst-group.$(OBJEXT) \
-	nodes_lst-header.$(OBJEXT) \
+	nodes_lst-external_reference.$(OBJEXT) nodes_lst-face.$(OBJEXT) \
+	nodes_lst-group.$(OBJEXT) nodes_lst-header.$(OBJEXT) \
 	nodes_lst-instance_definition.$(OBJEXT) \
 	nodes_lst-instance_reference.$(OBJEXT) \
+	nodes_lst-level_of_detail.$(OBJEXT) \
 	nodes_lst-material.$(OBJEXT) \
 	nodes_lst-material_palette.$(OBJEXT) nodes_lst-matrix.$(OBJEXT) \
 	nodes_lst-morph_vertex_list.$(OBJEXT) \
@@ -177,9 +180,11 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libnodes_la_LDFLAGS =
 libnodes_la_LIBADD =
 am_libnodes_la_OBJECTS = libnodes_la-color_palette.lo \
-	libnodes_la-face.lo libnodes_la-group.lo libnodes_la-header.lo \
+	libnodes_la-external_reference.lo libnodes_la-face.lo \
+	libnodes_la-group.lo libnodes_la-header.lo \
 	libnodes_la-instance_definition.lo \
-	libnodes_la-instance_reference.lo libnodes_la-material.lo \
+	libnodes_la-instance_reference.lo \
+	libnodes_la-level_of_detail.lo libnodes_la-material.lo \
 	libnodes_la-material_palette.lo libnodes_la-matrix.lo \
 	libnodes_la-morph_vertex_list.lo libnodes_la-object.lo \
 	libnodes_la-obsolete_vertex_with_color.lo \
@@ -200,11 +205,13 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
 @AMDEP_TRUE@DEP_FILES = $(DEPDIR)/libnodes_la-color_palette.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-external_reference.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-face.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-group.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-header.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-instance_definition.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-instance_reference.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-level_of_detail.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-material.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-material_palette.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-matrix.Plo \
@@ -228,11 +235,13 @@ depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_with_texture.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-color_palette.Po \
+@AMDEP_TRUE@	$(DEPDIR)/nodes_lst-external_reference.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-face.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-group.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-header.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-instance_definition.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-instance_reference.Po \
+@AMDEP_TRUE@	$(DEPDIR)/nodes_lst-level_of_detail.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-material.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-material_palette.Po \
 @AMDEP_TRUE@	$(DEPDIR)/nodes_lst-matrix.Po \
@@ -293,11 +302,13 @@ AR = ar
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
 nodes_lst-color_palette.$(OBJEXT): color_palette.c
+nodes_lst-external_reference.$(OBJEXT): external_reference.c
 nodes_lst-face.$(OBJEXT): face.c
 nodes_lst-group.$(OBJEXT): group.c
 nodes_lst-header.$(OBJEXT): header.c
 nodes_lst-instance_definition.$(OBJEXT): instance_definition.c
 nodes_lst-instance_reference.$(OBJEXT): instance_reference.c
+nodes_lst-level_of_detail.$(OBJEXT): level_of_detail.c
 nodes_lst-material.$(OBJEXT): material.c
 nodes_lst-material_palette.$(OBJEXT): material_palette.c
 nodes_lst-matrix.$(OBJEXT): matrix.c
@@ -327,11 +338,13 @@ nodes_lst-vertex_with_texture.$(OBJEXT): vertex_with_texture.c
 clean-noinstLTLIBRARIES:
 	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
 libnodes_la-color_palette.lo: color_palette.c
+libnodes_la-external_reference.lo: external_reference.c
 libnodes_la-face.lo: face.c
 libnodes_la-group.lo: group.c
 libnodes_la-header.lo: header.c
 libnodes_la-instance_definition.lo: instance_definition.c
 libnodes_la-instance_reference.lo: instance_reference.c
+libnodes_la-level_of_detail.lo: level_of_detail.c
 libnodes_la-material.lo: material.c
 libnodes_la-material_palette.lo: material_palette.c
 libnodes_la-matrix.lo: matrix.c
@@ -366,11 +379,13 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-color_palette.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-external_reference.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-face.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-group.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-header.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-instance_definition.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-instance_reference.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-level_of_detail.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-material.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-material_palette.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-matrix.Plo@am__quote@
@@ -394,11 +409,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libnodes_la-vertex_with_texture.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-color_palette.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-external_reference.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-face.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-group.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-header.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-instance_definition.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-instance_reference.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-level_of_detail.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-material.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-material_palette.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/nodes_lst-matrix.Po@am__quote@
@@ -460,6 +477,24 @@ nodes_lst-color_palette.lo: color_palette.c
 @AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-color_palette.Plo' tmpdepfile='$(DEPDIR)/nodes_lst-color_palette.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-color_palette.lo `test -f color_palette.c || echo '$(srcdir)/'`color_palette.c
+
+nodes_lst-external_reference.o: external_reference.c
+@AMDEP_TRUE@	source='external_reference.c' object='nodes_lst-external_reference.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-external_reference.Po' tmpdepfile='$(DEPDIR)/nodes_lst-external_reference.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-external_reference.o `test -f external_reference.c || echo '$(srcdir)/'`external_reference.c
+
+nodes_lst-external_reference.obj: external_reference.c
+@AMDEP_TRUE@	source='external_reference.c' object='nodes_lst-external_reference.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-external_reference.Po' tmpdepfile='$(DEPDIR)/nodes_lst-external_reference.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-external_reference.obj `( test -f external_reference.c || echo -n '$(srcdir)/'; echo -n external_reference.c ) | xargs cygpath -w`
+
+nodes_lst-external_reference.lo: external_reference.c
+@AMDEP_TRUE@	source='external_reference.c' object='nodes_lst-external_reference.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-external_reference.Plo' tmpdepfile='$(DEPDIR)/nodes_lst-external_reference.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-external_reference.lo `test -f external_reference.c || echo '$(srcdir)/'`external_reference.c
 
 nodes_lst-face.o: face.c
 @AMDEP_TRUE@	source='face.c' object='nodes_lst-face.o' libtool=no @AMDEPBACKSLASH@
@@ -550,6 +585,24 @@ nodes_lst-instance_reference.lo: instance_reference.c
 @AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-instance_reference.Plo' tmpdepfile='$(DEPDIR)/nodes_lst-instance_reference.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-instance_reference.lo `test -f instance_reference.c || echo '$(srcdir)/'`instance_reference.c
+
+nodes_lst-level_of_detail.o: level_of_detail.c
+@AMDEP_TRUE@	source='level_of_detail.c' object='nodes_lst-level_of_detail.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-level_of_detail.Po' tmpdepfile='$(DEPDIR)/nodes_lst-level_of_detail.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-level_of_detail.o `test -f level_of_detail.c || echo '$(srcdir)/'`level_of_detail.c
+
+nodes_lst-level_of_detail.obj: level_of_detail.c
+@AMDEP_TRUE@	source='level_of_detail.c' object='nodes_lst-level_of_detail.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-level_of_detail.Po' tmpdepfile='$(DEPDIR)/nodes_lst-level_of_detail.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-level_of_detail.obj `( test -f level_of_detail.c || echo -n '$(srcdir)/'; echo -n level_of_detail.c ) | xargs cygpath -w`
+
+nodes_lst-level_of_detail.lo: level_of_detail.c
+@AMDEP_TRUE@	source='level_of_detail.c' object='nodes_lst-level_of_detail.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/nodes_lst-level_of_detail.Plo' tmpdepfile='$(DEPDIR)/nodes_lst-level_of_detail.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(nodes_lst_CFLAGS) $(CFLAGS) -c -o nodes_lst-level_of_detail.lo `test -f level_of_detail.c || echo '$(srcdir)/'`level_of_detail.c
 
 nodes_lst-material.o: material.c
 @AMDEP_TRUE@	source='material.c' object='nodes_lst-material.o' libtool=no @AMDEPBACKSLASH@
@@ -965,6 +1018,24 @@ libnodes_la-color_palette.lo: color_palette.c
 @AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-color_palette.lo `test -f color_palette.c || echo '$(srcdir)/'`color_palette.c
 
+libnodes_la-external_reference.o: external_reference.c
+@AMDEP_TRUE@	source='external_reference.c' object='libnodes_la-external_reference.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-external_reference.Po' tmpdepfile='$(DEPDIR)/libnodes_la-external_reference.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-external_reference.o `test -f external_reference.c || echo '$(srcdir)/'`external_reference.c
+
+libnodes_la-external_reference.obj: external_reference.c
+@AMDEP_TRUE@	source='external_reference.c' object='libnodes_la-external_reference.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-external_reference.Po' tmpdepfile='$(DEPDIR)/libnodes_la-external_reference.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-external_reference.obj `( test -f external_reference.c || echo -n '$(srcdir)/'; echo -n external_reference.c ) | xargs cygpath -w`
+
+libnodes_la-external_reference.lo: external_reference.c
+@AMDEP_TRUE@	source='external_reference.c' object='libnodes_la-external_reference.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-external_reference.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-external_reference.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-external_reference.lo `test -f external_reference.c || echo '$(srcdir)/'`external_reference.c
+
 libnodes_la-face.o: face.c
 @AMDEP_TRUE@	source='face.c' object='libnodes_la-face.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-face.Po' tmpdepfile='$(DEPDIR)/libnodes_la-face.TPo' @AMDEPBACKSLASH@
@@ -1054,6 +1125,24 @@ libnodes_la-instance_reference.lo: instance_reference.c
 @AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-instance_reference.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-instance_reference.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_reference.lo `test -f instance_reference.c || echo '$(srcdir)/'`instance_reference.c
+
+libnodes_la-level_of_detail.o: level_of_detail.c
+@AMDEP_TRUE@	source='level_of_detail.c' object='libnodes_la-level_of_detail.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-level_of_detail.Po' tmpdepfile='$(DEPDIR)/libnodes_la-level_of_detail.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-level_of_detail.o `test -f level_of_detail.c || echo '$(srcdir)/'`level_of_detail.c
+
+libnodes_la-level_of_detail.obj: level_of_detail.c
+@AMDEP_TRUE@	source='level_of_detail.c' object='libnodes_la-level_of_detail.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-level_of_detail.Po' tmpdepfile='$(DEPDIR)/libnodes_la-level_of_detail.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-level_of_detail.obj `( test -f level_of_detail.c || echo -n '$(srcdir)/'; echo -n level_of_detail.c ) | xargs cygpath -w`
+
+libnodes_la-level_of_detail.lo: level_of_detail.c
+@AMDEP_TRUE@	source='level_of_detail.c' object='libnodes_la-level_of_detail.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libnodes_la-level_of_detail.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-level_of_detail.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-level_of_detail.lo `test -f level_of_detail.c || echo '$(srcdir)/'`level_of_detail.c
 
 libnodes_la-material.o: material.c
 @AMDEP_TRUE@	source='material.c' object='libnodes_la-material.o' libtool=no @AMDEPBACKSLASH@

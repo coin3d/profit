@@ -3,11 +3,13 @@
 libprofitnodeincdir = $(includedir)/profit/nodes
 libprofitnodeinc_HEADERS = \
 	color_palette.h \
+	external_reference.h \
 	face.h \
 	group.h \
 	header.h \
 	instance_definition.h \
 	instance_reference.h \
+	level_of_detail.h \
 	material.h \
 	material_palette.h \
 	matrix.h \

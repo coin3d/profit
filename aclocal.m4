@@ -46,7 +46,7 @@ AC_REQUIRE([SIM_AC_MSVC_DISABLE_OPTION])
 
 BUILD_WITH_MSVC=false
 if $sim_ac_try_msvc; then
-  sim_ac_wrapmsvc=`cd $srcdir; pwd`/cfg/m4/wrapmsvc.exe
+  sim_ac_wrapmsvc=`cd $srcdir; pwd`/cfg/wrapmsvc.exe
   if test -z "$CC" -a -z "$CXX" && $sim_ac_wrapmsvc >/dev/null 2>&1; then
     m4_ifdef([$0_VISITED],
       [AC_FATAL([Macro $0 invoked multiple times])])
@@ -152,7 +152,7 @@ sim_ac_message_file=$1
 ]) # SIM_AC_ERROR_MESSAGE_FILE
 
 AC_DEFUN([SIM_AC_ONE_MESSAGE], [
-: ${sim_ac_message_file=$ac_aux_dir/m4/errors.txt}
+: ${sim_ac_message_file=$ac_aux_dir/errors.txt}
 if test -f $sim_ac_message_file; then
   sim_ac_message="`sed -n -e '/^!$1$/,/^!/ { /^!/ d; p; }' <$sim_ac_message_file`"
   if test x"$sim_ac_message" = x""; then
