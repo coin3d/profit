@@ -358,6 +358,7 @@ prf_model_load_with_callback(
             level--;
         }
 nullskip:
+	;
     } /* while ( ! bf_at_eof( bfile ) ) */
 
     if ( level > 0 )
