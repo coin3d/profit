@@ -832,8 +832,8 @@ bf_put_int16_be(
     bfile_t * bfile,
     int16_t value )
 {
-    bf_put_int8( bfile, ((value >> 8) & 0xff) );
-    bf_put_uint8( bfile, (value & 0xff) );
+    bf_put_int8( bfile, (int8_t) ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
     return TRUE;
 } /* bf_put_int16_be() */
 
@@ -842,8 +842,8 @@ bf_put_uint16_be(
     bfile_t * bfile,
     uint16_t value )
 {
-    bf_put_uint8( bfile, ((value >> 8) & 0xff) );
-    bf_put_uint8( bfile, (value & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
     return TRUE;
 } /* bf_put_uint16_be() */
 
@@ -852,8 +852,8 @@ bf_put_int16_le(
     bfile_t * bfile,
     int16_t value )
 {
-    bf_put_uint8( bfile, (value & 0xff) );
-    bf_put_int8( bfile, ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
+    bf_put_int8( bfile, (int8_t) ((value >> 8) & 0xff) );
     return TRUE;
 } /* bf_put_int16_le */
 
@@ -862,8 +862,8 @@ bf_put_uint16_le(
     bfile_t * bfile,
     uint16_t value )
 {
-    bf_put_uint8( bfile, (value & 0xff) );
-    bf_put_uint8( bfile, ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 8) & 0xff) );
     return TRUE;
 } /* bf_put_uint16_le() */
 
@@ -874,10 +874,10 @@ bf_put_int32_be(
     bfile_t * bfile,
     int32_t value )
 {
-    bf_put_int8( bfile, ((value >> 24) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 16) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 8) & 0xff) );
-    bf_put_uint8( bfile, (value & 0xff) );
+    bf_put_int8( bfile, (int8_t) ((value >> 24) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 16) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
     return TRUE;
 } /* bf_put_int32_be() */
 
@@ -886,10 +886,10 @@ bf_put_uint32_be(
     bfile_t * bfile,
     uint32_t value )
 {
-    bf_put_uint8( bfile, ((value >> 24) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 16) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 8) & 0xff) );
-    bf_put_uint8( bfile, (value & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 24) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 16) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
     return TRUE;
 } /* bf_put_uint32_be() */
 
@@ -898,10 +898,10 @@ bf_put_int32_le(
     bfile_t * bfile,
     int32_t value )
 {
-    bf_put_uint8( bfile, (value & 0xff) );
-    bf_put_uint8( bfile, ((value >> 8) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 16) & 0xff) );
-    bf_put_int8( bfile, ((value >> 24) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 16) & 0xff) );
+    bf_put_int8( bfile, (int8_t) ((value >> 24) & 0xff) );
     return TRUE;
 } /* bf_put_int32_le() */
 
@@ -910,10 +910,10 @@ bf_put_uint32_le(
     bfile_t * bfile,
     uint32_t value )
 {
-    bf_put_uint8( bfile, (value & 0xff) );
-    bf_put_uint8( bfile, ((value >> 8) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 16) & 0xff) );
-    bf_put_uint8( bfile, ((value >> 24) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) (value & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 8) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 16) & 0xff) );
+    bf_put_uint8( bfile, (uint8_t) ((value >> 24) & 0xff) );
     return TRUE;
 } /* bf_put_uint32_le() */
 
