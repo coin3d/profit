@@ -23,7 +23,7 @@
 #ifndef PROFIT_TEXTURE_NODE_H
 #define PROFIT_TEXTURE_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/types.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,7 +36,10 @@ extern "C" {
     int32_t y_location;
   }; /* struct prf_texture_data */
   
-void prf_texture_init();
+void prf_texture_init( void );
+
+prf_node_t * prf_texture_node_create( prf_model_t * model, int index,
+                                      const char * filename );
 
 #ifdef __cplusplus
 }; /* extern "C" */

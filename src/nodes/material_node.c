@@ -48,10 +48,51 @@ typedef  struct prf_material_data  node_data;
 
 void
 prf_material_init(
-    void )
+  void )
 {
-    prf_nodeinfo_set( &prf_material_info );
+  prf_nodeinfo_set( &prf_material_info );
 } /* prf_material_init() */
+
+/**************************************************************************/
+
+prf_node_t *
+prf_material_node_create(
+  prf_model_t * model,
+  int index )
+{
+  prf_node_t * node = prf_node_create_etc( model, 
+					   sizeof( struct prf_material_data ) );
+  if ( node ) {
+    struct prf_material_data *data;
+    node->opcode = 113;
+    node->length = 4 + sizeof( struct prf_material_data );
+    
+    data = (struct prf_material_data *) node->data;
+
+    data->material_index = index;
+    sprintf( data->name, "prfmat_%d", index );
+    data->ambient_red = 0.2f;
+    data->ambient_green = 0.2f;
+    data->ambient_blue = 0.2f;
+
+    data->diffuse_red = 0.2f;
+    data->diffuse_green = 0.2f;
+    data->diffuse_blue = 0.2f;
+
+    data->specular_red = 0.0f;
+    data->specular_green = 0.0f;
+    data->specular_blue = 0.0f;
+
+    data->emissive_red = 0.2f;
+    data->emissive_green = 0.2f;
+    data->emissive_blue = 0.2f;
+
+    data->shininess = 20.0f;
+    data->alpha = 1.0f;
+    data->spare = 0;
+  }
+  return node;
+} /* prf_material_node_create() */
 
 /**************************************************************************/
 
@@ -240,15 +281,15 @@ prf_material_entry_f(
 /**************************************************************************/
 
 static const prf_nodeinfo_t prf_material_info = {
-    113, PRF_ANCILLARY,
-    "Material Record",
-    prf_material_load_f,
-    prf_material_save_f,
-    prf_material_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
+  113, PRF_ANCILLARY,
+  "Material Record",
+  prf_material_load_f,
+  prf_material_save_f,
+  prf_material_entry_f,
+  NULL,
+  NULL,
+  NULL,
+  NULL
 }; /* struct prf_material_info */
 
 /**************************************************************************/

@@ -105,7 +105,9 @@ prf_vertex_list_init(
 /**************************************************************************/
 
 prf_node_t *
-prf_vertex_list_create(prf_model_t *model, int numvertices)
+prf_vertex_list_node_create(
+  prf_model_t * model,
+  int numvertices )
 {
   prf_node_t *node = prf_node_create_etc(model, numvertices*4);
   if (node) {
@@ -113,8 +115,9 @@ prf_vertex_list_create(prf_model_t *model, int numvertices)
     node->length = 4 + numvertices * 4;
   }
   return node;
-}
+} /* prf_vertex_list_node_create() */
 
+/**************************************************************************/
 
 static
 bool_t

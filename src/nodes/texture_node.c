@@ -47,10 +47,35 @@ typedef struct prf_texture_data node_data;
 /**************************************************************************/
 
 void
-prf_texture_init()
+prf_texture_init(
+  void )
 {
   prf_nodeinfo_set( &prf_texture_info );
 } /* prf_texture_init() */
+
+/**************************************************************************/
+
+prf_node_t *
+prf_texture_node_create(
+  prf_model_t * model,
+  int index,
+  const char * filename )
+{
+  prf_node_t * node = prf_node_create_etc( model, 
+					   sizeof( struct prf_texture_data ) );
+  if ( node ) {
+    struct prf_texture_data * data;
+    node->opcode = 64;
+    node->length = 4 + sizeof( struct prf_texture_data );
+    
+    data = (struct prf_texture_data *) node->data;
+    data->pattern_index = index;
+    data->x_location = 0;
+    data->y_location = 0;
+    strncpy(data->filename, filename, 200);
+  }
+  return node;
+} /* prf_texture_node_create() */
 
 /**************************************************************************/
 

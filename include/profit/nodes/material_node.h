@@ -23,7 +23,7 @@
 #ifndef PROFIT_MATERIAL_NODE_H
 #define PROFIT_MATERIAL_NODE_H
 
-#include <profit/basic_types.h>
+#include <profit/types.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,6 +51,7 @@ struct prf_material_data {
 }; /* struct prf_material_data */
 
 void prf_material_init( void );
+prf_node_t * prf_material_node_create( prf_model_t * model, int index );
 
 #define  PRF_MATERIAL_FLAGS_MATERIALS_USED   0x80000000
 
