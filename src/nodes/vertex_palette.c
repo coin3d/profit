@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -173,7 +173,7 @@ prf_vertex_palette_save_f(
     node_data * vpdata;
     int32_t length;
     prf_node_t * subnode;
-    int32_t curptr;
+    uint32_t curptr;
 
     assert( node != NULL && state != NULL && bfile != NULL );
 
@@ -193,7 +193,7 @@ prf_vertex_palette_save_f(
 
     subnode = prf_node_create();
     curptr = 8;
-    while ( curptr < vpdata->length ) {
+    while ( curptr < (uint32_t) vpdata->length ) {
         uint16_t * uint16ptr;
         prf_nodeinfo_t * nodeinfo;
 
@@ -446,7 +446,7 @@ prf_vertex_palette_clone_f(
         }
     }
     if ( target->vertextras != NULL )
-        prf_debug( 6, "vertex palette - clone inserted into model with extras" );
+        prf_debug( 6, "vertex palette: clone inserted into model with extras" );
     return clone;
 } /* prf_vertex_palette_clone_f() */
 
@@ -456,14 +456,11 @@ void
 prf_vertex_palette_init(
     void )
 {
-  prf_vertex_palette_info.load_f=prf_vertex_palette_load_f;
-  prf_vertex_palette_info.save_f=prf_vertex_palette_save_f;
-  prf_vertex_palette_info.entry_f=prf_vertex_palette_entry_f;
-  prf_vertex_palette_info.clone_f=prf_vertex_palette_clone_f;
-  prf_nodeinfo_set( &prf_vertex_palette_info );
+    prf_vertex_palette_info.load_f = prf_vertex_palette_load_f;
+    prf_vertex_palette_info.save_f = prf_vertex_palette_save_f;
+    prf_vertex_palette_info.entry_f = prf_vertex_palette_entry_f;
+    prf_vertex_palette_info.clone_f = prf_vertex_palette_clone_f;
+    prf_nodeinfo_set( &prf_vertex_palette_info );
 } /* prf_vertex_palette_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

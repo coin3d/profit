@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -67,11 +67,8 @@ void
 prf_push_level_init(
     void )
 {
-  prf_push_level_info.entry_f=prf_push_level_entry_f;
-  prf_nodeinfo_set( &prf_push_level_info );
+    prf_push_level_info.entry_f = prf_push_level_entry_f;
+    prf_nodeinfo_set( &prf_push_level_info );
 } /* prf_push_level_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef CALLBACK_H
-#define CALLBACK_H
+#ifndef PRF_CALLBACK_H
+#define PRF_CALLBACK_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,7 +74,4 @@ struct prf_cb_s {
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! CALLBACK_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_CALLBACK_H */

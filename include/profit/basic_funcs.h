@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_BASIC_FUNCS_H
-#define PROFIT_BASIC_FUNCS_H
+#ifndef PRF_BASIC_FUNCS_H
+#define PRF_BASIC_FUNCS_H
 
 #include <profit/basic_types.h>
 
@@ -59,7 +59,4 @@ void _prf_write_double( float64_t * fD, float64_t fA );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_BASIC_FUNCS_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_BASIC_FUNCS_H */

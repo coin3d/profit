@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_VERTEX_PALETTE_H
-#define PROFIT_VERTEX_PALETTE_H
+#ifndef PRF_VERTEX_PALETTE_NODE_H
+#define PRF_VERTEX_PALETTE_NODE_H
 
 #include <profit/types.h>
 
@@ -47,7 +47,4 @@ struct prf_vertex_pool_s {
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_VERTEX_PALETTE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_VERTEX_PALETTE_NODE_H */

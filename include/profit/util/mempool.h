@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef MEMPOOL_H
-#define MEMPOOL_H
+#ifndef PRF_MEMPOOL_H
+#define PRF_MEMPOOL_H
 
 #include <profit/basic_types.h>
 
@@ -46,7 +46,4 @@ void *  pool_malloc( pool_t pool_id, int size );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! MEMPOOL_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_MEMPOOL_H */

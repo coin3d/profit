@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_DEBUG_H
-#define PROFIT_DEBUG_H
+#ifndef PRF_DEBUG_H
+#define PRF_DEBUG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,8 +35,4 @@ void prf_error( int level, ... );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_DEBUG_H */
-
-/* $Id$ */
-
-
+#endif /* ! PRF_DEBUG_H */

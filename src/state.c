@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -26,8 +26,8 @@
 #include <profit/material.h>
 #include <profit/texture.h>
 #include <profit/debug.h>
-#include <profit/nodes/material_node.h>
-#include <profit/nodes/texture_node.h>
+#include <profit/nodes/material.h>
+#include <profit/nodes/texture.h>
 #include <profit/nodes/material_palette.h>
 #include <profit/nodes/color_palette.h>
 #include <profit/nodes/instance_definition.h>
@@ -480,10 +480,10 @@ prf_state_get_inverse_matrix(
 bool_t
 prf_state_material_lookup( 
     prf_state_t * state,
-    int index,
+    unsigned int index,
     prf_material_t * material )
 {
-    int count, i;
+    unsigned int count, i;
     assert( state != NULL && material != NULL );
     if ( state->material_palette != NULL ) { /* old-style material palette */
         struct prf_material_palette_data * original;
@@ -491,7 +491,7 @@ prf_state_material_lookup(
             state->material_palette->data;
         count = state->material_palette->length /
                 sizeof( struct prf_material_palette_data );
-        if ( index < 0 || index >= count )
+        if ( index >= count )
             return FALSE;
         original += index;
         material->material_index = index;
@@ -531,56 +531,63 @@ prf_state_material_lookup(
 } /* prf_state_material_lookup() */
 
 bool_t
-prf_state_texture_lookup(prf_state_t * state,
-			 int index,
-			 prf_texture_t * texture)
+prf_state_texture_lookup(
+    prf_state_t * state,
+    unsigned int index,
+    prf_texture_t * texture )
 {
-  int count, i;
-  assert( state != NULL && texture != NULL );
-  count = prf_array_count( state->textures );
-  for (i = 0; i < count; i++) {
-    prf_node_t *node;
-    prf_texture_t *tex;
-    node = state->textures[i];
-    tex = (prf_texture_t *) node->data;
-    if (tex->pattern_index == index) {
-      memcpy(texture, tex, sizeof( prf_texture_t ) );
-      return TRUE;
+    int count, i;
+    assert( state != NULL && texture != NULL );
+    count = prf_array_count( state->textures );
+    for ( i = 0; i < count; i++ ) {
+        prf_node_t *node;
+        prf_texture_t *tex;
+        node = state->textures[i];
+        tex = (prf_texture_t *) node->data;
+        if ( (unsigned int) tex->pattern_index == index ) {
+            memcpy(texture, tex, sizeof( prf_texture_t ) );
+            return TRUE;
+        }
     }
-  }
-  return FALSE;
+    return FALSE;
 } /* prf_state_texture_lookup() */
 
 prf_node_t *
-prf_state_get_instance(prf_state_t * state, 
-		       int16_t number)
+prf_state_get_instance(
+    prf_state_t * state, 
+    int16_t number )
 {
-  int i, n;
+    int i, n;
 
-  n = prf_array_count(state->instances);
-  for (i = 0; i < n; i++) {
-    struct prf_instance_definition_data *data = 
-      (struct prf_instance_definition_data*) state->instances[i]->data;
-    if (data->instance_definition_number == number)
-      return state->instances[i];
-  }
-  return NULL;
+    n = prf_array_count(state->instances);
+    for (i = 0; i < n; i++) {
+        struct prf_instance_definition_data * data = 
+            (struct prf_instance_definition_data *) state->instances[i]->data;
+        if ( data->instance_definition_number == number )
+            return state->instances[i];
+    }
+    return NULL;
 } 
 
 prf_node_t *
-prf_state_get_instance_from_node(prf_state_t *state,
-				 prf_node_t *node)
+prf_state_get_instance_from_node(
+    prf_state_t * state,
+    prf_node_t * node )
 {
-  struct prf_instance_reference_data *data = 
-    (struct prf_instance_reference_data*) node->data;
-
-  return prf_state_get_instance(state, data->instance_definition_number);
+    struct prf_instance_reference_data * data = 
+        (struct prf_instance_reference_data *) node->data;
+    return prf_state_get_instance( state, data->instance_definition_number );
 }
 
 /**************************************************************************/
 
 static void
-extract_components(uint32_t col, int *a, int *b, int *g, int *r)
+extract_components(
+    uint32_t col,
+    int * a,
+    int * b,
+    int * g,
+    int * r )
 {
     *r = col & 0xff;
     col >>= 8;
@@ -593,36 +600,34 @@ extract_components(uint32_t col, int *a, int *b, int *g, int *r)
 uint32_t
 prf_state_color_lookup(
     prf_state_t * state,
-    int index,
+    unsigned int index,
     int intensity )
 {
     uint32_t color;
 
     assert( state != NULL );
-    assert( index >= 0 && index < 1024 );
+    assert( index < 1024 );
 
     color = 0;
 
-    if ( /*(intensity != 0) &&*/
+    if ( /* (intensity != 0) && */
          (state->color_palette != NULL) &&
-         (index < ((state->color_palette->length - 132) / 4)) ) {
+         ((signed int) index < ((state->color_palette->length - 132) / 4)) ) {
         struct prf_color_palette_data * data;
         data = (struct prf_color_palette_data *) state->color_palette->data;
         color = data->brightest_rgb[index];
-    }
-    else {
-      color = prf_color_palette_default_values[index];
+    } else {
+        color = prf_color_palette_default_values[ index ];
     }
 
-    if ((color & 0xff000000) != 0xff000000) {
-      color = prf_color_palette_default_values[index];
+    if ( (color & 0xff000000) != 0xff000000 ) {
+        color = prf_color_palette_default_values[ index ];
     }
 
     /*
     if ( (intensity == 0) || (color == 0)) {
         color = prf_color_palette_default_values[index];
-    }
-    else if (0) {
+    } else if (0) {
       int b,g,r;
       int a0,a1,r0,r1,b0,b1,g0,g1;
       uint32_t defcol = prf_color_palette_default_values[index];
@@ -642,6 +647,3 @@ prf_state_color_lookup(
 } /* prf_state_color_lookup() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

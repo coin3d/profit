@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_STATE_H
-#define PROFIT_STATE_H
+#ifndef PRF_STATE_H
+#define PRF_STATE_H
 
 #include <profit/types.h>
 #include <profit/callback.h>
@@ -80,22 +80,21 @@ void               prf_state_matrix_mult_right( prf_state_t * state,
                        matrix4x4_f32_t * matrix );
 matrix4x4_f32_t *  prf_state_get_inverse_matrix( prf_state_t * state );
 
-bool_t             prf_state_material_lookup( prf_state_t * state, int index,
-                       prf_material_t * material );
-bool_t             prf_state_texture_lookup( prf_state_t * state, int index,
-		       prf_texture_t * texture );
-prf_node_t *       prf_state_get_instance(prf_state_t * state, 
-					  int16_t instance_definition_number); 
-prf_node_t *       prf_state_get_instance_from_node(prf_state_t *state,
-						    prf_node_t *refnode);
-uint32_t           prf_state_color_lookup( prf_state_t * state, int index,
-                       int intensity );
+bool_t             prf_state_material_lookup( prf_state_t * state,
+                       unsigned int index, prf_material_t * material );
+bool_t             prf_state_texture_lookup( prf_state_t * state,
+                       unsigned int index, prf_texture_t * texture );
+prf_node_t *       prf_state_get_instance(
+                       prf_state_t * state, 
+                       int16_t instance_definition_number );
+prf_node_t *       prf_state_get_instance_from_node(
+                       prf_state_t * state,
+                       prf_node_t * refnode);
+uint32_t           prf_state_color_lookup( prf_state_t * state,
+                       unsigned int index, int intensity );
 
 #ifdef __cplusplus
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_STATE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_STATE_H */

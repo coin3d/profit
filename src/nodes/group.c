@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -190,12 +190,9 @@ void
 prf_group_init(
     void )
 {
-  prf_group_info.load_f=prf_group_load_f;
-  prf_group_info.save_f=prf_group_save_f;
-  prf_nodeinfo_set( &prf_group_info );
+    prf_group_info.load_f = prf_group_load_f;
+    prf_group_info.save_f = prf_group_save_f;
+    prf_nodeinfo_set( &prf_group_info );
 } /* prf_group_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

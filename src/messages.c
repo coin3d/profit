@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -171,7 +171,7 @@ prf_messages_add_handler(
     void * data )
 {
     prf_msg_handler_t * handler;
-    int i, count;
+    int i = 0, count;
     assert( type > 0 && type < 6 );
     handler = (prf_msg_handler_t *)malloc( sizeof( prf_msg_handler_t ) );
     assert( handler != NULL );
@@ -214,6 +214,3 @@ prf_messages_del_handler(
 } /* prf_messages_del_handler() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -95,7 +95,7 @@ prf_color_palette_load_f(
 
     pos = 4;
     do {
-        int i;
+        unsigned int i;
         uint8_t * ptr;
         node_data * data;
         data = (node_data *) node->data;
@@ -159,7 +159,7 @@ prf_color_palette_save_f(
     pos = 4;
     do {
         node_data * data;
-        int num, i;
+        unsigned int num, i;
         uint8_t * ptr;
         if ( node->length < (pos + 128) ) break;
         data = (node_data *) node->data;
@@ -225,11 +225,10 @@ void
 prf_color_palette_init(
     void )
 {
-  prf_color_palette_info.load_f=prf_color_palette_load_f;
-  prf_color_palette_info.save_f=prf_color_palette_save_f;
-  prf_color_palette_info.entry_f=prf_color_palette_entry_f;
-
-  prf_nodeinfo_set( &prf_color_palette_info );
+    prf_color_palette_info.load_f = prf_color_palette_load_f;
+    prf_color_palette_info.save_f = prf_color_palette_save_f;
+    prf_color_palette_info.entry_f = prf_color_palette_entry_f;
+    prf_nodeinfo_set( &prf_color_palette_info );
 } /* prf_color_palette_info() */
 
 /**************************************************************************/
@@ -496,6 +495,3 @@ uint32_t prf_color_palette_default_values[ 1024 ] = {
 }; /* prf_color_palette_default_values[] */
 
 /**************************************************************************/
-
-/* $Id$ */
-

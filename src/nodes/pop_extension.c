@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -66,11 +66,8 @@ void
 prf_pop_extension_init(
     void )
 {
-  prf_pop_extension_info.exit_f=prf_pop_extension_exit_f;
-  prf_nodeinfo_set( &prf_pop_extension_info );
+    prf_pop_extension_info.exit_f = prf_pop_extension_exit_f;
+    prf_nodeinfo_set( &prf_pop_extension_info );
 } /* prf_pop_extension_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

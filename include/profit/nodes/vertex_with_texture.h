@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_VERTEX_WITH_TEXTURE_H
-#define PROFIT_VERTEX_WITH_TEXTURE_H
+#ifndef PRF_VERTEX_WITH_TEXTURE_NODE_H
+#define PRF_VERTEX_WITH_TEXTURE_NODE_H
  
 #include <profit/types.h>
 
@@ -48,7 +48,4 @@ void prf_vertex_with_texture_fill_vertex( prf_node_t * node,
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_VERTEX_WITH_TEXTURE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_VERTEX_WITH_TEXTURE_NODE_H */

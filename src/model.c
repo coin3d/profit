@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -263,7 +263,7 @@ prf_model_load_with_callback(
         } else { /* unsupported node */
             node->opcode = bf_get_uint16_be( bfile );
             node->length = bf_get_uint16_be( bfile );
-            if ( (node->length - 4) > bf_get_remaining_length( bfile ) )
+            if ( node->length > (bf_get_remaining_length( bfile ) + 4) )
                 goto error;
             if ( node->length > 4 ) {
                 if ( model->mempool_id == 0 ) {
@@ -607,9 +607,9 @@ prf_model_vertex_palette_optimize(
     } while ( FALSE );
 
     do { /* compact vertex list and create reverse lookup table */
-        int32_t offset = 0;
-        int32_t datasize = 0;
-        int32_t orig_length = 0;
+        uint32_t offset = 0;
+        uint32_t datasize = 0;
+        uint32_t orig_length = 0;
         uint8_t * ptr = NULL, * origdata = NULL;
         uint8_t * buffer = (uint8_t *)malloc( length );
 
@@ -624,7 +624,7 @@ prf_model_vertex_palette_optimize(
        
         /* node for node, check if tagged, and update move offset */
         ptr = origdata + 8;
-        while ( (ptr-origdata) < datasize ) {
+        while ( ((unsigned int) (ptr - origdata)) < datasize ) {
             uint16_t * uint16ptr = (uint16_t *) ptr;
             if ( ((uint32_t *)(rlt+(ptr-origdata)))[0] != 0 ) {
                 /* vertex is in use, move vertex into new buffer */
@@ -642,7 +642,7 @@ prf_model_vertex_palette_optimize(
             int num, i;
             num = prf_array_count( model->vertextras );
             for ( i = 0; i < num; i++ ) {
-                int pos = 0;
+                unsigned int pos = 0;
                 prf_vertex_pool_t * pool = model->vertextras[i];
                 while ( pos < pool->position ) {
                      uint16_t * uint16ptr = (uint16_t *) (pool->data + pos);
@@ -1388,7 +1388,7 @@ prf_model_vertex_palette_lookup(
     vpdata = (struct prf_vertex_palette_data *) vertex_palette->data;
 
     uint16ptr = NULL;
-    if ( offset >= vpdata->length ) {
+    if ( offset >= (uint32_t) vpdata->length ) {
         int i, count;
         offset -= vpdata->length;
         if ( model->vertextras == NULL ) {
@@ -1509,6 +1509,3 @@ prf_model_append_node(
 } /* prf_model_append_node() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -207,12 +207,9 @@ void
 prf_vertex_list_init(
     void )
 {
-  prf_vertex_list_info.load_f=prf_vertex_list_load_f;
-  prf_vertex_list_info.save_f=prf_vertex_list_save_f;
-  prf_nodeinfo_set( &prf_vertex_list_info );
+    prf_vertex_list_info.load_f = prf_vertex_list_load_f;
+    prf_vertex_list_info.save_f = prf_vertex_list_save_f;
+    prf_nodeinfo_set( &prf_vertex_list_info );
 } /* prf_vertex_list_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

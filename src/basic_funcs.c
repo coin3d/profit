@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -61,6 +61,3 @@ _prf_write_double(
 #endif /* __sgi || __hpux*/
 
 /**************************************************************************/
-
-/* $Id$ */
-

@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_PUSH_SUBFACE_H
-#define PROFIT_PUSH_SUBFACE_H
+#ifndef PRF_PUSH_SUBFACE_NODE_H
+#define PRF_PUSH_SUBFACE_NODE_H
 
 #include <profit/basic_types.h>
 
@@ -39,7 +39,4 @@ void prf_push_subface_init( void );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_PUSH_SUBFACE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_PUSH_SUBFACE_NODE_H */

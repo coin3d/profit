@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_VERTEX_H
-#define PROFIT_VERTEX_H
+#ifndef PRF_VERTEX_H
+#define PRF_VERTEX_H
 
 #include <profit/types.h>
 
@@ -55,7 +55,4 @@ bool_t   prf_vertex_lookup( prf_node_t * node, prf_vertex_t * vertex );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* PROFIT_VERTEX_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_VERTEX_H */

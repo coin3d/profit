@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -25,16 +25,17 @@
 
 /**************************************************************************/
 
-static const nodeinfo_t replicate_info;
-
-/**************************************************************************/
-
-void
-replicate_init(
-    void )
-{
-    set_nodeinfo( &replicate_info );
-} /* replicate_init() */
+static const nodeinfo_t replicate_info = {
+    60, ANCILLARY | REFERENCE,
+    "Replicate",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct replicate_info */
 
 /**************************************************************************/
 
@@ -64,19 +65,11 @@ replicate_save_f(
 
 /**************************************************************************/
 
-static const nodeinfo_t replicate_info = {
-    60, ANCILLARY | REFERENCE,
-    "Replicate",
-    NULL, /* replicate_load_f, */
-    NULL, /* replicate_save_f, */
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct replicate_info */
+void
+replicate_init(
+    void )
+{
+    set_nodeinfo( &replicate_info );
+} /* replicate_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

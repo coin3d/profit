@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_OBSOLETE_VERTEX_WITH_NORMAL_H
-#define PROFIT_OBSOLETE_VERTEX_WITH_NORMAL_H
+#ifndef PRF_OBSOLETE_VERTEX_WITH_NORMAL_NODE_H
+#define PRF_OBSOLETE_VERTEX_WITH_NORMAL_NODE_H
 
 #include <profit/types.h>
 
@@ -43,7 +43,4 @@ void prf_obsolete_vertex_with_normal_fill_vertex( prf_node_t * node,
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_OBSOLETE_VERTEX_WITH_NORMAL_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_OBSOLETE_VERTEX_WITH_NORMAL_NODE_H */

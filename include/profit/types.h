@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_TYPES_H
-#define PROFIT_TYPES_H
+#ifndef PRF_TYPES_H
+#define PRF_TYPES_H
 
 #include <profit/basic_types.h>
 
@@ -47,7 +47,4 @@ typedef  float32_t                   matrix4x4_f32_t[4][4];
 }; /* extern "C" */
 #endif /* __splusplus */
 
-#endif /* ! PROFIT_TYPES_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_TYPES_H */

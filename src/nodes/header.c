@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -508,14 +508,11 @@ void
 prf_header_init(
     void )
 {
-  prf_header_info.load_f=prf_header_load_f;
-  prf_header_info.save_f=prf_header_save_f;
-  prf_header_info.entry_f=prf_header_entry_f;
-  prf_header_info.clone_f=prf_header_clone_f;
-  prf_nodeinfo_set( &prf_header_info );
+    prf_header_info.load_f = prf_header_load_f;
+    prf_header_info.save_f = prf_header_save_f;
+    prf_header_info.entry_f = prf_header_entry_f;
+    prf_header_info.clone_f = prf_header_clone_f;
+    prf_nodeinfo_set( &prf_header_info );
 } /* header_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

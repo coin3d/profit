@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_MORPH_VERTEX_LIST_H
-#define PROFIT_MORPH_VERTEX_LIST_H
+#ifndef PRF_MORPH_VERTEX_LIST_NODE_H
+#define PRF_MORPH_VERTEX_LIST_NODE_H
 
 #include <profit/types.h>
 
@@ -45,7 +45,4 @@ uint32_t * prf_morph_vertex_list_get_list_ptr( prf_node_t * node );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_MORPH_VERTEX_LIST_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_MORPH_VERTEX_LIST_NODE_H */

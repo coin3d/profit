@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,7 +20,7 @@
 
 /* $Id$ */
 
-#include <profit/nodes/material_node.h>
+#include <profit/nodes/material.h>
 #include <profit/types.h>
 #include <profit/model.h>
 #include <profit/state.h>
@@ -51,7 +51,6 @@ static prf_nodeinfo_t prf_material_info = {
 }; /* struct prf_material_info */
 
 /**************************************************************************/
-
 
 typedef  struct prf_material_data  node_data;
 
@@ -287,15 +286,12 @@ prf_material_entry_f(
 
 void
 prf_material_init(
-  void )
+    void )
 {
-  prf_material_info.load_f=prf_material_load_f;
-  prf_material_info.save_f=prf_material_save_f;
-  prf_material_info.entry_f=prf_material_entry_f;
-  prf_nodeinfo_set( &prf_material_info );
+    prf_material_info.load_f = prf_material_load_f;
+    prf_material_info.save_f = prf_material_save_f;
+    prf_material_info.entry_f = prf_material_entry_f;
+    prf_nodeinfo_set( &prf_material_info );
 } /* prf_material_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

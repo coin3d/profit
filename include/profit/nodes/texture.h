@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_TEXTURE_NODE_H
-#define PROFIT_TEXTURE_NODE_H
+#ifndef PRF_TEXTURE_NODE_H
+#define PRF_TEXTURE_NODE_H
 
 #include <profit/types.h>
 
@@ -29,12 +29,12 @@
 extern "C" {
 #endif /* __cplusplus */
 
-  struct prf_texture_data {
+struct prf_texture_data {
     char filename[200];
     int32_t pattern_index;
     int32_t x_location;
     int32_t y_location;
-  }; /* struct prf_texture_data */
+}; /* struct prf_texture_data */
   
 void prf_texture_init( void );
 
@@ -45,7 +45,4 @@ prf_node_t * prf_texture_node_create( prf_model_t * model, int index,
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_TEXTURE_NODE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_TEXTURE_NODE_H */

@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_NODEINFO_H
-#define PROFIT_NODEINFO_H
+#ifndef PRF_NODEINFO_H
+#define PRF_NODEINFO_H
 
 #include <profit/types.h>
 
@@ -104,7 +104,4 @@ void prf_instance_reference_init( void );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_NODEINFO_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_NODEINFO_H */

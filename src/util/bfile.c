@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -129,15 +129,17 @@ destroy_bfile_t(
 /**************************************************************************/
 
 bfile_t  *
-bf_create_m( const uint8_t *buffer, int len )
+bf_create_m(
+    const uint8_t * buffer,
+    unsigned int len )
 {
-  bfile_t * bfile;
-  bfile = create_bfile_t( 0 );
-  bfile->buffer = (uint8_t*) buffer;
-  bfile->buffer_size = bfile->size = len;
-  bfile->flags |= BF_MEMBUFFER | BF_READABLE;
-  bfile->ipos = len;
-  return bfile;
+    bfile_t * bfile;
+    bfile = create_bfile_t( 0 );
+    bfile->buffer = (uint8_t*) buffer;
+    bfile->buffer_size = bfile->size = len;
+    bfile->flags |= BF_MEMBUFFER | BF_READABLE;
+    bfile->ipos = len;
+    return bfile;
 }
 
 bfile_t *
@@ -224,7 +226,7 @@ void
 bf_read_buffer(
     bfile_t * bfile )
 {
-    int bytes;
+    unsigned int bytes;
 
     if ( bfile->progress_cb ) {
         bfile->progress_cb( (float)bfile->ipos / (float)bfile->size,
@@ -285,9 +287,9 @@ int
 bf_read(
     bfile_t * bfile,
     uint8_t * buffer,
-    int len )
+    unsigned int len )
 {
-    int toread, hasread;
+    unsigned int toread, hasread;
 
     assert( bfile != NULL );
     assert( (bfile->flags & BF_READABLE) != FALSE );
@@ -317,9 +319,9 @@ int
 bf_write(
     bfile_t * bfile,
     uint8_t * buffer,
-    int len )
+    unsigned int len )
 {
-    int haswritten, towrite;
+    unsigned int haswritten, towrite;
 
     assert( bfile != NULL );
     assert( (bfile->flags & BF_WRITABLE) != FALSE );
@@ -347,15 +349,17 @@ bf_write(
 int
 bf_rewind(
     bfile_t * bfile,
-    uint32_t num_bytes )
+    unsigned int num_bytes )
 {
-    int prevbuf, newbuf;
+    unsigned int prevbuf, newbuf;
     assert( bfile != NULL );
     prevbuf = bfile->pos / bfile->buffer_size;
-    bfile->pos -= num_bytes;
-    if ( bfile->pos < 0 ) {
+    if ( num_bytes > bfile->pos ) {
+        num_bytes = bfile->pos;
         bfile->pos = 0;
         fprintf( stderr, "warning: tried rewinding past beginning of file.\n" );
+    } else {
+        bfile->pos -= num_bytes;
     }
     newbuf = bfile->pos / bfile->buffer_size;
     if ( newbuf < prevbuf ) { /* rewinded past block boundary */
@@ -1100,7 +1104,8 @@ bf_get_remaining_length(
     bfile_t * bfile )
 {
     assert( bfile != NULL );
-    return PRF_MAX( bfile->size - bfile->pos, 0 );
+    assert( bfile->size >= bfile->pos );
+    return bfile->size - bfile->pos;
 } /* bf_get_remaining_length() */
 
 /**************************************************************************/
@@ -1119,8 +1124,8 @@ int
 bf_hex_dump(
     bfile_t * bfile,
     FILE * file,
-    uint32_t num_bytes,
-    int unit_size )
+    unsigned int num_bytes,
+    unsigned int unit_size )
 {
     char line[ 256 ];
     char ascii[ 256 ];
@@ -1128,8 +1133,9 @@ bf_hex_dump(
     char format[ 256 ];
     bool_t eof;
 
-    int i, j, bytes;
-    int bytes_per_line;
+    unsigned int i, j;
+    unsigned int bytes, bytes_per_line;
+
     unit_size = 3;
 
     line[0] = '\0';
@@ -1165,11 +1171,9 @@ bf_hex_dump(
             strcat( line, buffer );
         }
         if ( i < bytes_per_line ) {
-            int pad;
-            pad = 0;
+            unsigned int pad;
             pad = ((bytes_per_line - i + unit_size) / unit_size) - 1 +
-                  2 * (bytes_per_line - i)
- ;
+                  2 * (bytes_per_line - i);
             for ( j = 0; j < pad; j++ ) 
                 strcat( line, " " );
         }
@@ -1188,6 +1192,3 @@ bf_hex_dump(
 } /* bf_hex_dump() */
 
 /**************************************************************************/
-
-/* $Id$ */
-

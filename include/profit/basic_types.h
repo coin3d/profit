@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_BASIC_TYPES_H
-#define PROFIT_BASIC_TYPES_H
+#ifndef PRF_BASIC_TYPES_H
+#define PRF_BASIC_TYPES_H
 
 #include <sys/types.h>
 
@@ -62,7 +62,4 @@ typedef  int               bool_t;
 #define NULL               (0)
 #endif /* ! NULL */
 
-#endif /* ! PROFIT_BASIC_TYPES_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_BASIC_TYPES_H */

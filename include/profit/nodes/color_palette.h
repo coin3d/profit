@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_COLOR_PALETTE_H
-#define PROFIT_COLOR_PALETTE_H
+#ifndef PRF_COLOR_PALETTE_NODE_H
+#define PRF_COLOR_PALETTE_NODE_H
 
 #include <profit/types.h>
 
@@ -51,7 +51,4 @@ extern uint32_t prf_color_palette_default_values[];
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_COLOR_PALETTE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_COLOR_PALETTE_NODE_H */

@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_MODEL_H
-#define PROFIT_MODEL_H
+#ifndef PRF_MODEL_H
+#define PRF_MODEL_H
 
 #include <profit/types.h>
 
@@ -83,7 +83,4 @@ bool_t        prf_model_append_node( prf_model_t * model, prf_node_t * node );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_MODEL_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_MODEL_H */

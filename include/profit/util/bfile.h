@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef BFILE_H
-#define BFILE_H
+#ifndef PRF_BFILE_H
+#define PRF_BFILE_H
 
 #include <profit/types.h>
 #include <stdio.h>
@@ -32,15 +32,15 @@ extern "C" {
 
 bfile_t *     bf_create_r( const char * filename );
 bfile_t *     bf_create_w( const char * filename );
-bfile_t *     bf_create_m( const uint8_t *buffer, int len );
+bfile_t *     bf_create_m( const uint8_t * buffer, unsigned int len );
 void          bf_destroy( bfile_t * bfile );
 
 void          bf_set_progress_cb( bfile_t * bfile,
                   int (*func)( float, void * ), void *);
 
-int           bf_read( bfile_t * bfile, uint8_t * buffer, int len );
-int           bf_write( bfile_t * bfile, uint8_t * buffer, int len );
-int           bf_rewind( bfile_t * bfile, uint32_t num_bytes );
+int           bf_read( bfile_t * bfile, uint8_t * buffer, unsigned int len );
+int           bf_write( bfile_t * bfile, uint8_t * buffer, unsigned int len );
+int           bf_rewind( bfile_t * bfile, unsigned int num_bytes );
 
 int8_t        bf_get_int8( bfile_t * bfile );
 uint8_t       bf_get_uint8( bfile_t * bfile );
@@ -99,13 +99,11 @@ size_t        bf_get_position( bfile_t * bfile );
 size_t        bf_get_length( bfile_t * bfile );
 size_t        bf_get_remaining_length( bfile_t * bfile );
 
-int           bf_hex_dump( bfile_t * bfile, FILE * file, uint32_t num_bytes,
-                  int unit_size );
+int           bf_hex_dump( bfile_t * bfile, FILE * file,
+                  unsigned int num_bytes, unsigned int unit_size );
 
 #ifdef __cplusplus
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! BFILE_H */
-
-/* $Id$ */
+#endif /* ! PRF_BFILE_H */

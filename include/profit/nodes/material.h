@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_MATERIAL_NODE_H
-#define PROFIT_MATERIAL_NODE_H
+#ifndef PRF_MATERIAL_NODE_H
+#define PRF_MATERIAL_NODE_H
 
 #include <profit/types.h>
 
@@ -59,7 +59,4 @@ prf_node_t * prf_material_node_create( prf_model_t * model, int index );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_MATERIAL_NODE_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_MATERIAL_NODE_H */

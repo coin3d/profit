@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -55,81 +55,80 @@ typedef struct prf_instance_reference_data node_data;
 /**************************************************************************/
 
 static bool_t
-prf_instance_reference_load_f(prf_node_t * node,
-			      prf_state_t * state,
-			      bfile_t * bfile)
+prf_instance_reference_load_f(
+    prf_node_t * node,
+    prf_state_t * state,
+    bfile_t * bfile)
 {
-  node_data *data;
-  uint32_t pos = 4;
+    node_data * data;
+    uint32_t pos = 4;
 
-  assert( node != NULL && state != NULL && bfile != NULL );
+    assert( node != NULL && state != NULL && bfile != NULL );
 
-  node->opcode = bf_get_uint16_be(bfile);
-  if (node->opcode != prf_instance_reference_info.opcode) {
-    prf_error(9, "tried instance reference load method for node of type %d.",
-	      node->opcode );
-    bf_rewind(bfile, 2);
-    return FALSE;
-  }
-
-  node->length = bf_get_uint16_be( bfile );
-  assert(node->length >= 8);
-
-  if (node->data == NULL && node->length > 4) {
-    assert( state->model != NULL );
-    if (state->model->mempool_id == 0)
-      node->data = (uint8_t *)malloc( node->length - 4);
-    else
-      node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
-				node->length - 4);
-    if (node->data == NULL) {
-      prf_error( 9, "memory allocation problem (returned NULL)" );
-      bf_rewind( bfile, 4 );
-      return FALSE;
+    node->opcode = bf_get_uint16_be(bfile);
+    if ( node->opcode != prf_instance_reference_info.opcode ) {
+        prf_error( 9, "tried instance reference load method for "
+                   "node of type %d.", node->opcode );
+        bf_rewind( bfile, 2 );
+        return FALSE;
     }
-  }
 
-  data = (node_data *) node->data;
-  data->spare = bf_get_int16_be(bfile); pos += 2;
-  data->instance_definition_number = bf_get_int16_be(bfile); pos += 2;
+    node->length = bf_get_uint16_be( bfile );
+    assert( node->length >= 8 );
 
-  if (pos < node->length) { /* padding */
-    pos += bf_read(bfile, node->data + pos - 4,
-		   node->length - pos);
-  }
-  return TRUE;
+    if ( node->data == NULL && node->length > 4 ) {
+        assert( state->model != NULL );
+        if ( state->model->mempool_id == 0 )
+            node->data = (uint8_t *) malloc( node->length - 4 );
+        else
+            node->data = (uint8_t *) pool_malloc( state->model->mempool_id,
+                                                  node->length - 4);
+        if ( node->data == NULL ) {
+            prf_error( 9, "memory allocation problem (returned NULL)" );
+            bf_rewind( bfile, 4 );
+            return FALSE;
+        }
+    }
+
+    data = (node_data *) node->data;
+    data->spare = bf_get_int16_be(bfile); pos += 2;
+    data->instance_definition_number = bf_get_int16_be(bfile); pos += 2;
+
+    if ( pos < node->length ) /* padding */
+        pos += bf_read( bfile, node->data + pos - 4, node->length - pos );
+    return TRUE;
 } /* instance_reference_load_f() */
 
 /**************************************************************************/
 
 static bool_t
-prf_instance_reference_save_f(prf_node_t * node,
-			       prf_state_t * state,
-			       bfile_t * bfile)
+prf_instance_reference_save_f(
+    prf_node_t * node,
+    prf_state_t * state,
+    bfile_t * bfile)
 {
-  node_data * data;
-  int pos = 4;
+    node_data * data;
+    int pos = 4;
 
-  assert( node != NULL && state != NULL && bfile != NULL );
+    assert( node != NULL && state != NULL && bfile != NULL );
 
-  if (node->opcode != prf_instance_reference_info.opcode) {
-    prf_error(9, "instance reference save method on node of type %d.",
-	      node->opcode );
-    return FALSE;
-  }
+    if ( node->opcode != prf_instance_reference_info.opcode ) {
+        prf_error( 9, "instance reference save method on node of type %d.",
+                   node->opcode );
+        return FALSE;
+    }
 
-  bf_put_uint16_be(bfile, node->opcode);
-  bf_put_uint16_be(bfile, node->length);
+    bf_put_uint16_be( bfile, node->opcode );
+    bf_put_uint16_be( bfile, node->length );
 
-  data = (node_data *) node->data;
-  assert( data != NULL );
-  bf_put_int16_be(bfile, data->spare); pos += 2;
-  bf_put_int16_be(bfile, data->instance_definition_number); pos += 2;
+    data = (node_data *) node->data;
+    assert( data != NULL );
+    bf_put_int16_be( bfile, data->spare ); pos += 2;
+    bf_put_int16_be( bfile, data->instance_definition_number ); pos += 2;
 
-  if (pos < node->length) {/* padding */
-    pos += bf_write( bfile, node->data + pos - 4, node->length - pos );
-  }
-  return TRUE;
+    if ( pos < node->length ) /* padding */
+        pos += bf_write( bfile, node->data + pos - 4, node->length - pos );
+    return TRUE;
 } /* instance_reference_save_f() */
 
 /**************************************************************************/
@@ -137,12 +136,9 @@ prf_instance_reference_save_f(prf_node_t * node,
 void
 prf_instance_reference_init()
 {
-  prf_instance_reference_info.load_f=prf_instance_reference_load_f;
-  prf_instance_reference_info.save_f=prf_instance_reference_save_f;
-  prf_nodeinfo_set(&prf_instance_reference_info);
+    prf_instance_reference_info.load_f = prf_instance_reference_load_f;
+    prf_instance_reference_info.save_f = prf_instance_reference_save_f;
+    prf_nodeinfo_set( &prf_instance_reference_info );
 } /* instance_reference_init() */
 
 /**************************************************************************/
-
-/* $Id$ */
-
