@@ -4,8 +4,7 @@ SUBDIRS = util nodes
 
 libprofitincdir = $(includedir)/profit
 libprofitinc_HEADERS = \
-        basic_funcs.h \
-        basic_types.h \
+        basics.h \
         callback.h \
         debug.h \
         material.h \
@@ -16,7 +15,6 @@ libprofitinc_HEADERS = \
         profit.h \
         state.h \
         texture.h \
-        types.h \
         vertex.h
 
 # **************************************************************************
