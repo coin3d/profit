@@ -1243,7 +1243,7 @@ if test x"$enable_warnings" = x"yes"; then
   else
     case $host in
     *-*-irix*) 
-      if test x"$CC" = xcc || x"$CC" = xCC || test x"$CXX" = xCC; then
+      if test x"$CC" = xcc || test x"$CC" = xCC || test x"$CXX" = xCC; then
         _warn_flags=
         _woffs=""
         ### Turn on all warnings ######################################
