@@ -23,17 +23,16 @@ SourceFiles = \
 	vertex.c \
 	cruft.c
 
+libprofit_la_SOURCES = $(SourceFiles)
 libprofit_la_CFLAGS = $(PROFIT_CFLAGS)
-
 libprofit_la_LDFLAGS = \
 	-no-undefined \
-        -version-info $(PROFIT_LIBTOOL_VERSION_INFO)
+	-version-info $(PROFIT_LIBTOOL_VERSION_INFO)
 
 libprofit_la_LIBADD = \
 	util/libutil.la \
 	nodes/libnodes.la
 
-libprofit_la_SOURCES = $(SourceFiles)
 
 profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_SOURCES = $(SourceFiles)
 profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_CFLAGS = $(PROFIT_CFLAGS)
@@ -43,7 +42,7 @@ profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_LIBADD = \
 
 # **************************************************************************
 
-profit@PROFIT_MAJOR_VERSION@@SUFFIX@.lib: Makefile $(profit_lib_OBJECTS) $(profit_lib_DEPENDENCIES)
+profit@PROFIT_MAJOR_VERSION@@SUFFIX@.lib: Makefile $(profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_OBJECTS) $(profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_DEPENDENCIES)
 	@basename="profit@PROFIT_MAJOR_VERSION@@SUFFIX@"; \
 	rm -f "$$basename.dll" "$$basename.lib"; \
 	echo "Linking $$basename.lib..."; \
