@@ -1,10 +1,11 @@
 TODO
 ====
 
-* implement read/write/access for LOD-nodes
 * rewrite traversal to use recursion
 * rename src to profit (or src/profit) and merge sources and header hierarchy?
 * release 1.0
+* implement read/write/access for LOD-nodes
 * create access methods for the node data fields instead of exposing the
   data structures
+* implement .flt-loader for Coin
 

@@ -120,15 +120,13 @@ TRAVERSING MODELS
     models, but to access the internals of the model (the geometry for
     instance) you will have to traverse the model.
 
-    There are three common methods for traversing hierarchical data
-    structures, and all three are implemented in profit.  They are:
+    There are two ways of traversing models in profit.  They are:
 
         in-order traversal              [prf_model_traverse_io()]
         depth-first traversal           [prf_model_traverse_df()]
-        breadth-first traversal         [prf_model_traverse_bf()]
 
-    There is a 99.9% certainty that you will only need the in-order traversal
-    method (the other methods were implemented just for the challenge).
+    There is a 99% certainty that you will only need the in-order traversal
+    method.
 
     The traversals are done by the model_traverse* methods defined in
     <profit/model.h>.  You should not try to traverse the data structure
@@ -185,7 +183,7 @@ TRAVERSING MODELS
 
     PRF_TRAV_SIBLING
     - do not traverse into this node's children
-    - treated as PRF_TRAV_CONTINUE for depth-first and breadth-first traversal.
+    - treated as PRF_TRAV_CONTINUE for depth-first traversal.
 
     PRF_TRAV_POP
     - skip all siblings until a pop is reached (which might be followed by
@@ -193,7 +191,6 @@ TRAVERSING MODELS
 
     PRF_TRAV_UP
     - skip the rest of the siblings and go back up to the parent
-    - treated as PRF_TRAV_CONTINUE for breadth-first traversal
 
     
     ACCESSING NODE INTERNALS
