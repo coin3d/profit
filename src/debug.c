@@ -39,6 +39,10 @@ prf_warn(
     va_end( args );
 } /* prf_warn() */
 
+#else
+
+void prf_warn( int level, ... ) {}
+
 #endif /* ! NDEBUG */
 
 /**************************************************************************/
@@ -55,6 +59,10 @@ prf_debug(
     prf_messages_post_va( PRF_MSG_DEBUG, level, args );
     va_end( args );
 } /* prf_debug() */
+
+#else
+
+void prf_debug( int level, ... ) {}
 
 #endif /* ! NDEBUG */
 

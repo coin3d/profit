@@ -27,18 +27,8 @@
 extern "C" {
 #endif /* __cplusplus */
 
-#ifdef NDEBUG
-
-#define prf_debug()    /* nada */
-#define prf_warn()     /* nada */
-
-#else /* ! NDEBUG */
-
 void prf_warn( int level, ... );
 void prf_debug( int level, ... );
-
-#endif /* ! NDEBUG */
-
 void prf_error( int level, ... );
 
 #ifdef __cplusplus
@@ -48,4 +38,5 @@ void prf_error( int level, ... );
 #endif /* ! PROFIT_DEBUG_H */
 
 /* $Id$ */
+
 
