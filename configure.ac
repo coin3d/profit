@@ -17,12 +17,23 @@ AC_PREREQ([2.49])
 AC_CONFIG_AUX_DIR([cfg])
 AC_CONFIG_SRCDIR([src/profit.c])
 
+CYGWIN=
+export CYGWIN
+AC_CANONICAL_SYSTEM
+
+SIM_AC_SETUP_MSVC_IFELSE([], [
+  case $host in
+  *-cygwin)
+    AC_MSG_ERROR([You need Microsoft Visual C++ to build profit on Cygwin])
+    ;;
+  esac
+])
+
 AC_PROG_CC
 AM_PROG_CC_STDC
 
 if test "x$am_cv_prog_cc_stdc" = "xno"; then
-  AC_MSG_WARN(
-    [you probably need an ANSI compatible C compiler to build profit!])
+  AC_MSG_WARN([doesn't look like you are using an ANSI compatible C compiler])
 fi
 
 AC_SUBST([VERSION], [$PACKAGE_VERSION]) # for make dist
@@ -48,8 +59,6 @@ AC_DEFINE([PROFIT_INTERFACE_AGE],       [INTERFACE_AGE],
 AC_SUBST([PROFIT_LIBTOOL_VERSION_INFO],
   [INTERFACE_VERSION:INTERFACE_REVISION:INTERFACE_AGE])
 
-AC_CANONICAL_SYSTEM
-
 AM_INIT_AUTOMAKE([profit], [$VERSION])
 AM_CONFIG_HEADER([config.h])
 
@@ -57,11 +66,18 @@ AM_DISABLE_STATIC
 AM_MAINTAINER_MODE
 AC_PROG_LIBTOOL
 
+PROFIT_CFLAGS=
+AC_SUBST(PROFIT_CFLAGS)
 SIM_AC_COMPILE_DEBUG([
-  CXXFLAGS="$CXXFLAGS -DPROFIT_DEBUG=1"
+  PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_DEBUG=1"
 ], [
-  CXXFLAGS="$CXXFLAGS -DPROFIT_DEBUG=0"
+  PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_DEBUG=0"
 ])
+
+# not needed
+# AC_DEFINE([PROFIT_INTERNAL],,
+#   [defined while compiling profit])
+
 SIM_AC_DEBUGSYMBOLS
 SIM_COMPILER_WARNINGS
 
@@ -92,7 +108,56 @@ fi
 
 # **************************************************************************
 
-AC_OUTPUT([
+AC_SUBST(LDFLAGS)
+
+case $enable_static in
+true | yes)  PROFIT_STATIC=true;;
+*)           PROFIT_STATIC=false;;
+esac
+
+case $enable_shared in
+true | yes)  PROFIT_SHARED=true;;
+*)           PROFIT_SHARED=false;;
+esac
+
+LIBFLAGS=
+AC_SUBST(LIBFLAGS)
+
+if $BUILD_WITH_MSVC; then
+  if $PROFIT_STATIC; then
+    # static overrides shared
+    :
+  else
+    PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_MAKE_DLL"
+    PROFIT_EXTRA_CPPFLAGS="$PROFIT_EXTRA_CPPFLAGS -DPROFIT_DLL"
+  fi
+
+  debugfile=`pwd`/src/profit${PROFIT_MAJOR_VERSION}.pdb
+  debugfile=`cygpath -w "$debugfile" | sed 's,\\\\,\\\\\\\\,g'`
+  if $PROFIT_STATIC; then
+    LIBFLAGS="-LIB"
+    LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION.lib"
+    PROFIT_EXTRA_CPPFLAGS="-I$includedir"
+    PROFIT_EXTRA_LDFLAGS="-L$libdir"
+    PROFIT_EXTRA_LIBS=
+  else
+    LIBFLAGS="-DLL /INCREMENTAL:NO"
+    case $enable_symbols in
+    no | false)
+      LIBFLAGS="$LIBFLAGS /RELEASE"
+      ;;
+    *)
+      PROFIT_CFLAGS="/Fd$debugfile $PROFIT_CFLAGS"
+      LIBFLAGS="$LIBFLAGS /DEBUG /PDB:profit$PROFIT_MAJOR_VERSION.pdb"
+      ;;
+    esac
+    LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION.dll"
+  fi
+fi
+
+# **************************************************************************
+
+AC_CONFIG_FILES([
 	Makefile
 	src/Makefile
 	src/util/Makefile
@@ -107,5 +172,7 @@ AC_OUTPUT([
         examples/fltnode/Makefile
 	examples/flt2vrml/Makefile
 ])
+
+AC_OUTPUT
 
 # **************************************************************************
