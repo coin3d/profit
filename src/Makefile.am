@@ -41,8 +41,7 @@ libprofit_la_SOURCES = \
 libprofitincdir = $(includedir)/profit
 
 libprofit_la_LDFLAGS = \
-        -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) \
-        -release $(LT_RELEASE)
+        -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 
 libprofitinc_HEADERS = \
 	$(top_srcdir)/include/profit/basic_funcs.h \
@@ -81,3 +80,4 @@ uninstall-libprofitincHEADERS:
 	  echo " rm -f $(DESTDIR)$(libprofitincdir)/$$f"; \
 	  rm -f $(DESTDIR)$(libprofitincdir)/$$f; \
 	done
+

@@ -66,15 +66,12 @@ $DIE && exit 1
 echo "Running aclocal..."
 aclocal
 
-echo
 echo "Running autoheader..."
 autoheader
 
-echo
 echo "Running automake..."
 automake
 
-echo
 echo "Running autoconf..."
 autoconf
 

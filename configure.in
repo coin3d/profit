@@ -1,6 +1,5 @@
-dnl ************************************************************************
-dnl * configure.in for SIM's profit library.
-dnl ************************************************************************
+# **************************************************************************
+# configure.in for SIM's profit library.
 
 AC_INIT(include/profit/profit.h)
 
@@ -47,31 +46,30 @@ dnl AM_DISABLE_STATIC
 AM_MAINTAINER_MODE
 AC_PROG_LIBTOOL
 
-dnl ************************************************************************
-dnl * Check if host CPU is bigendian or littleendian
-dnl ************************************************************************
+# **************************************************************************
+# Check if host CPU is bigendian or littleendian
 
-AC_ARG_WITH(bigendian,
-	[  --with-bigendian        set endianness for processor architecture
-                          [default=auto]],
-	[case "${withval}" in
-		yes)  want_bigendian=yes ;;
-		no)   want_bigendian=no ;;
-		auto) want_bigendian=auto ;;
-		*) AC_MSG_ERROR(bad value "${withval}" for --with-bigendian) ;;
-	esac],
-	[want_bigendian=auto])
+AC_ARG_WITH(
+  [bigendian],
+  AC_HELP_STRING([--with-bigendian], [set endianness for architecture (default=auto)]), [
+  case "${withval}" in
+    yes)  want_bigendian=yes ;;
+    no)   want_bigendian=no ;;
+    auto) want_bigendian=auto ;;
+    *) AC_MSG_ERROR(bad value "${withval}" for --with-bigendian) ;;
+  esac
+], [want_bigendian=auto])
 
 if test "$want_bigendian" = "yes"; then
-	AC_DEFINE(WORDS_BIGENDIAN, 1)
+  AC_DEFINE(WORDS_BIGENDIAN, 1)
 elif test "$want_bigendian" = "auto"; then
-	AC_C_BIGENDIAN
-	if test "$ac_cv_c_bigendian" = "unknown"; then
-		AC_MSG_ERROR(couldn't decide on the architecture endianness - specify endianness with the --with-bigendian option)
-	fi
+  AC_C_BIGENDIAN
+  if test "$ac_cv_c_bigendian" = "unknown"; then
+    AC_MSG_ERROR(couldn't decide on the architecture endianness - specify endianness with the --with-bigendian option)
+  fi
 fi
 
-dnl ************************************************************************
+# **************************************************************************
 
 AC_OUTPUT([
 	Makefile
@@ -85,4 +83,4 @@ AC_OUTPUT([
 	examples/flt2vrml/Makefile
 ])
 
-dnl ************************************************************************
+# **************************************************************************
