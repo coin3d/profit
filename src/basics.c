@@ -20,7 +20,7 @@
 
 /* $Id$ */
 
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
 #include <config.h>
 
 /**************************************************************************/
