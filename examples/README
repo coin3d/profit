@@ -1,4 +1,4 @@
-flt2vrml/	Simple geometry conversion from Open Flight to VRML.
+flt2vrml/	Simple geometry conversion from Open Flight to VRML 1.0.
 fltdump/	Dump the node hierarchy of an Open Flight file.
 fltnode/	Dump info on Open Flight node enclosing given file position.
 fltstrip/	Strip all nodes of a given type from an Open Flight file.

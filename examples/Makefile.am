@@ -1,3 +1,1 @@
-
-SUBDIRS = fltdump fltstrip fltnode 
-
+SUBDIRS = fltdump fltstrip fltnode flt2vrml

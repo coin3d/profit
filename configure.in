@@ -75,5 +75,5 @@ dnl ************************************************************************
 AC_OUTPUT(Makefile \
 	src/Makefile src/util/Makefile src/nodes/Makefile \
 	examples/Makefile examples/fltdump/Makefile examples/fltstrip/Makefile \
-        examples/fltnode/Makefile)
+        examples/fltnode/Makefile examples/flt2vrml/Makefile)
 
