@@ -444,6 +444,7 @@ prf_model_save_with_callback(
     prf_cb_t callback )
 {
     assert( 0 && "not implemented yet" ); /* FIXME: larsa 290499 */
+    return FALSE;
 } /* prf_model_save_with_callback() */
 
 /**************************************************************************/
