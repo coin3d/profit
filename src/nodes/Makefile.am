@@ -1,15 +1,16 @@
 # **************************************************************************
 # Process this file with automake to generate Makefile.in.
 
-INCLUDES = -I$(top_srcdir)/include
+if BUILD_WITH_MSVC
+noinst_LIBRARIES = nodes.lst
+else
+noinst_LTLIBRARIES = libnodes.la
+endif
+
+DEFAULT_INCLUDES = -I$(top_builddir)/include -I$(top_srcdir)/include
 LIBS = 
 
-noinst_LTLIBRARIES = libnodes.la
-
-libnodes_la_CFLAGS = \
-	$(PROFIT_CFLAGS)
-
-libnodes_la_SOURCES = \
+SourceFiles = \
 	color_palette.c \
 	face.c \
 	group.c \
@@ -38,5 +39,18 @@ libnodes_la_SOURCES = \
 	vertex_with_normal.c \
 	vertex_with_normal_and_texture.c \
 	vertex_with_texture.c
+
+# **************************************************************************
+
+libnodes_la_SOURCES = $(SourceFiles)
+libnodes_la_CFLAGS = $(PROFIT_CFLAGS)
+
+nodes.lst: Makefile $(nodes_lst_OBJECTS)
+	echo "Linking $@..."; \
+	rm -f $@; \
+	touch $@; \
+	for i in $(nodes_lst_OBJECTS); do \
+	  echo $$i >>$@; \
+	done
 
 # EOF **********************************************************************

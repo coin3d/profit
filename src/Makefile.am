@@ -1,23 +1,17 @@
 # **************************************************************************
 # Process this file with automake to generate Makefile.in.
 
-SUBDIRS = util nodes
-INCLUDES = -I$(top_srcdir)/include
-
+if BUILD_WITH_MSVC
+lib_LIBRARIES = profit@PROFIT_MAJOR_VERSION@@SUFFIX@.lib
+else
 lib_LTLIBRARIES = libprofit.la
+endif
 
-libprofit_la_CFLAGS = \
-	$(PROFIT_CFLAGS)
+SUBDIRS = util nodes
 
-libprofit_la_LDFLAGS = \
-	-no-undefined \
-        -version-info $(PROFIT_LIBTOOL_VERSION_INFO)
+DEFAULT_INCLUDES = -I$(top_builddir)/include -I$(top_srcdir)/include
 
-libprofit_la_LIBADD = \
-	util/libutil.la \
-	nodes/libnodes.la
-
-libprofit_la_SOURCES = \
+SourceFiles = \
 	basics.c \
 	debug.c \
 	messages.c \
@@ -29,29 +23,41 @@ libprofit_la_SOURCES = \
 	vertex.c \
 	cruft.c
 
-# **************************************************************************
-# Custom Rule for Linking Windows Library (LIB/DLL)
+libprofit_la_CFLAGS = $(PROFIT_CFLAGS)
 
-profit@PROFIT_MAJOR_VERSION@.lib: Makefile $(libprofit_la_OBJECTS) $(libprofit_la_DEPENDENCIES)
-	@basename="profit@PROFIT_MAJOR_VERSION@"; \
+libprofit_la_LDFLAGS = \
+	-no-undefined \
+        -version-info $(PROFIT_LIBTOOL_VERSION_INFO)
+
+libprofit_la_LIBADD = \
+	util/libutil.la \
+	nodes/libnodes.la
+
+libprofit_la_SOURCES = $(SourceFiles)
+
+profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_SOURCES = $(SourceFiles)
+profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_CFLAGS = $(PROFIT_CFLAGS)
+profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_LIBADD = \
+	util/util.lst \
+	nodes/nodes.lst
+
+# **************************************************************************
+
+profit@PROFIT_MAJOR_VERSION@@SUFFIX@.lib: Makefile $(profit_lib_OBJECTS) $(profit_lib_DEPENDENCIES)
+	@basename="profit@PROFIT_MAJOR_VERSION@@SUFFIX@"; \
 	rm -f "$$basename.dll" "$$basename.lib"; \
-	if @BUILD_WITH_MSVC@; then \
-	  echo "Linking $$basename.lib..."; \
-	  echo $(CC) $(LDFLAGS) $(LIBFLAGS) \
-	    `echo $(libprofit_la_OBJECTS) | sed 's%\.lo%.obj%g'` \
-	    $(libprofit_la_LIBADD) $(LIBS); \
-	  $(CC) $(LDFLAGS) $(LIBFLAGS) \
-	    `echo $(libprofit_la_OBJECTS) | sed 's%\.lo%.obj%g'` \
-	    $(libprofit_la_LIBADD) $(LIBS); \
-	else \
-	  touch "$$basename.dll" "$$basename.lib"; \
-	fi
-
-all-local: profit@PROFIT_MAJOR_VERSION@.lib
+	echo "Linking $$basename.lib..."; \
+	echo $(CC) $(LDFLAGS) $(LIBFLAGS) \
+	  $(profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_OBJECTS) \
+	  $(profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_LIBADD) $(LIBS); \
+	$(CC) $(LDFLAGS) $(LIBFLAGS) \
+	  $(profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_OBJECTS) \
+	  $(profit@PROFIT_MAJOR_VERSION@@SUFFIX@_lib_LIBADD) $(LIBS);
 
 # **************************************************************************
 
-install-exec-local:
+if BUILD_WITH_MSVC
+install-exec-local: profit@PROFIT_MAJOR_VERSION@@SUFFIX@.lib
 	@basename="profit@PROFIT_MAJOR_VERSION@"; \
 	for ext in dll pdb; do \
 	  file="$$basename.$$ext"; \
@@ -61,9 +67,12 @@ install-exec-local:
 	    $(INSTALL_PROGRAM) "$$file" "$(DESTDIR)$(bindir)/$$file"; \
 	  fi \
 	done;
+else
+install-exec-local:
+endif
 
 install-data-local:
-	@basename="profit@PROFIT_MAJOR_VERSION@"; \
+	@basename="profit@PROFIT_MAJOR_VERSION@@SUFFIX@"; \
 	for ext in lib; do \
 	  file="$$basename.$$ext"; \
 	  if test -s "$$file"; then \
@@ -74,7 +83,7 @@ install-data-local:
 	done;
 
 uninstall-local:
-	@basename="profit@PROFIT_MAJOR_VERSION@"; \
+	@basename="profit@PROFIT_MAJOR_VERSION@@SUFFIX@"; \
 	for file in \
 	  "$(DESTDIR)$(bindir)/$$basename.dll" \
 	  "$(DESTDIR)$(bindir)/$$basename.pdb" \

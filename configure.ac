@@ -10,17 +10,21 @@ m4_define([INTERFACE_VERSION],  [0])
 m4_define([INTERFACE_REVISION], [0])
 m4_define([INTERFACE_AGE],      [0])
 
-AC_INIT([profit], [PROFIT_RELEASE], [<profit-patches@coin3d.org>])
+# **************************************************************************
 
-AC_PREREQ([2.49])
+AC_INIT([profit], [PROFIT_RELEASE], [<profit-patches@coin3d.org>])
+AC_PREREQ([2.50])
 
 AC_CONFIG_AUX_DIR([cfg])
 AC_CONFIG_SRCDIR([src/profit.c])
 
-CYGWIN=
-export CYGWIN
 AC_CANONICAL_SYSTEM
 
+CYGWIN=
+export CYGWIN
+
+
+sim_ac_build_library=true
 # If the Microsoft Visual C++ cl.exe compiler is available, set us up for
 # compiling with it and to generate an MSWindows .dll file.
 
@@ -33,12 +37,24 @@ AC_ARG_ENABLE([msvc],
   [sim_ac_try_msvc=true])
 
 if $sim_ac_try_msvc; then
-  SIM_AC_SETUP_MSVC_IFELSE([], [
+  SIM_AC_SETUP_MSVC_IFELSE([
+    SIM_AC_SETUP_MSVCRT([
+      CPPFLAGS="$CPPFLAGS $sim_ac_msvcrt_CPPFLAGS"
+      CFLAGS="$CFLAGS $sim_ac_msvcrt_CFLAGS"
+      CXXFLAGS="$CXXFLAGS $sim_ac_msvcrt_CXXFLAGS"
+      LDFLAGS="$LDFLAGS $sim_ac_msvcrt_LDFLAGS"
+      LIBS="$LIBS $sim_ac_msvcrt_LIBS"
+      # sim_ac_msvcrt_LIBLIBS is set up at the end
+      # sim_ac_msvcrt_LIBLDFLAGS is set up at the end
+    ])
+  ], [
     case $host in
     *-cygwin) SIM_AC_ERROR([no-msvc++]) ;;
     esac
   ])
 fi
+
+AC_SUBST([BUILD_WITH_MSVC])
 
 AC_PROG_CC
 AM_PROG_CC_STDC
@@ -77,11 +93,12 @@ AC_SUBST([PROFIT_LIBTOOL_VERSION_INFO],
   [INTERFACE_VERSION:INTERFACE_REVISION:INTERFACE_AGE])
 
 AM_INIT_AUTOMAKE([profit], [$VERSION])
-AM_CONFIG_HEADER([config.h])
 
 AM_DISABLE_STATIC
 AM_MAINTAINER_MODE
 AC_PROG_LIBTOOL
+
+AM_CONDITIONAL([BUILD_WITH_MSVC], [$BUILD_WITH_MSVC])
 
 PROFIT_CFLAGS=
 AC_SUBST(PROFIT_CFLAGS)
@@ -125,54 +142,67 @@ fi
 
 # **************************************************************************
 
+AC_ARG_WITH([suffix],
+  [--with-suffix=string  specify library name suffix],
+  [SUFFIX=$withval],
+  [SUFFIX=])
+
+AC_SUBST([SUFFIX])
+
 AC_SUBST(LDFLAGS)
 
 case $enable_static in
-true | yes)  PROFIT_STATIC=true;;
-*)           PROFIT_STATIC=false;;
+true | yes)  PROFIT_STATIC=true ;;
+*)           PROFIT_STATIC=false ;;
 esac
 
 case $enable_shared in
-true | yes)  PROFIT_SHARED=true;;
-*)           PROFIT_SHARED=false;;
+true | yes)  PROFIT_SHARED=true ;;
+*)           PROFIT_SHARED=false ;;
 esac
 
 LIBFLAGS=
 AC_SUBST(LIBFLAGS)
 
-if $BUILD_WITH_MSVC; then
-  if $PROFIT_STATIC; then
-    # static overrides shared
-    :
-  else
-    PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_MAKE_DLL"
-    PROFIT_EXTRA_CPPFLAGS="$PROFIT_EXTRA_CPPFLAGS -DPROFIT_DLL"
-  fi
-
-  debugfile=`pwd`/src/profit${PROFIT_MAJOR_VERSION}.pdb
-  debugfile=`cygpath -w "$debugfile" | sed 's,\\\\,\\\\\\\\,g'`
-  if $PROFIT_STATIC; then
-    LIBFLAGS="-LIB"
-    LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION.lib"
-    PROFIT_EXTRA_CPPFLAGS="-I$includedir"
-    PROFIT_EXTRA_LDFLAGS="-L$libdir"
-    PROFIT_EXTRA_LIBS=
-  else
-    LIBFLAGS="-DLL /INCREMENTAL:NO"
-    case $enable_symbols in
-    no | false)
-      LIBFLAGS="$LIBFLAGS /RELEASE"
-      ;;
-    *)
-      PROFIT_CFLAGS="/Fd$debugfile $PROFIT_CFLAGS"
-      LIBFLAGS="$LIBFLAGS /DEBUG /PDB:profit$PROFIT_MAJOR_VERSION.pdb"
-      ;;
-    esac
-    LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION.dll"
+if $sim_ac_build_library; then
+  if $BUILD_WITH_MSVC; then
+    rm -f vc60.pdb;
+    LIBFLAGS="$LIBFLAGS $sim_ac_msvcrt_LIBLDFLAGS"
+    LIBS="$LIBS $sim_ac_msvcrt_LIBLIBS"
+    if $PROFIT_STATIC; then
+      # static overrides shared
+      :
+    else
+      PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_MAKE_DLL"
+      PROFIT_EXTRA_CPPFLAGS="$PROFIT_EXTRA_CPPFLAGS -DPROFIT_DLL"
+    fi
+    debugfile=`pwd`/src/profit${PROFIT_MAJOR_VERSION}${SUFFIX}.pdb
+    debugfile=`cygpath -w "$debugfile" | sed 's,\\\\,\\\\\\\\,g'`
+    if $PROFIT_STATIC; then
+      LIBFLAGS="-LIB $LIBFLAGS"
+      LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION$SUFFIX.lib"
+      PROFIT_EXTRA_CPPFLAGS="-I$includedir"
+      PROFIT_EXTRA_LDFLAGS="-L$libdir"
+      PROFIT_EXTRA_LIBS=
+    else
+      LIBFLAGS="-DLL /INCREMENTAL:NO $LIBFLAGS"
+      case $enable_symbols in
+      no | false)
+        LIBFLAGS="$LIBFLAGS /RELEASE"
+        ;;
+      *)
+        PROFIT_CFLAGS="/Fd$debugfile $PROFIT_CFLAGS"
+        LIBFLAGS="$LIBFLAGS /DEBUG /PDB:profit$PROFIT_MAJOR_VERSION$SUFFIX.pdb"
+        ;;
+      esac
+      LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION$SUFFIX.dll"
+    fi
   fi
 fi
 
 # **************************************************************************
+
+AM_CONFIG_HEADER([include/config.h])
 
 AC_CONFIG_FILES([
 	Makefile
@@ -186,7 +216,7 @@ AC_CONFIG_FILES([
 	examples/Makefile
 	examples/fltdump/Makefile
 	examples/fltstrip/Makefile
-        examples/fltnode/Makefile
+	examples/fltnode/Makefile
 	examples/flt2vrml/Makefile
 ])
 
