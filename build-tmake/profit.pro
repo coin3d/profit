@@ -1,4 +1,2 @@
-TARGET = profit
-CONFIG = debug staticlib
-DEFINES = 
-OBJECTS_DIR = objects
+CONFIG      += debug staticlib
+OBJECTS_DIR  = objects

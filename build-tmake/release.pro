@@ -1,4 +1,2 @@
-TARGET = profit
-CONFIG = release staticlib
-DEFINES = 
-OBJECTS_DIR = releaseobjects
+CONFIG      += release staticlib
+OBJECTS_DIR  = releaseobjects
