@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -20,14 +20,23 @@
 
 /* $Id$ */
 
-#ifndef PROFIT_H
-#define PROFIT_H
+#ifndef PRF_PROFIT_H
+#define PRF_PROFIT_H
 
 #include <profit/basic_types.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+int prf_profit_major(void);
+int prf_profit_minor(void);
+int prf_profit_micro(void);
+
+int prf_interface_version(void);
+int prf_interface_revision(void);
+int prf_interface_age(void);
+int prf_interface_supported( int interface, int revision );
 
 bool_t prf_init( void );
 bool_t prf_exit( void );
@@ -38,7 +47,4 @@ bool_t prf_openflight_check_file( const char * filename );
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! PROFIT_H */
-
-/* $Id$ */
-
+#endif /* ! PRF_PROFIT_H */

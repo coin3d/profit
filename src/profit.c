@@ -1,6 +1,6 @@
 /**************************************************************************\
  * 
- *  Copyright (C) 1998-1999 by Systems in Motion.  All rights reserved.
+ *  Copyright (C) 1998-2001 by Systems in Motion.  All rights reserved.
  *
  *  This file is part of the profit library.
  *
@@ -25,10 +25,68 @@
 #include <profit/nodeinfo.h>
 #include <profit/messages.h>
 #include <profit/util/mempool.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <stdio.h>
 #include <assert.h>
+
+/**************************************************************************/
+/* binary interface info and compatibility checking */
+
+int
+prf_interface_version(void)
+{
+    return PROFIT_INTERFACE_VERSION;
+}
+
+int
+prf_interface_revision(void)
+{
+    return PROFIT_INTERFACE_REVISION;
+}
+
+int
+prf_interface_age(void)
+{
+    return PROFIT_INTERFACE_AGE;
+}
+
+int
+prf_interface_supported(
+    int interface,
+    int revision )
+{
+    if ( (interface == PROFIT_INTERFACE_VERSION) &&
+         (revision <= PROFIT_INTERFACE_REVISION) )
+        return TRUE;
+    if ( (interface < PROFIT_INTERFACE_VERSION) &&
+         (interface >= (PROFIT_INTERFACE_VERSION - PROFIT_INTERFACE_AGE)) )
+        return TRUE;
+    return FALSE;
+}
+
+/**************************************************************************/
+/* release version numbering info */
+
+int
+prf_major_version(void)
+{
+    return PROFIT_MAJOR_VERSION;
+}
+
+int
+prf_minor_version(void)
+{
+    return PROFIT_MINOR_VERSION;
+}
+
+int
+prf_micro_version(void)
+{
+    return PROFIT_MICRO_VERSION;
+}
 
 /**************************************************************************/
 
@@ -132,6 +190,3 @@ prf_openflight_check_file(
 } /* prf_openflight_ckeck_file() */
 
 /**************************************************************************/
-
-/* $Id$ */
-
