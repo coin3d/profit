@@ -120,6 +120,8 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  22, PRF_CONTROL | PRF_POP_NODE,       "Pop Extension",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    {  23, PRF_CONTINUATION,                 "Continuation", // New in 15.7
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  31, PRF_ANCILLARY,                    "Text Comment",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  32, PRF_ANCILLARY,                    "Color Palette",
@@ -159,7 +161,11 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  51, PRF_ANCILLARY | PRF_OBSOLETE,     "Bounding Box (obsolete)",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  55, PRF_PRIMARY,                      "Binary Separate Plane",
+    {  52, PRF_ANCILLARY,                    "MultiTexture", // New in 15.7
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    {  53, PRF_ANCILLARY,                    "UV List", // New in 15.7
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+    {  55, PRF_PRIMARY,                      "Binary Separating Plane",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  60, PRF_ANCILLARY | PRF_REFERENCE,    "Replicate",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
@@ -208,11 +214,11 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  83, PRF_ANCILLARY,                    "Eyepoint / Trackplane Palette",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  84, PRF_RESERVED,                     "Reserved",
+    {  84, PRF_PRIMARY,                      "Mesh", // New in 15.7.0
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  85, PRF_RESERVED,                     "Reserved",
-           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {  86, PRF_RESERVED,                     "Reserved",
+    {  85, PRF_PRIMARY,                      "Local Vertex Pool", // New in 15.7.0
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL }, 
+    {  86, PRF_PRIMARY,                      "Mesh Primitive", // New in 15.7.0
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     {  87, PRF_PRIMARY,                      "Road Segment",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
@@ -294,9 +300,7 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
     { 126, PRF_PRIMARY,                      "Curve Bead",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     { 127, PRF_PRIMARY,                      "Road Construction",
-           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
-    {   0, 0,                                NULL,
-           NULL, NULL, NULL, NULL, NULL, NULL, NULL }, /* terminator */
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL }
 }; /* struct prf_nodeinfo_defaults[] */
 
 /****************************************************************************/
@@ -307,12 +311,13 @@ prf_nodeinfo_init(
 {
     int idx;
 
-    nodetypes = (prf_nodeinfo_t **)prf_array_init(128, sizeof(prf_nodeinfo_t));
-    assert( nodetypes != NULL );
+    nodetypes = (prf_nodeinfo_t **) prf_array_init(128, sizeof(prf_nodeinfo_t));
+    assert(nodetypes != NULL);
 
     idx = 0;
-    while ( prf_nodeinfo_defaults[ idx ].opcode != 0 ) {
-        prf_nodeinfo_set( &prf_nodeinfo_defaults[ idx ] );
+    while ( idx < (sizeof(prf_nodeinfo_defaults) / sizeof(prf_nodeinfo_defaults[0])) ) {
+        // prf_nodeinfo_defaults[idx].opcode != 0
+        prf_nodeinfo_set(&prf_nodeinfo_defaults[idx]);
         idx++;
     }
 
@@ -361,42 +366,41 @@ prf_nodeinfo_exit(
     void )
 {
     int i, count;
-    count = prf_array_count( nodetypes );
+    count = prf_array_count(nodetypes);
     for ( i = 0; i < count; i++ ) {
         if ( nodetypes[i] != NULL ) {
-            free( nodetypes[ i ]->name );
-            free( nodetypes[ i ] );
+            free(nodetypes[i]->name);
+            free(nodetypes[i]);
         }
     }
-    prf_array_free( nodetypes );
+    prf_array_free(nodetypes);
     nodetypes = NULL;
 } /* prf_nodeinfo_exit() */
 
 /**************************************************************************/
 
 bool_t
-prf_nodeinfo_set(
-    const prf_nodeinfo_t * nodeinfo )
+prf_nodeinfo_set(const prf_nodeinfo_t * nodeinfo)
 {
     int i;
     prf_nodeinfo_t * newnodeinfo;
 
-    assert( nodeinfo->opcode > 0 );
+    assert(nodeinfo->opcode > 0);
 
-    i = prf_array_count( nodetypes );
+    i = prf_array_count(nodetypes);
     while ( i <= nodeinfo->opcode ) {
-        nodetypes = (prf_nodeinfo_t **)prf_array_append_ptr( nodetypes, NULL );
+        nodetypes = (prf_nodeinfo_t **) prf_array_append_ptr(nodetypes, NULL);
         i++;
     }
 
-    if ( nodetypes[ nodeinfo->opcode ] != NULL ) {
-        assert( nodetypes[ nodeinfo->opcode ] != nodeinfo );
-        free( nodetypes[ nodeinfo->opcode ]->name );
-        free( nodetypes[ nodeinfo->opcode ] );
+    if ( nodetypes[nodeinfo->opcode ] != NULL ) {
+        assert(nodetypes[nodeinfo->opcode] != nodeinfo);
+        free(nodetypes[nodeinfo->opcode]->name);
+        free(nodetypes[nodeinfo->opcode]);
     }
 
-    newnodeinfo = (prf_nodeinfo_t *)malloc( sizeof( struct prf_nodeinfo_s ) );
-    assert( newnodeinfo != NULL );
+    newnodeinfo = (prf_nodeinfo_t *) malloc(sizeof(struct prf_nodeinfo_s));
+    assert(newnodeinfo != NULL);
     nodetypes[ nodeinfo->opcode ] = newnodeinfo;
     newnodeinfo->opcode = nodeinfo->opcode;
     newnodeinfo->flags = nodeinfo->flags;
@@ -407,9 +411,9 @@ prf_nodeinfo_set(
     newnodeinfo->traverse_f = nodeinfo->traverse_f;
     newnodeinfo->destroy_f = nodeinfo->destroy_f;
     newnodeinfo->clone_f = nodeinfo->clone_f;
-    newnodeinfo->name = (char *)malloc( strlen( nodeinfo->name ) + 1 );
-    assert( newnodeinfo->name != NULL );
-    strcpy( newnodeinfo->name, nodeinfo->name );
+    newnodeinfo->name = (char *) malloc(strlen(nodeinfo->name) + 1);
+    assert(newnodeinfo->name != NULL);
+    strcpy(newnodeinfo->name, nodeinfo->name);
     
     return TRUE;
 } /* prf_nodeinfo_set() */
@@ -420,8 +424,8 @@ prf_nodeinfo_t *
 prf_nodeinfo_get(
     uint16_t opcode )
 {
-    if ( opcode < prf_array_count( nodetypes ) )
-        return nodetypes[ opcode ];
+    if ( opcode < prf_array_count(nodetypes) )
+        return nodetypes[opcode];
     return NULL;
 } /* prf_nodeinfo_get() */
 

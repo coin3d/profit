@@ -204,7 +204,7 @@ prf_model_load_with_callback(
     /* no recursing */
     prf_node_t *** stack;
     prf_state_t * state;
-    int level;
+    int level, garbage;
 
     assert( model != NULL && bfile != NULL );
     assert( model->header == NULL );
@@ -218,7 +218,8 @@ prf_model_load_with_callback(
     assert( state != NULL );
     state->model = model;
 
-    while ( ! bf_at_eof( bfile ) ) {
+    garbage = FALSE;
+    while ( !bf_at_eof(bfile) && !garbage) {
         prf_node_t * node;
         prf_nodeinfo_t * info;
 
@@ -246,7 +247,14 @@ prf_model_load_with_callback(
 
         node->opcode = bf_peek_uint16_be( bfile );
 
-        if ( node->opcode == 0x0b00 ) { /* fix for moronic MultiGen bug */
+        if ( node->opcode == 23 ) {
+          prf_debug( 1, "continuation");
+          assert(0);
+        }
+
+        /* fix some moronic MultiGen bugs */
+        if ( node->opcode == 0x0b00 ) {
+             // node->opcode == 0xa000 ) {
           uint32_t nodedata, temp1, temp2;
           nodedata = bf_get_uint32_be( bfile );
           temp1 = nodedata & 0xff00ff00;
@@ -265,6 +273,12 @@ prf_model_load_with_callback(
         } else { /* unsupported node */
             node->opcode = bf_get_uint16_be( bfile );
             node->length = bf_get_uint16_be( bfile );
+            if ( node->opcode == 0 ) {
+              prf_debug( 1, "opcode null data (garbage) at level %d - breaking read", level);
+              assert(level == 0);
+              garbage = TRUE;
+              goto nullskip;
+            }
             if ( node->length > (bf_get_remaining_length( bfile ) + 4) )
                 goto error;
             if ( node->length > 4 ) {
@@ -279,12 +293,13 @@ prf_model_load_with_callback(
                 bf_read( bfile, node->data, node->length - 4 );
             }
         }
-        if ( info != 0 )
+        if ( info != NULL )
             prf_debug( 1, "node loaded: \"%s\"", info->name );
         else
             prf_debug( 1, "node loaded: opcode %d, length %d", node->opcode,
                 node->length );
 
+        assert(info != NULL);
         /* insert the node in the model */
         if ( ((info->flags & PRF_PUSH_NODE) != 0) ||
              ((info->flags & PRF_ANCILLARY) != 0) ) {
@@ -329,6 +344,7 @@ prf_model_load_with_callback(
                 stack[level][i]->parent = stack[level-1][cnt-1];
             level--;
         }
+nullskip:
     } /* while ( ! bf_at_eof( bfile ) ) */
 
     if ( level > 0 )

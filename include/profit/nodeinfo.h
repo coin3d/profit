@@ -63,6 +63,7 @@ struct prf_nodeinfo_s {
 #define PRF_PRIMARY      0x0100
 #define PRF_ANCILLARY    0x0200
 #define PRF_CONTROL      0x0400
+#define PRF_CONTINUATION 0x0800
 #define PRF_RESERVED     0x4000
 #define PRF_OBSOLETE     0x8000
 
