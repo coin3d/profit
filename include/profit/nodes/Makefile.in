@@ -11,11 +11,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
-
-# **************************************************************************
-
-
 SHELL = @SHELL@
 
 srcdir = @srcdir@
@@ -68,6 +63,9 @@ host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
+
+@SET_MAKE@
+AMDEP = @AMDEP@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
@@ -95,8 +93,10 @@ RANLIB = @RANLIB@
 STRIP = @STRIP@
 VERSION = @VERSION@
 _am_include = @_am_include@
-_am_quote = @_am_quote@
 install_sh = @install_sh@
+
+# **************************************************************************
+
 
 libprofitnodeincdir = $(includedir)/profit/nodes
 libprofitnodeinc_HEADERS = \
@@ -140,6 +140,7 @@ DIST_SOURCES =
 HEADERS = $(libprofitnodeinc_HEADERS)
 
 DIST_COMMON = $(libprofitnodeinc_HEADERS) Makefile.am Makefile.in
+
 all: all-am
 
 .SUFFIXES:

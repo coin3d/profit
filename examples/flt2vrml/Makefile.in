@@ -11,9 +11,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
-
-
 SHELL = @SHELL@
 
 srcdir = @srcdir@
@@ -66,6 +63,9 @@ host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
+
+@SET_MAKE@
+AMDEP = @AMDEP@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
@@ -93,8 +93,8 @@ RANLIB = @RANLIB@
 STRIP = @STRIP@
 VERSION = @VERSION@
 _am_include = @_am_include@
-_am_quote = @_am_quote@
 install_sh = @install_sh@
+
 
 INCLUDES = -I$(top_srcdir)/include
 
@@ -120,36 +120,33 @@ CONFIG_CLEAN_FILES =
 bin_PROGRAMS = flt2vrml$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
-am_flt2vrml_OBJECTS = flt2vrml.$(OBJEXT) array.$(OBJEXT) \
-	bsptree.$(OBJEXT)
-flt2vrml_OBJECTS = $(am_flt2vrml_OBJECTS)
-flt2vrml_DEPENDENCIES = $(top_builddir)/src/libprofit.la
-flt2vrml_LDFLAGS =
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	$(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CFLAGS = @CFLAGS@
-CCLD = $(CC)
-LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
+am_flt2vrml_OBJECTS = flt2vrml.$(OBJEXT) array.$(OBJEXT) \
+bsptree.$(OBJEXT)
+flt2vrml_OBJECTS = $(am_flt2vrml_OBJECTS)
+flt2vrml_DEPENDENCIES = $(top_builddir)/src/libprofit.la
+flt2vrml_LDFLAGS = 
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CFLAGS = @CFLAGS@
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 DIST_SOURCES = $(flt2vrml_SOURCES)
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/array.Po $(DEPDIR)/bsptree.Po \
-@AMDEP_TRUE@	$(DEPDIR)/flt2vrml.Po
+@AMDEP@DEP_FILES = $(DEPDIR)/array.Po $(DEPDIR)/bsptree.Po \
+@AMDEP@ $(DEPDIR)/flt2vrml.Po
 DIST_COMMON = Makefile.am Makefile.in
+
 SOURCES = $(flt2vrml_SOURCES)
 OBJECTS = $(am_flt2vrml_OBJECTS)
 
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .lo .o .obj
+.SUFFIXES: .c .h .lo .o .obj
 
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.ac $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
@@ -181,10 +178,6 @@ uninstall-binPROGRAMS:
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
-flt2vrml$(EXEEXT): $(flt2vrml_OBJECTS) $(flt2vrml_DEPENDENCIES)
-	@rm -f flt2vrml$(EXEEXT)
-	$(LINK) $(flt2vrml_LDFLAGS) $(flt2vrml_OBJECTS) $(flt2vrml_LDADD) $(LIBS)
-
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core
 
@@ -199,6 +192,10 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool
+
+flt2vrml$(EXEEXT): $(flt2vrml_OBJECTS) $(flt2vrml_DEPENDENCIES)
+	@rm -f flt2vrml$(EXEEXT)
+	$(LINK) $(flt2vrml_LDFLAGS) $(flt2vrml_OBJECTS) $(flt2vrml_LDADD) $(LIBS)
 
 tags: TAGS
 
@@ -232,31 +229,31 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID
 
-@_am_include@ @_am_quote@$(DEPDIR)/array.Po@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/bsptree.Po@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/flt2vrml.Po@_am_quote@
+@AMDEP@@_am_include@ $(DEPDIR)/array.Po
+@AMDEP@@_am_include@ $(DEPDIR)/bsptree.Po
+@AMDEP@@_am_include@ $(DEPDIR)/flt2vrml.Po
 
 distclean-depend:
 	-rm -rf $(DEPDIR)
 
-CCDEPMODE = @CCDEPMODE@
+@AMDEP@CCDEPMODE = @CCDEPMODE@
 
 .c.o:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.lo:
-	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.obj:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `cygpath -w $<`
 
 

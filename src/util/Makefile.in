@@ -11,12 +11,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
-
-# **************************************************************************
-# Process this file with automake to generate Makefile.in.
-
-
 SHELL = @SHELL@
 
 srcdir = @srcdir@
@@ -69,6 +63,9 @@ host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
+
+@SET_MAKE@
+AMDEP = @AMDEP@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
@@ -96,8 +93,11 @@ RANLIB = @RANLIB@
 STRIP = @STRIP@
 VERSION = @VERSION@
 _am_include = @_am_include@
-_am_quote = @_am_quote@
 install_sh = @install_sh@
+
+# **************************************************************************
+# Process this file with automake to generate Makefile.in.
+
 
 INCLUDES = -I$(top_srcdir)/include
 LIBS = 
@@ -121,29 +121,25 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 
-libutil_la_LDFLAGS =
-libutil_la_LIBADD =
-am_libutil_la_OBJECTS = libutil_la-array.lo libutil_la-bfile.lo \
-	libutil_la-mempool.lo
-libutil_la_OBJECTS = $(am_libutil_la_OBJECTS)
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	$(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CFLAGS = @CFLAGS@
-CCLD = $(CC)
-LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
+libutil_la_LDFLAGS = 
+libutil_la_LIBADD = 
+am_libutil_la_OBJECTS = libutil_la-array.lo libutil_la-bfile.lo \
+libutil_la-mempool.lo
+libutil_la_OBJECTS = $(am_libutil_la_OBJECTS)
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CFLAGS = @CFLAGS@
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 DIST_SOURCES = $(libutil_la_SOURCES)
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/libutil_la-array.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/libutil_la-bfile.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/libutil_la-mempool.Plo
+@AMDEP@DEP_FILES = $(DEPDIR)/libutil_la-array.Plo \
+@AMDEP@ $(DEPDIR)/libutil_la-bfile.Plo $(DEPDIR)/libutil_la-mempool.Plo
 DIST_COMMON = Makefile.am Makefile.in
+
 SOURCES = $(libutil_la_SOURCES)
 OBJECTS = $(am_libutil_la_OBJECTS)
 
@@ -163,12 +159,6 @@ Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.s
 
 clean-noinstLTLIBRARIES:
 	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
-libutil_la-array.lo: array.c
-libutil_la-bfile.lo: bfile.c
-libutil_la-mempool.lo: mempool.c
-
-libutil.la: $(libutil_la_OBJECTS) $(libutil_la_DEPENDENCIES)
-	$(LINK)  $(libutil_la_LDFLAGS) $(libutil_la_OBJECTS) $(libutil_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core
@@ -184,6 +174,12 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool
+libutil_la-array.lo: array.c
+libutil_la-bfile.lo: bfile.c
+libutil_la-mempool.lo: mempool.c
+
+libutil.la: $(libutil_la_OBJECTS) $(libutil_la_DEPENDENCIES)
+	$(LINK)  $(libutil_la_LDFLAGS) $(libutil_la_OBJECTS) $(libutil_la_LIBADD) $(LIBS)
 
 tags: TAGS
 
@@ -217,86 +213,92 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID
 
-@_am_include@ @_am_quote@$(DEPDIR)/libutil_la-array.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/libutil_la-bfile.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/libutil_la-mempool.Plo@_am_quote@
+@AMDEP@@_am_include@ $(DEPDIR)/libutil_la-array.Plo
+@AMDEP@@_am_include@ $(DEPDIR)/libutil_la-bfile.Plo
+@AMDEP@@_am_include@ $(DEPDIR)/libutil_la-mempool.Plo
 
 distclean-depend:
 	-rm -rf $(DEPDIR)
 
-CCDEPMODE = @CCDEPMODE@
+@AMDEP@CCDEPMODE = @CCDEPMODE@
 
 .c.o:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.lo:
-	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.obj:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `cygpath -w $<`
 
 
+@AMDEP@CCDEPMODE = @CCDEPMODE@
+
 libutil_la-array.o: array.c
-	source='array.c' object='libutil_la-array.o' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-array.Po' tmpdepfile='$(DEPDIR)/libutil_la-array.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='array.c' object='libutil_la-array.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-array.Po' tmpdepfile='$(DEPDIR)/libutil_la-array.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-array.o `test -f array.c || echo '$(srcdir)/'`array.c
 
 libutil_la-array.lo: array.c
-	source='array.c' object='libutil_la-array.lo' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-array.Plo' tmpdepfile='$(DEPDIR)/libutil_la-array.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='array.c' object='libutil_la-array.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-array.Plo' tmpdepfile='$(DEPDIR)/libutil_la-array.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-array.lo `test -f array.c || echo '$(srcdir)/'`array.c
 
 libutil_la-array.obj: array.c
-	source='array.c' object='libutil_la-array.obj' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-array.Po' tmpdepfile='$(DEPDIR)/libutil_la-array.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='array.c' object='libutil_la-array.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-array.Po' tmpdepfile='$(DEPDIR)/libutil_la-array.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-array.obj `cygpath -w array.c`
 
+@AMDEP@CCDEPMODE = @CCDEPMODE@
+
 libutil_la-bfile.o: bfile.c
-	source='bfile.c' object='libutil_la-bfile.o' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-bfile.Po' tmpdepfile='$(DEPDIR)/libutil_la-bfile.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='bfile.c' object='libutil_la-bfile.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-bfile.Po' tmpdepfile='$(DEPDIR)/libutil_la-bfile.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-bfile.o `test -f bfile.c || echo '$(srcdir)/'`bfile.c
 
 libutil_la-bfile.lo: bfile.c
-	source='bfile.c' object='libutil_la-bfile.lo' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-bfile.Plo' tmpdepfile='$(DEPDIR)/libutil_la-bfile.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='bfile.c' object='libutil_la-bfile.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-bfile.Plo' tmpdepfile='$(DEPDIR)/libutil_la-bfile.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-bfile.lo `test -f bfile.c || echo '$(srcdir)/'`bfile.c
 
 libutil_la-bfile.obj: bfile.c
-	source='bfile.c' object='libutil_la-bfile.obj' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-bfile.Po' tmpdepfile='$(DEPDIR)/libutil_la-bfile.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='bfile.c' object='libutil_la-bfile.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-bfile.Po' tmpdepfile='$(DEPDIR)/libutil_la-bfile.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-bfile.obj `cygpath -w bfile.c`
 
+@AMDEP@CCDEPMODE = @CCDEPMODE@
+
 libutil_la-mempool.o: mempool.c
-	source='mempool.c' object='libutil_la-mempool.o' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-mempool.Po' tmpdepfile='$(DEPDIR)/libutil_la-mempool.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='mempool.c' object='libutil_la-mempool.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-mempool.Po' tmpdepfile='$(DEPDIR)/libutil_la-mempool.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-mempool.o `test -f mempool.c || echo '$(srcdir)/'`mempool.c
 
 libutil_la-mempool.lo: mempool.c
-	source='mempool.c' object='libutil_la-mempool.lo' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-mempool.Plo' tmpdepfile='$(DEPDIR)/libutil_la-mempool.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='mempool.c' object='libutil_la-mempool.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-mempool.Plo' tmpdepfile='$(DEPDIR)/libutil_la-mempool.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-mempool.lo `test -f mempool.c || echo '$(srcdir)/'`mempool.c
 
 libutil_la-mempool.obj: mempool.c
-	source='mempool.c' object='libutil_la-mempool.obj' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/libutil_la-mempool.Po' tmpdepfile='$(DEPDIR)/libutil_la-mempool.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='mempool.c' object='libutil_la-mempool.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/libutil_la-mempool.Po' tmpdepfile='$(DEPDIR)/libutil_la-mempool.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libutil_la_CFLAGS) $(CFLAGS) -c -o libutil_la-mempool.obj `cygpath -w mempool.c`
 
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)

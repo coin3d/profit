@@ -11,9 +11,6 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
-
-
 SHELL = @SHELL@
 
 srcdir = @srcdir@
@@ -66,6 +63,9 @@ host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
+
+@SET_MAKE@
+AMDEP = @AMDEP@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
@@ -93,8 +93,8 @@ RANLIB = @RANLIB@
 STRIP = @STRIP@
 VERSION = @VERSION@
 _am_include = @_am_include@
-_am_quote = @_am_quote@
 install_sh = @install_sh@
+
 
 INCLUDES = -I$(top_srcdir)/include
 noinst_PROGRAMS = fltstrip
@@ -109,27 +109,24 @@ CONFIG_CLEAN_FILES =
 noinst_PROGRAMS = fltstrip$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 
-am_fltstrip_OBJECTS = fltstrip.$(OBJEXT)
-fltstrip_OBJECTS = $(am_fltstrip_OBJECTS)
-fltstrip_DEPENDENCIES = $(top_builddir)/src/libprofit.la
-fltstrip_LDFLAGS =
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	$(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CFLAGS = @CFLAGS@
-CCLD = $(CC)
-LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I$(top_builddir)
 CPPFLAGS = @CPPFLAGS@
-LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
+am_fltstrip_OBJECTS = fltstrip.$(OBJEXT)
+fltstrip_OBJECTS = $(am_fltstrip_OBJECTS)
+fltstrip_DEPENDENCIES = $(top_builddir)/src/libprofit.la
+fltstrip_LDFLAGS = 
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CFLAGS = @CFLAGS@
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 DIST_SOURCES = $(fltstrip_SOURCES)
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/fltstrip.Po
+@AMDEP@DEP_FILES = $(DEPDIR)/fltstrip.Po
 DIST_COMMON = Makefile.am Makefile.in
+
 SOURCES = $(fltstrip_SOURCES)
 OBJECTS = $(am_fltstrip_OBJECTS)
 
@@ -150,10 +147,6 @@ Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.s
 clean-noinstPROGRAMS:
 	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
 
-fltstrip$(EXEEXT): $(fltstrip_OBJECTS) $(fltstrip_DEPENDENCIES)
-	@rm -f fltstrip$(EXEEXT)
-	$(LINK) $(fltstrip_LDFLAGS) $(fltstrip_OBJECTS) $(fltstrip_LDADD) $(LIBS)
-
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core
 
@@ -168,6 +161,10 @@ clean-libtool:
 
 distclean-libtool:
 	-rm -f libtool
+
+fltstrip$(EXEEXT): $(fltstrip_OBJECTS) $(fltstrip_DEPENDENCIES)
+	@rm -f fltstrip$(EXEEXT)
+	$(LINK) $(fltstrip_LDFLAGS) $(fltstrip_OBJECTS) $(fltstrip_LDADD) $(LIBS)
 
 tags: TAGS
 
@@ -201,29 +198,29 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID
 
-@_am_include@ @_am_quote@$(DEPDIR)/fltstrip.Po@_am_quote@
+@AMDEP@@_am_include@ $(DEPDIR)/fltstrip.Po
 
 distclean-depend:
 	-rm -rf $(DEPDIR)
 
-CCDEPMODE = @CCDEPMODE@
+@AMDEP@CCDEPMODE = @CCDEPMODE@
 
 .c.o:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.lo:
-	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
 
 .c.obj:
-	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `cygpath -w $<`
 
 

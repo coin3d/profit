@@ -1,9 +1,12 @@
 NEWS
 ====
 
-* 19991021 larsa
-	First public release (alpha).
+2001-05-07  larsa  Lars J. Aas <larsa@sim.no>
+	* Release 0.9.1.
 
-* 19991007 larsa
-	Created this NEWS file.
+1999-10-21  larsa  Lars J. Aas <larsa@sim.no>
+	* First public release (alpha v0.9).
+
+1999-10-07  larsa  Lars J. Aas <larsa@sim.no>
+	* Created this NEWS file.
 
