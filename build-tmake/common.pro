@@ -37,6 +37,7 @@ HEADERS            = ../include/profit/callback.h \
                      ../include/profit/nodes/vertex_with_normal.h \
                      ../include/profit/nodes/vertex_with_normal_and_texture.h \
                      ../include/profit/nodes/vertex_with_texture.h \
+                     ../include/profit/nodes/level_of_detail.h \
                      ../include/profit/profit.h \
                      ../include/profit/state.h \
                      ../include/profit/texture.h \
@@ -52,6 +53,9 @@ SOURCES            = ../src/basics.c \
                      ../src/model.c \
                      ../src/node.c \
                      ../src/nodeinfo.c \
+                     ../src/profit.c \
+                     ../src/state.c \
+                     ../src/vertex.c \
                      ../src/nodes/color_palette.c \
                      ../src/nodes/face.c \
                      ../src/nodes/group.c \
@@ -80,9 +84,8 @@ SOURCES            = ../src/basics.c \
                      ../src/nodes/vertex_with_normal.c \
                      ../src/nodes/vertex_with_normal_and_texture.c \
                      ../src/nodes/vertex_with_texture.c \
-                     ../src/profit.c \
-                     ../src/state.c \
+                     ../src/nodes/level_of_detail.c \
+                     ../src/nodes/external_reference.c \
                      ../src/util/array.c \
                      ../src/util/bfile.c \
-                     ../src/util/mempool.c \
-                     ../src/vertex.c
+                     ../src/util/mempool.c
