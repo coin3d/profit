@@ -3,14 +3,14 @@
 # Makefile for Profit
 #
 # Usage:
-#       make 			Makes Dime release version
-#	make shared		Makes Dime development version
+#       make 			Makes Profit release version
+#	make debug		Makes Profit development version
 #
 #***************************************************************************
 
 release: makefile.release .release
 
-shared: makefile.profit .profit
+debug: makefile.profit .profit
 
 objects:
 	mkdir $@
