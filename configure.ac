@@ -36,6 +36,10 @@ if test "x$am_cv_prog_cc_stdc" = "xno"; then
   AC_MSG_WARN([doesn't look like you are using an ANSI compatible C compiler])
 fi
 
+# bin/ltconfig has a problem with detecting and failing on /lib/cpp if this
+# macro isn't included...
+AC_PROG_CXXCPP
+
 AC_SUBST([VERSION], [$PACKAGE_VERSION]) # for make dist
 
 AC_SUBST([PROFIT_MAJOR_VERSION], [PROFIT_MAJOR])
