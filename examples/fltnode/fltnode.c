@@ -42,7 +42,7 @@ callback(
         printf( "enclosing node: \"%s\" (opcode=%d)\n", info->name,
            info->opcode );
         pos = fpos - node->length;
-        printf( "    position: %d (+%d) [node size %d]\n",
+        printf( "    position: %d (+%ld) [node size %d]\n",
             pos, position - pos, node->length );
         exit( 0 ); /* model load can't be broken with PRF_TRAV_EXIT */
     }
