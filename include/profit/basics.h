@@ -39,9 +39,13 @@ extern "C" {
 #endif /* ! PROFIT_DLL */
 #endif /* ! PPROFIT_MAKE_DLL */
 
-#if defined(__sgi) || defined(__hpux)
+#if defined(__sgi) || defined(__hpux) 
 #define HAVE_INTTYPES
 #define HAVE_UINTTYPES
+#endif
+
+#if defined (__APPLE__)
+#define HAVE_INTTYPES
 #endif
 
 #ifdef __BIT_TYPES_DEFINED__
