@@ -45,7 +45,7 @@ struct _array
 /**************************************************************************/
 
 static void *
-array_to_id( array *ptr )
+prf_array_to_id( array *ptr )
 {
   return (void *)(((char*)ptr)+sizeof(array));
 }
@@ -59,7 +59,7 @@ id_to_array( void *ptr )
 /**************************************************************************/
 
 void *
-array_init(int initsize, int elemsize)
+prf_array_init(int initsize, int elemsize)
 {
   array *arr;
 
@@ -70,27 +70,27 @@ array_init(int initsize, int elemsize)
   arr->elemsize = elemsize;
   arr->numelem = 0;
   
-  return array_to_id(arr);
-} /* array_init() */
+  return prf_array_to_id(arr);
+} /* prf_array_init() */
 
 /**************************************************************************/
 
 void 
-array_free(void *id)
+prf_array_free(void *id)
 {
   assert( id != NULL );
   assert( id_to_array(id) != NULL );
   profit_free(id_to_array(id));
-} /* array_free() */
+} /* prf_array_free() */
 
 int 
-array_count(void *id)
+prf_array_count(void *id)
 {
   return id_to_array(id)->numelem;
-} /* array_count() */
+} /* prf_array_count() */
 
 int 
-array_find_int(void *id, int elem)
+prf_array_find_int(void *id, int elem)
 {
   int i,n;
   int *ptr;
@@ -100,10 +100,10 @@ array_find_int(void *id, int elem)
 
   for (i = 0; i < n; i++) if (ptr[i] == elem) return i;
   return -1;
-} /* array_find_int() */
+} /* prf_array_find_int() */
 
 int 
-array_find_ptr(void *id, void *elem)
+prf_array_find_ptr(void *id, void *elem)
 {
   int i,n;
   void **ptr;
@@ -113,26 +113,26 @@ array_find_ptr(void *id, void *elem)
 
   for (i = 0; i < n; i++) if (ptr[i] == elem) return i;
   return -1;
-} /* array_find_ptr() */
+} /* prf_array_find_ptr() */
 
 void *
-array_append_ptr(void *id, void *elem)
+prf_array_append_ptr(void *id, void *elem)
 {
   void **ptr;
   array *arr; 
   
   arr = id_to_array(id);
   if (arr->numelem >= arr->size) {
-    id = array_set_size(id, arr->size<<1);
+    id = prf_array_set_size(id, arr->size<<1);
     arr = id_to_array(id);
   }
   ptr = (void**)id;
   ptr[arr->numelem++] = elem;
   return id;
-} /* array_append_ptr() */
+} /* prf_array_append_ptr() */
 
 void *
-array_insert_ptr(void *id, int idx, void *elem)
+prf_array_insert_ptr(void *id, int idx, void *elem)
 {
   int i, n;
   void **ptr;
@@ -140,7 +140,7 @@ array_insert_ptr(void *id, int idx, void *elem)
   n = id_to_array(id)->numelem;
 
   /* make room for one more */
-  ptr = (void**)array_append_ptr(id, elem);
+  ptr = (void**)prf_array_append_ptr(id, elem);
 
   if (idx < n) {
     for (i = n; i > idx; i--) {
@@ -149,26 +149,26 @@ array_insert_ptr(void *id, int idx, void *elem)
     ptr[idx] = elem;
   }
   return ptr;
-} /* array_insert_ptr() */
+} /* prf_array_insert_ptr() */
 
 void *
-array_append_int(void *id, int elem)
+prf_array_append_int(void *id, int elem)
 {
   int *ptr;
   array *arr; 
   
   arr = id_to_array(id);
   if (arr->numelem >= arr->size) {
-    id = array_set_size(id, arr->size<<1);
+    id = prf_array_set_size(id, arr->size<<1);
     arr = id_to_array(id);
   }
   ptr = (int*)id;
   ptr[arr->numelem++] = elem;
   return id;
-} /* array_append_int() */
+} /* prf_array_append_int() */
 
 void *
-array_insert_int(void *id, int idx, int elem)
+prf_array_insert_int(void *id, int idx, int elem)
 {
   int i, n;
   int *ptr;
@@ -176,7 +176,7 @@ array_insert_int(void *id, int idx, int elem)
   n = id_to_array(id)->numelem;
 
   /* make room for one more */
-  ptr = (int*)array_append_int(id, elem);
+  ptr = (int*)prf_array_append_int(id, elem);
 
   if (idx < n) {
     for (i = n; i > idx; i--) {
@@ -185,10 +185,10 @@ array_insert_int(void *id, int idx, int elem)
     ptr[idx] = elem;
   }
   return ptr;
-} /* array_insert_int() */
+} /* prf_array_insert_int() */
 
 void *
-array_remove(void *id, int index)
+prf_array_remove(void *id, int index)
 {
   int i, n;
   array *arr; 
@@ -204,10 +204,10 @@ array_remove(void *id, int index)
  
   arr->numelem--;
   return id;
-} /* array_remove() */
+} /* prf_array_remove() */
 
 void *
-array_remove_fast(void *id, int index)
+prf_array_remove_fast(void *id, int index)
 {
   void **ptr;
 
@@ -215,17 +215,17 @@ array_remove_fast(void *id, int index)
 
   ptr[index] = ptr[--id_to_array(id)->numelem];
   return id;
-} /* array_remove_fast() */
+} /* prf_array_remove_fast() */
 
 void *
-array_set_count(void *id, int newcount)
+prf_array_set_count(void *id, int newcount)
 {
   id_to_array(id)->numelem = newcount;
   return id;
-} /* array_set_count() */
+} /* prf_array_set_count() */
 
 void *
-array_set_size(void *id, int newsize)
+prf_array_set_size(void *id, int newsize)
 {
   array *oldarray;
   array *newarray; 
@@ -242,28 +242,28 @@ array_set_size(void *id, int newsize)
   newarray->elemsize = elemsize;
   newarray->numelem = numelem;
   
-  return array_to_id(newarray);
-} /* array_set_size() */
+  return prf_array_to_id(newarray);
+} /* prf_array_set_size() */
 
 void *
-array_fit(void *id)
+prf_array_fit(void *id)
 {
-  return array_set_size(id, id_to_array(id)->numelem);
-} /* array_fit() */
+  return prf_array_set_size(id, id_to_array(id)->numelem);
+} /* prf_array_fit() */
 
 #ifndef NDEBUG
 
 int 
-array_alloc_count(void *id)
+prf_array_alloc_count(void *id)
 {
   return id_to_array(id)->size;
-} /* array_alloc_count() */
+} /* prf_array_alloc_count() */
 
 int 
-array_elemsize(void *id)
+prf_array_elemsize(void *id)
 {
   return id_to_array(id)->elemsize;
-} /* array_elemsize() */
+} /* prf_array_elemsize() */
 
 #endif /* ! NDEBUG */
 

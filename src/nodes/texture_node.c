@@ -165,7 +165,7 @@ prf_texture_entry_f(
 	       node->opcode );
     return;
   }
-  state->textures = array_append_ptr(state->textures, node);
+  state->textures = prf_array_append_ptr(state->textures, node);
 } /* prf_texture_entry_f() */
 
 /**************************************************************************/

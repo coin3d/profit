@@ -177,7 +177,7 @@ prf_vertex_palette_save_f(
 
     if ( state->model->vertextras != NULL ) {
         int i, count;
-        count = array_count( state->model->vertextras );
+        count = prf_array_count( state->model->vertextras );
         for ( i = 0; i < count; i++ ) 
             length += state->model->vertextras[i]->position;
     }
@@ -213,7 +213,7 @@ prf_vertex_palette_save_f(
 
     if ( state->model->vertextras != NULL ) {
         int i, count;
-        count = array_count( state->model->vertextras );
+        count = prf_array_count( state->model->vertextras );
         for ( i = 0; i < count; i++ ) {
             curptr = 0;
             while ( curptr < state->model->vertextras[i]->position ) {
@@ -331,7 +331,7 @@ prf_vertex_palette_traverse_f(
     if ( state->model->vertextras != NULL ) {
         int i, count;
         prf_vertex_pool_t * pool;
-        count = array_count( state->model->vertextras );
+        count = prf_array_count( state->model->vertextras );
         for ( i = 0; i < count; i++ ) {
             pool = state->model->vertextras[i];
             data = pool->data;
@@ -410,7 +410,7 @@ prf_vertex_palette_clone_f(
     length = ((uint32_t *) orig->data)[0];
     if ( source->vertextras != NULL ) {
         int i, count;
-        count = array_count( source->vertextras );
+        count = prf_array_count( source->vertextras );
         for ( i = 0; i < count; i++ )
             length += source->vertextras[i]->position;
     }
@@ -432,7 +432,7 @@ prf_vertex_palette_clone_f(
     data += length;
     if ( source->vertextras != NULL ) {
         int i, count;
-        count = array_count( source->vertextras );
+        count = prf_array_count( source->vertextras );
         for ( i = 0; i < count; i++ ) {
             memcpy( data, source->vertextras[i]->data,
                 source->vertextras[i]->position );

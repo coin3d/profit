@@ -23,6 +23,9 @@ commands:
 
   make install
 
+To install someplace other than under /usr/local, use the --prefix=directory
+option for the configure script.
+
 That should be all.
 
 

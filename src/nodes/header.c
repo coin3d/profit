@@ -440,7 +440,7 @@ prf_header_entry_f(
 
 
     state->header = node;
-    state->materials = array_set_count( state->materials, 0 );
+    state->materials = prf_array_set_count( state->materials, 0 );
 
     if ( state->model == NULL ) {
         prf_error( 9, "model is " );

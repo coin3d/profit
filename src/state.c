@@ -59,50 +59,50 @@ prf_state_create(
     state = malloc( sizeof( prf_state_t ) );
     if ( state != NULL ) {
         matrix4x4_f32_t * m;
-        state->materials = array_init( 4, sizeof( prf_node_t * ) );
+        state->materials = prf_array_init( 4, sizeof( prf_node_t * ) );
         if ( state->materials == NULL ) {
             free( state );
             return NULL;
         }
-	state->textures = array_init( 4, sizeof( prf_node_t * ) );
+	state->textures = prf_array_init( 4, sizeof( prf_node_t * ) );
 	if ( state->textures == NULL ) {
-	    array_free( state->materials );
+	    prf_array_free( state->materials );
             free( state );
             return NULL;
 	} 
 
-	state->instances = array_init( 4, sizeof( prf_node_t * ) );
+	state->instances = prf_array_init( 4, sizeof( prf_node_t * ) );
 	if ( state->instances == NULL ) {
-	  array_free( state->materials );
-	  array_free( state->textures );
+	  prf_array_free( state->materials );
+	  prf_array_free( state->textures );
 	  free( state );
 	}
-        state->matrix = array_init( 14, sizeof( matrix4x4_f32_t *) );
+        state->matrix = prf_array_init( 14, sizeof( matrix4x4_f32_t *) );
         if ( state->matrix == NULL ) {
-            array_free( state->materials );
-            array_free( state->textures );
-            array_free( state->instances );
+            prf_array_free( state->materials );
+            prf_array_free( state->textures );
+            prf_array_free( state->instances );
             free( state );
             return NULL;
         }
 
         m = malloc( sizeof( matrix4x4_f32_t )  );
         if ( m == NULL ) {
-            array_free( state->materials );
-            array_free( state->textures );
-            array_free( state->instances );
-            array_free( state->matrix );
+            prf_array_free( state->materials );
+            prf_array_free( state->textures );
+            prf_array_free( state->instances );
+            prf_array_free( state->matrix );
             free( state );
             return NULL;
         }
-        state->matrix = array_append_ptr( state->matrix, m );
+        state->matrix = prf_array_append_ptr( state->matrix, m );
         state->inv_matrix = malloc( sizeof( matrix4x4_f32_t ) );
         if ( state->inv_matrix == NULL ) {
             free( m );
-            array_free( state->materials );
-            array_free( state->textures );
-            array_free( state->instances );
-            array_free( state->matrix );
+            prf_array_free( state->materials );
+            prf_array_free( state->textures );
+            prf_array_free( state->instances );
+            prf_array_free( state->matrix );
             free( state );
             return NULL;
         }
@@ -127,9 +127,9 @@ prf_state_reset(
     state->material_palette = NULL;
     state->object_transparency = 0;
     state->object_flags = 0;
-    array_set_count( state->materials, 0 );
-    array_set_count( state->textures, 0 );
-    array_set_count( state->instances, 0 );
+    prf_array_set_count( state->materials, 0 );
+    prf_array_set_count( state->textures, 0 );
+    prf_array_set_count( state->instances, 0 );
     m = state->matrix[0];
     (*m)[0][0]=1.0f; (*m)[0][1]=0.0f; (*m)[0][2]=0.0f; (*m)[0][3]=0.0f;
     (*m)[1][0]=0.0f; (*m)[1][1]=1.0f; (*m)[1][2]=0.0f; (*m)[1][3]=0.0f;
@@ -154,14 +154,14 @@ prf_state_destroy(
 {
     int cnt, i;
     assert( state != NULL );
-    cnt = array_count( state->matrix );
+    cnt = prf_array_count( state->matrix );
     for ( i = 0; i < cnt; i++ )
         free( state->matrix[i] );
     free( state->inv_matrix );
-    array_free( state->materials );
-    array_free( state->textures );
-    array_free( state->instances );
-    array_free( state->matrix );
+    prf_array_free( state->materials );
+    prf_array_free( state->textures );
+    prf_array_free( state->instances );
+    prf_array_free( state->matrix );
     free( state );
 } /* prf_state_destroy() */
 
@@ -187,29 +187,29 @@ prf_state_clone(
     clone->object_flags = original->object_flags;
     clone->color_palette = original->color_palette;
     clone->material_palette = original->material_palette;
-    cnt = array_count( original->materials );
+    cnt = prf_array_count( original->materials );
     for ( i = 0; i < cnt; i++ )
         clone->materials =
-            array_append_ptr( clone->materials, original->materials[i] );
-    cnt = array_count( original->textures );
+            prf_array_append_ptr( clone->materials, original->materials[i] );
+    cnt = prf_array_count( original->textures );
     for ( i = 0; i < cnt; i++ )
         clone->textures = 
-            array_append_ptr( clone->textures, original->textures[i] );
+            prf_array_append_ptr( clone->textures, original->textures[i] );
 
-    cnt = array_count( original->instances );
+    cnt = prf_array_count( original->instances );
     for ( i = 0; i < cnt; i++ )
         clone->instances = 
-            array_append_ptr( clone->instances, original->instances[i] );
+            prf_array_append_ptr( clone->instances, original->instances[i] );
 
     for ( i = 0; i <= original->state_push_level; i++ ) {
-        if ( i >= array_count( clone->matrix ) ) {
+        if ( i >= prf_array_count( clone->matrix ) ) {
             matrix4x4_f32_t * m;
             m = malloc( sizeof( matrix4x4_f32_t ) );
             if ( m == NULL ) {
                 prf_state_destroy( clone );
                 return NULL;
             }
-            clone->matrix = array_append_ptr( clone->matrix, m );
+            clone->matrix = prf_array_append_ptr( clone->matrix, m );
         }
         memcpy( clone->matrix[i], original->matrix[i],
             sizeof( matrix4x4_f32_t ) );
@@ -250,33 +250,33 @@ prf_state_copy(
     copy->material_palette = original->material_palette;
     copy->inv_dirty = original->inv_dirty;
 
-    cnt = array_count( original->materials );
-    copy->materials = array_set_count( copy->materials, 0 );
+    cnt = prf_array_count( original->materials );
+    copy->materials = prf_array_set_count( copy->materials, 0 );
     for ( i = 0; i < cnt; i++ ) {
         copy->materials =
-            array_append_ptr( copy->materials, original->materials[i] );
+            prf_array_append_ptr( copy->materials, original->materials[i] );
     }
 
-    cnt = array_count( original->textures );
-    copy->textures = array_set_count( copy->textures, 0 );
+    cnt = prf_array_count( original->textures );
+    copy->textures = prf_array_set_count( copy->textures, 0 );
     for ( i = 0; i < cnt; i++ ) {
         copy->textures =
-            array_append_ptr( copy->textures, original->textures[i] );
+            prf_array_append_ptr( copy->textures, original->textures[i] );
     }
 
-    cnt = array_count( original->instances );
-    copy->instances = array_set_count( copy->instances, 0 );
+    cnt = prf_array_count( original->instances );
+    copy->instances = prf_array_set_count( copy->instances, 0 );
     for ( i = 0; i < cnt; i++ ) {
         copy->instances =
-            array_append_ptr( copy->instances, original->instances[i] );
+            prf_array_append_ptr( copy->instances, original->instances[i] );
     }
     
 
 
-    cnt = array_count( original->matrix );
+    cnt = prf_array_count( original->matrix );
     
     for ( i = 0; i <= original->state_push_level; i++ ) {
-        if ( i >= array_count( copy->matrix ) ) {
+        if ( i >= prf_array_count( copy->matrix ) ) {
             matrix4x4_f32_t * m;
             m = malloc( sizeof( matrix4x4_f32_t ) );
             if ( m == NULL ) {
@@ -284,7 +284,7 @@ prf_state_copy(
                     "memory allocation failure (malloc returned NULL)" );
                 return;
             }
-            copy->matrix = array_append_ptr( copy->matrix, m );
+            copy->matrix = prf_array_append_ptr( copy->matrix, m );
         }
         memcpy( copy->matrix[i], original->matrix[i],
             sizeof( matrix4x4_f32_t ) );
@@ -314,14 +314,14 @@ prf_state_push(
 
     state->state_push_level++;
     prf_debug( 1, "state pushed to level %d", state->state_push_level );
-    if ( array_count( state->matrix ) <= state->state_push_level ) {
+    if ( prf_array_count( state->matrix ) <= state->state_push_level ) {
         matrix4x4_f32_t * m;
         m = malloc( sizeof( matrix4x4_f32_t ) );
         if ( m == NULL ) {
             prf_state_reset( state );
             return;
         }
-        state->matrix = array_append_ptr( state->matrix, m );
+        state->matrix = prf_array_append_ptr( state->matrix, m );
     }
     memcpy( state->matrix[ state->state_push_level ],
         state->matrix[ state->state_push_level - 1 ], sizeof( matrix4x4_f32_t ) );
@@ -507,7 +507,7 @@ prf_state_material_lookup(
         material->alpha = original->alpha;
         return TRUE;
     } else { /* new material record node set */
-        count = array_count( state->materials );
+        count = prf_array_count( state->materials );
         for ( i = 0; i < count; i++ ) {
             prf_node_t * node;
             prf_material_t * mat;
@@ -531,7 +531,7 @@ prf_state_texture_lookup(prf_state_t * state,
 {
   int count, i;
   assert( state != NULL && texture != NULL );
-  count = array_count( state->textures );
+  count = prf_array_count( state->textures );
   for (i = 0; i < count; i++) {
     prf_node_t *node;
     prf_texture_t *tex;
@@ -551,7 +551,7 @@ prf_state_get_instance(prf_state_t * state,
 {
   int i, n;
 
-  n = array_count(state->instances);
+  n = prf_array_count(state->instances);
   for (i = 0; i < n; i++) {
     struct prf_instance_definition_data *data = 
       (struct prf_instance_definition_data*) state->instances[i]->data;

@@ -47,15 +47,15 @@ prf_messages_init(
     void )
 {
     prf_handlers[ PRF_MSG_INFO ] =
-        array_init( 4, sizeof( prf_msg_handler_t * ) );
+        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
     prf_handlers[ PRF_MSG_DEBUG ] =
-        array_init( 4, sizeof( prf_msg_handler_t * ) );
+        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
     prf_handlers[ PRF_MSG_WARNING ] =
-        array_init( 4, sizeof( prf_msg_handler_t * ) );
+        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
     prf_handlers[ PRF_MSG_ERROR ] =
-        array_init( 4, sizeof( prf_msg_handler_t * ) );
+        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
     prf_handlers[ PRF_MSG_FATAL_ERROR ] =
-        array_init( 4, sizeof( prf_msg_handler_t * ) );
+        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
 } /* messages_init() */
 
 /**************************************************************************/
@@ -66,45 +66,45 @@ prf_messages_exit(
 {
     int i, count;
 
-    count = array_count( prf_handlers[ PRF_MSG_INFO ] );
+    count = prf_array_count( prf_handlers[ PRF_MSG_INFO ] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[ PRF_MSG_INFO ][ i ] != NULL ) {
             free( prf_handlers[ PRF_MSG_INFO ][ i ] );
         }
     }
-    array_free( prf_handlers[ PRF_MSG_INFO ] );
+    prf_array_free( prf_handlers[ PRF_MSG_INFO ] );
 
-    count = array_count( prf_handlers[ PRF_MSG_DEBUG ] );
+    count = prf_array_count( prf_handlers[ PRF_MSG_DEBUG ] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[ PRF_MSG_DEBUG ][ i ] != NULL ) {
             free( prf_handlers[ PRF_MSG_DEBUG ][ i ] );
         }
     }
-    array_free( prf_handlers[ PRF_MSG_DEBUG ] );
+    prf_array_free( prf_handlers[ PRF_MSG_DEBUG ] );
 
-    count = array_count( prf_handlers[ PRF_MSG_WARNING ] );
+    count = prf_array_count( prf_handlers[ PRF_MSG_WARNING ] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[ PRF_MSG_WARNING ][ i ] != NULL ) {
             free( prf_handlers[ PRF_MSG_WARNING ][ i ] );
         }
     }
-    array_free( prf_handlers[ PRF_MSG_WARNING ] );
+    prf_array_free( prf_handlers[ PRF_MSG_WARNING ] );
 
-    count = array_count( prf_handlers[ PRF_MSG_ERROR ] );
+    count = prf_array_count( prf_handlers[ PRF_MSG_ERROR ] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[ PRF_MSG_ERROR ][ i ] != NULL ) {
             free( prf_handlers[ PRF_MSG_ERROR ][ i ] );
         }
     }
-    array_free( prf_handlers[ PRF_MSG_ERROR ] );
+    prf_array_free( prf_handlers[ PRF_MSG_ERROR ] );
 
-    count = array_count( prf_handlers[ PRF_MSG_FATAL_ERROR ] );
+    count = prf_array_count( prf_handlers[ PRF_MSG_FATAL_ERROR ] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[ PRF_MSG_FATAL_ERROR ][ i ] != NULL ) {
             free( prf_handlers[ PRF_MSG_FATAL_ERROR ][ i ] );
         }
     }
-    array_free( prf_handlers[ PRF_MSG_FATAL_ERROR ] );
+    prf_array_free( prf_handlers[ PRF_MSG_FATAL_ERROR ] );
 } /* messages_exit() */
 
 /**************************************************************************/
@@ -121,7 +121,7 @@ prf_messages_post_va(
     assert( type > 0 && type < 6 );
     /* check that handler is present */
     present = FALSE;
-    count = array_count( prf_handlers[type] );
+    count = prf_array_count( prf_handlers[type] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[type][i] != NULL &&
              prf_handlers[type][i]->level <= level ) {
@@ -139,7 +139,7 @@ prf_messages_post_va(
     } while ( FALSE );
 
     /* call handlers with string */
-    count = array_count( prf_handlers[ type ] );
+    count = prf_array_count( prf_handlers[ type ] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[type][i] != NULL &&
              prf_handlers[type][i]->level <= level ) {
@@ -178,14 +178,14 @@ prf_messages_add_handler(
     handler->level = level;
     handler->func = func;
     handler->userdata = data;
-    count = array_count( prf_handlers[type] );
+    count = prf_array_count( prf_handlers[type] );
     for ( i = 0; i < count; i++ ) {
         if ( prf_handlers[type][i] == NULL ) {
             prf_handlers[type][i] = handler;
             return;
         }
     }
-    prf_handlers[type] = array_append_ptr( prf_handlers[type], handler );
+    prf_handlers[type] = prf_array_append_ptr( prf_handlers[type], handler );
 } /* prf_messages_add_handler() */
 
 /**************************************************************************/
@@ -199,7 +199,7 @@ prf_messages_del_handler(
 {
     int i, count;
     assert( type > 0 && type < 6 );
-    count = array_count( prf_handlers[type] );
+    count = prf_array_count( prf_handlers[type] );
     for ( i = 0; i < count; i++ ) {
         if ( (prf_handlers[type][i] != NULL) &&
              (prf_handlers[type][i]->func == func) &&

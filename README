@@ -34,7 +34,7 @@ based application.
 
 Not much functionality has been created for modifying the Open Flight models,
 but modification is possible if you understand how the Open Flight data
-structures are set up in memory.  Systems In Motion is using profit in the
+structures are set up in memory.  Systems in Motion is using profit in the
 polygon-reducer product called Rational Reducer with great success without
 having to write too much external code for creating the modified (reduced)
 model.  Most modifications has to be done directly against the structures
@@ -42,8 +42,6 @@ though, and can therefore be somewhat hairy to get right.
 
 A sample program is included in the directory examples/flt2vrml/ which will
 convert an Open Flight file (only the polygon data) to a VRML 1.0 file.
-A sample model file is also included, partly because you will have trouble
-finding Open Flight models publicly available on the Internet.
 
 
 2. TECHNICAL SUPPORT

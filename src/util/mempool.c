@@ -62,7 +62,7 @@ new_pool(
     pool = malloc( sizeof( struct pool_info_s ) );
     assert( pool != NULL );
     pool->block_size = block_size;
-    pool->blocks = array_init( 8, sizeof( pool_info_t ) );
+    pool->blocks = prf_array_init( 8, sizeof( pool_info_t ) );
     assert( pool->blocks != NULL );
 
     return pool;
@@ -74,9 +74,9 @@ void
 pool_system_init(
     void )
 {
-    pools = array_init( 8, sizeof( pool_info_t ) );
+    pools = prf_array_init( 8, sizeof( pool_info_t ) );
     assert( pools != NULL );
-    array_append_ptr( pools, NULL ); /* reserve pools[0] */
+    prf_array_append_ptr( pools, NULL ); /* reserve pools[0] */
 } /* pool_system_init() */
 
 void
@@ -84,7 +84,7 @@ pool_system_exit(
     void )
 {
     pool_destroy_all();
-    array_free( pools );
+    prf_array_free( pools );
 } /* pool_system_exit() */
 
 /**************************************************************************/
@@ -104,14 +104,14 @@ pool_create_sized(
 {
     pool_t pool_id;
     int cnt;
-    cnt = array_count( pools );
+    cnt = prf_array_count( pools );
     for ( pool_id = 1; pool_id < cnt; pool_id++ ) {
         if ( pools[ pool_id ] == NULL ) { /* free slot */
             pools[ pool_id ] = new_pool( block_size );
             return pool_id;
         }
     }
-    pools = array_append_ptr( pools, NULL );
+    pools = prf_array_append_ptr( pools, NULL );
     pools[ pool_id ] = new_pool( block_size );
 
     return pool_id;
@@ -127,17 +127,17 @@ pool_destroy(
     pool_info_t pool;
     int num_blocks, i;
 
-    num_pools = array_count( pools );
+    num_pools = prf_array_count( pools );
     assert( (pool_id > 0) && (pool_id < num_pools));
     assert( pools[ pool_id ] != NULL );
 
     pool = pools[ pool_id ];
-    num_blocks = array_count( pool->blocks );
+    num_blocks = prf_array_count( pool->blocks );
     for ( i = 0; i < num_blocks; i++ ) {
         free( pool->blocks[ i ]->data );
         free( pool->blocks[ i ] );
     }
-    array_free( pool->blocks );
+    prf_array_free( pool->blocks );
     free( pool );
     pools[ pool_id ] = NULL;
 } /* pool_destroy() */
@@ -149,7 +149,7 @@ pool_destroy_all(
     void )
 {
     pool_t pool_id, num_pools;
-    num_pools = array_count( pools );
+    num_pools = prf_array_count( pools );
     for ( pool_id = 1; pool_id < num_pools; pool_id++ ) {
        if ( pools[ pool_id ] != NULL )
            pool_destroy( pool_id );
@@ -168,13 +168,13 @@ pool_malloc(
     pool_node_t newnode;
     void * ptr;
 
-    assert( (pool_id > 0) && (pool_id < array_count( pools )) );
+    assert( (pool_id > 0) && (pool_id < prf_array_count( pools )) );
     assert( pools[ pool_id ] != NULL );
 
     pool = pools[ pool_id ];
     size = (size + 7) & (~7); /* we're always aligning on eight bytes */
 
-    num_blocks = array_count( pool->blocks );
+    num_blocks = prf_array_count( pool->blocks );
     for ( i = 0; i < num_blocks; i++ ) {
         if ( size <= (pool->blocks[i]->data_size -
                       pool->blocks[i]->data_pos) ) {
@@ -191,7 +191,7 @@ pool_malloc(
     newnode->data_pos = size;
     newnode->data = malloc( newnode->data_size );
     assert( newnode->data != NULL );
-    pool->blocks = array_append_ptr( pool->blocks, newnode );
+    pool->blocks = prf_array_append_ptr( pool->blocks, newnode );
     return newnode->data;
 } /* pool_allocate() */
 

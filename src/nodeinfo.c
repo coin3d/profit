@@ -41,7 +41,7 @@ prf_nodeinfo_init(
 {
     int idx;
 
-    nodetypes = array_init( 128, sizeof( prf_nodeinfo_t ) );
+    nodetypes = prf_array_init( 128, sizeof( prf_nodeinfo_t ) );
     assert( nodetypes != NULL );
 
     idx = 0;
@@ -95,14 +95,14 @@ prf_nodeinfo_exit(
     void )
 {
     int i, count;
-    count = array_count( nodetypes );
+    count = prf_array_count( nodetypes );
     for ( i = 0; i < count; i++ ) {
         if ( nodetypes[i] != NULL ) {
             free( nodetypes[ i ]->name );
             free( nodetypes[ i ] );
         }
     }
-    array_free( nodetypes );
+    prf_array_free( nodetypes );
     nodetypes = NULL;
 } /* prf_nodeinfo_exit() */
 
@@ -117,9 +117,9 @@ prf_nodeinfo_set(
 
     assert( nodeinfo->opcode > 0 );
 
-    i = array_count( nodetypes );
+    i = prf_array_count( nodetypes );
     while ( i <= nodeinfo->opcode ) {
-        nodetypes = array_append_ptr( nodetypes, NULL );
+        nodetypes = prf_array_append_ptr( nodetypes, NULL );
         i++;
     }
 
@@ -154,7 +154,7 @@ prf_nodeinfo_t *
 prf_nodeinfo_get(
     uint16_t opcode )
 {
-    if ( opcode < array_count( nodetypes ) )
+    if ( opcode < prf_array_count( nodetypes ) )
         return nodetypes[ opcode ];
     return NULL;
 } /* prf_nodeinfo_get() */

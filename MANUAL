@@ -165,7 +165,7 @@ TRAVERSING MODELS
 
         prf_cb_t myCB;
 
-        prf_cb_set( myCB, callback, NULL /* the user arg */ );
+        prf_cb_set( myCB, callback, NULL /* the callback 'user' arg */ );
 
         prf_model_traverse_io( model, myCB );
 
@@ -291,7 +291,7 @@ ADVANCED TOPICS
 
     Unsupported nodes, on the other hand, are just read in from file and
     put in one raw data chunk.  This is much more efficient, and will only
-    use as much memory as the node is large.
+    use as many bytes of memory as the node is large.
 
     Therefore, by disabling the node types you don't use (and which profit
     doesn't need for traversal/state management purposes), those nodes will

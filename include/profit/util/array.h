@@ -20,41 +20,41 @@
 
 /* $Id$ */
 
-#ifndef ARRAY_H
-#define ARRAY_H
+#ifndef PRF_ARRAY_H
+#define PRF_ARRAY_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-  void *array_init(int initsize, int elemsize);
-  void array_free(void *id);
+  void *prf_array_init(int initsize, int elemsize);
+  void prf_array_free(void *id);
 
-  int array_count(void *id);
+  int prf_array_count(void *id);
   
-  int array_find_int(void *id, int elem);
-  int array_find_ptr(void *id, void *elem); 
+  int prf_array_find_int(void *id, int elem);
+  int prf_array_find_ptr(void *id, void *elem); 
 
-  void *array_append_int(void *id, int elem);
-  void *array_append_int(void *id, int elem);
-  void *array_append_ptr(void *id, void *elem);
-  void *array_insert_ptr(void *id, int index, void *elem);
-  void *array_remove(void *id, int index);
-  void *array_remove_fast(void *id, int index);
-  void *array_set_count(void *id, int newcount);
-  void *array_set_size(void *id, int newsize);
-  void *array_fit(void *id);
+  void *prf_array_append_int(void *id, int elem);
+  void *prf_array_append_int(void *id, int elem);
+  void *prf_array_append_ptr(void *id, void *elem);
+  void *prf_array_insert_ptr(void *id, int index, void *elem);
+  void *prf_array_remove(void *id, int index);
+  void *prf_array_remove_fast(void *id, int index);
+  void *prf_array_set_count(void *id, int newcount);
+  void *prf_array_set_size(void *id, int newsize);
+  void *prf_array_fit(void *id);
 
 #ifndef NDEBUG
-  int array_alloc_count(void *id);
-  int array_elemsize(void *id);
+  int prf_array_alloc_count(void *id);
+  int prf_array_elemsize(void *id);
 #endif /* ! NDEBUG */
 
 #ifdef __cplusplus
 }; /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* ! ARRAY_H */ 
+#endif /* ! PRF_ARRAY_H */ 
 
 /* $Id$ */
 

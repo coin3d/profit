@@ -30,6 +30,7 @@ static const char * const rcsid =
 #include <math.h>
 #include <stdarg.h>
 #include <assert.h>
+#include <float.h>
 
 #include "array.h"
 #include "bsptree.h"
@@ -371,12 +372,12 @@ _bsp_add_point(
     cnt = array_count( node->idxarray );
     pointarrays = node->root->pointarrays;
 
-    j = 0;
-    for ( i = 0; i < cnt && j != dimensions; i++ ) {
+    for ( i = 0; i < cnt; i++ ) {
         for ( j = 0; j < dimensions; j++ ) {
             if ( pointarrays[j][node->idxarray[i]] != point[j] )
                 break;
         }
+	if (j == dimensions) break;
     }
     if ( i < cnt ) {
         /* found point */
@@ -387,12 +388,15 @@ _bsp_add_point(
         array_append_int( node->idxarray, idx );
         for ( i = 0; i < dimensions; i++ )
             array_append_float( pointarrays[i], point[i] );
-        array_append_ptr( (void **) pointarrays[dimensions], NULL );
+        pointarrays[dimensions] =
+        (float *) _array_append_ptr( (void **) pointarrays[dimensions], NULL );
         return idx;
     }
 
     /* didn't find point - and node must be split */
+    /*
     fprintf( stderr, "splitting node - level = %d\n", 64 - invdepth );
+    */
     do {
         int dim, i, cnt;
         float pos;
@@ -418,6 +422,8 @@ _bsp_add_point(
         node->idxarray = NULL;
         node->splitdim = dim;
         node->splitpos = pos;
+
+        return _bsp_add_point(node, point, dimensions, maxnodepoints, invdepth);
     } while ( FALSE );
 } /* _bsp_add_point() */
 
@@ -478,7 +484,7 @@ _bsp_find_split(
     *splitdim = maxdim;
     *splitpos = stats[maxdim*5]; /* geometric mean */
 
-/* #if 0
+#if 0
 * code for analyzing BSP splits */
     do {
         static int filenum = 0;
@@ -563,7 +569,7 @@ _bsp_find_split(
         fprintf( file, "}\n\n" );
         fclose( file );
     } while ( FALSE );
-/* #endif * 0 */
+#endif
 
     free( stats );
 } /* _bsp_find_split() */

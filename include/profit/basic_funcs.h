@@ -36,7 +36,7 @@ extern "C" {
 /* prf_dblcpy( d, a ) copies a double from a to d.  IRIX has problems with
    unaligned double reads, so this is necessary to avoid dumping under IRIX */
 
-#ifdef IRIX
+#ifdef __sgi
 #define prf_dblcpy( fD, fA ) \
     do {                          \
         int *ptrD, *ptrA;         \
@@ -49,11 +49,11 @@ extern "C" {
 #define prf_dblwrite( fD, fA ) _prf_write_double( &(fD), fA )
 float64_t _prf_read_double( float64_t * fA );
 void _prf_write_double( float64_t * fD, float64_t fA );
-#else
+#else /* ! __sgi */
 #define prf_dblcpy( fD, fA ) (fD) = (fA)
 #define prf_dblread( fA ) (fA)
 #define prf_dblwrite( fD, fA ) (fD) = (fA)
-#endif
+#endif /* ! __sgi */
 
 #ifdef __cplusplus
 }; /* extern "C" */

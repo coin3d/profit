@@ -141,12 +141,12 @@ prf_instance_definition_entry_f(prf_node_t * node,
     return;
   }
   
-  n = array_count(state->instances);
+  n = prf_array_count(state->instances);
   for (i = 0; i < n; i++) {
     if (state->instances[i] == node) break;
   } 
   if (i == n) {
-    state->instances = array_append_ptr(state->instances, node);
+    state->instances = prf_array_append_ptr(state->instances, node);
   }
 } /* prf_instance_definition_entry_f() */
 

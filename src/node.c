@@ -94,7 +94,7 @@ prf_node_destroy(
         if ( node->data )
             free( node->data );
         if ( node->children )
-            array_free( node->children );
+            prf_array_free( node->children );
         free( node );
     }
 } /* prf_node_destroy() */

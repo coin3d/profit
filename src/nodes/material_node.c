@@ -234,7 +234,7 @@ prf_material_entry_f(
         return;
     }
 
-    state->materials = array_append_ptr( state->materials, node );
+    state->materials = prf_array_append_ptr( state->materials, node );
 } /* prf_material_entry_f() */
 
 /**************************************************************************/

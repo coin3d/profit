@@ -25,6 +25,11 @@
 
 #include <sys/types.h>
 
+#ifdef __sgi
+#define HAVE_INTTYPES
+#define HAVE_UINTTYPES
+#endif
+
 #ifdef __BIT_TYPES_DEFINED__
 #define HAVE_INTTYPES
 #endif /* __BIT_TYPES_DEFINES__ */

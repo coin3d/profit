@@ -3,7 +3,7 @@ AUTHORS
 
 Lars J. Aas <larsa@sim.no>
   - overall design
-  - programming
+  - most of the programming
   - documentation
   - webpages (<URL:http://www.sim.no/profit.html>)
   - source code maintenance
@@ -11,6 +11,7 @@ Lars J. Aas <larsa@sim.no>
 Peder Blekken <pederb@sim.no>
   - additional programming
   - testing
+  - flt2vrml
 
 
 CONTRIBUTORS
