@@ -20,6 +20,9 @@ SourceFiles = \
 libutil_la_SOURCES = $(SourceFiles)
 libutil_la_CFLAGS = $(PROFIT_CFLAGS)
 
+util_lst_SOURCES = $(SourceFiles)
+util_lst_CFLAGS = $(PROFIT_CFLAGS)
+
 # **************************************************************************
 
 util.lst: Makefile $(util_lst_OBJECTS)

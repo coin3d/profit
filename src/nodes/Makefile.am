@@ -45,6 +45,9 @@ SourceFiles = \
 libnodes_la_SOURCES = $(SourceFiles)
 libnodes_la_CFLAGS = $(PROFIT_CFLAGS)
 
+nodes_lst_SOURCES = $(SourceFiles)
+nodes_lst_CFLAGS = $(PROFIT_CFLAGS)
+
 nodes.lst: Makefile $(nodes_lst_OBJECTS)
 	echo "Linking $@..."; \
 	rm -f $@; \

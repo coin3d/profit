@@ -112,6 +112,9 @@ SourceFiles = \
 # **************************************************************************
 libutil_la_SOURCES = $(SourceFiles)
 libutil_la_CFLAGS = $(PROFIT_CFLAGS)
+
+util_lst_SOURCES = $(SourceFiles)
+util_lst_CFLAGS = $(PROFIT_CFLAGS)
 subdir = src/util
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/include/config.h
@@ -120,8 +123,9 @@ LIBRARIES = $(noinst_LIBRARIES)
 
 util_lst_AR = $(AR) cru
 util_lst_LIBADD =
-util_lst_SOURCES = util.lst.c
-util_lst_OBJECTS = util.lst.$(OBJEXT)
+am_util_lst_OBJECTS = util_lst-array.$(OBJEXT) util_lst-bfile.$(OBJEXT) \
+	util_lst-mempool.$(OBJEXT)
+util_lst_OBJECTS = $(am_util_lst_OBJECTS)
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 
 libutil_la_LDFLAGS =
@@ -137,7 +141,9 @@ depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
 @AMDEP_TRUE@DEP_FILES = $(DEPDIR)/libutil_la-array.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libutil_la-bfile.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/libutil_la-mempool.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/util.lst.Po
+@AMDEP_TRUE@	$(DEPDIR)/util_lst-array.Po \
+@AMDEP_TRUE@	$(DEPDIR)/util_lst-bfile.Po \
+@AMDEP_TRUE@	$(DEPDIR)/util_lst-mempool.Po
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) \
@@ -146,9 +152,9 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 CFLAGS = @CFLAGS@
-DIST_SOURCES = util.lst.c $(libutil_la_SOURCES)
+DIST_SOURCES = $(util_lst_SOURCES) $(libutil_la_SOURCES)
 DIST_COMMON = Makefile.am Makefile.in
-SOURCES = util.lst.c $(libutil_la_SOURCES)
+SOURCES = $(util_lst_SOURCES) $(libutil_la_SOURCES)
 
 all: all-am
 
@@ -175,6 +181,9 @@ AR = ar
 
 clean-noinstLIBRARIES:
 	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+util_lst-array.$(OBJEXT): array.c
+util_lst-bfile.$(OBJEXT): bfile.c
+util_lst-mempool.$(OBJEXT): mempool.c
 
 clean-noinstLTLIBRARIES:
 	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
@@ -193,7 +202,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libutil_la-array.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libutil_la-bfile.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libutil_la-mempool.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/util.lst.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/util_lst-array.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/util_lst-bfile.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/util_lst-mempool.Po@am__quote@
 
 distclean-depend:
 	-rm -rf $(DEPDIR)
@@ -215,6 +226,60 @@ distclean-depend:
 @AMDEP_TRUE@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
+
+util_lst-array.o: array.c
+@AMDEP_TRUE@	source='array.c' object='util_lst-array.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-array.Po' tmpdepfile='$(DEPDIR)/util_lst-array.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-array.o `test -f array.c || echo '$(srcdir)/'`array.c
+
+util_lst-array.obj: array.c
+@AMDEP_TRUE@	source='array.c' object='util_lst-array.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-array.Po' tmpdepfile='$(DEPDIR)/util_lst-array.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-array.obj `( test -f array.c || echo -n '$(srcdir)/'; echo -n array.c ) | xargs cygpath -w`
+
+util_lst-array.lo: array.c
+@AMDEP_TRUE@	source='array.c' object='util_lst-array.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-array.Plo' tmpdepfile='$(DEPDIR)/util_lst-array.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-array.lo `test -f array.c || echo '$(srcdir)/'`array.c
+
+util_lst-bfile.o: bfile.c
+@AMDEP_TRUE@	source='bfile.c' object='util_lst-bfile.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-bfile.Po' tmpdepfile='$(DEPDIR)/util_lst-bfile.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-bfile.o `test -f bfile.c || echo '$(srcdir)/'`bfile.c
+
+util_lst-bfile.obj: bfile.c
+@AMDEP_TRUE@	source='bfile.c' object='util_lst-bfile.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-bfile.Po' tmpdepfile='$(DEPDIR)/util_lst-bfile.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-bfile.obj `( test -f bfile.c || echo -n '$(srcdir)/'; echo -n bfile.c ) | xargs cygpath -w`
+
+util_lst-bfile.lo: bfile.c
+@AMDEP_TRUE@	source='bfile.c' object='util_lst-bfile.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-bfile.Plo' tmpdepfile='$(DEPDIR)/util_lst-bfile.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-bfile.lo `test -f bfile.c || echo '$(srcdir)/'`bfile.c
+
+util_lst-mempool.o: mempool.c
+@AMDEP_TRUE@	source='mempool.c' object='util_lst-mempool.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-mempool.Po' tmpdepfile='$(DEPDIR)/util_lst-mempool.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-mempool.o `test -f mempool.c || echo '$(srcdir)/'`mempool.c
+
+util_lst-mempool.obj: mempool.c
+@AMDEP_TRUE@	source='mempool.c' object='util_lst-mempool.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-mempool.Po' tmpdepfile='$(DEPDIR)/util_lst-mempool.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-mempool.obj `( test -f mempool.c || echo -n '$(srcdir)/'; echo -n mempool.c ) | xargs cygpath -w`
+
+util_lst-mempool.lo: mempool.c
+@AMDEP_TRUE@	source='mempool.c' object='util_lst-mempool.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/util_lst-mempool.Plo' tmpdepfile='$(DEPDIR)/util_lst-mempool.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(util_lst_CFLAGS) $(CFLAGS) -c -o util_lst-mempool.lo `test -f mempool.c || echo '$(srcdir)/'`mempool.c
 
 libutil_la-array.o: array.c
 @AMDEP_TRUE@	source='array.c' object='libutil_la-array.o' libtool=no @AMDEPBACKSLASH@
