@@ -26,6 +26,9 @@ case $host in
   SIM_AC_SETUP_MSVC_IFELSE([],
     [AC_MSG_ERROR([You need Microsoft Visual C++ to build profit on Cygwin])])
   ;;
+*)
+  BUILD_WITH_MSVC=false
+  ;;
 esac
 
 AC_PROG_CC
