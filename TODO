@@ -1,7 +1,7 @@
 TODO
 ====
 
-* implement read/write/access for clod-node
+* implement read/write/access for LOD-nodes
 * rewrite traversal to use recursion
 * rename src to profit (or src/profit) and merge sources and header hierarchy?
 * release 1.0
