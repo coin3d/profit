@@ -193,7 +193,8 @@ prf_array_remove(void *id, int index)
   array * arr = id_to_array(id);
   if ( (arr->numelem - 1) > index ) {
     void ** ptr = (void **) id;
-    memmove( ptr[index], ptr[index + 1],
+    memmove( ((char *) ptr) + (index * sizeof(void *)),
+             ((char *) ptr) + ((index + 1) * sizeof(void *)),
              (arr->numelem - index - 1) * sizeof(void *));
   }
   arr->numelem--;
