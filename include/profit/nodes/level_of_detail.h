@@ -29,6 +29,17 @@ extern "C" {
 #endif /* __cplusplus */
 
 struct prf_level_of_detail_data {
+  char id[8];
+  int32_t reserved;
+  double switch_in_distance;
+  double switch_out_distance;
+  int16_t special_effect_id1;
+  int16_t special_effect_id2;
+  int32_t flags;
+  double center_x;
+  double center_y;
+  double center_z;
+  double transition_range;
 }; /* struct prf_level_of_detail_data */
   
 PROFIT_API prf_node_t * prf_level_of_detail_node_create( prf_model_t * model,

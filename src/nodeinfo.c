@@ -69,6 +69,8 @@ void prf_vertex_list_init( void );
 void prf_morph_vertex_list_init( void );
 void prf_instance_definition_init( void );
 void prf_instance_reference_init( void );
+void prf_external_reference_init(void);
+void prf_level_of_detail_init(void);
 
 /**************************************************************************/
 
@@ -357,6 +359,9 @@ prf_nodeinfo_init(
     prf_instance_reference_init();
 
     prf_matrix_init();
+
+    prf_external_reference_init();
+    prf_level_of_detail_init();
 
 } /* prf_nodeinfo_init() */
 
