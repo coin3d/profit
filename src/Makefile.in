@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4e from Makefile.am.
+# Makefile.in generated automatically by automake 1.5 from Makefile.am.
 
 # Copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001
 # Free Software Foundation, Inc.
@@ -10,6 +10,11 @@
 # but WITHOUT ANY WARRANTY, to the extent permitted by law; without
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
+
+@SET_MAKE@
+
+# **************************************************************************
+# Process this file with automake to generate Makefile.in.
 
 SHELL = @SHELL@
 
@@ -31,11 +36,9 @@ infodir = @infodir@
 mandir = @mandir@
 includedir = @includedir@
 oldincludedir = /usr/include
-
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
-
 top_builddir = ..
 
 ACLOCAL = @ACLOCAL@
@@ -49,23 +52,18 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_HEADER = $(INSTALL_DATA)
 transform = @program_transform_name@
-
 NORMAL_INSTALL = :
 PRE_INSTALL = :
 POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-
 build_alias = @build_alias@
 build_triplet = @build@
 host_alias = @host_alias@
 host_triplet = @host@
 target_alias = @target_alias@
 target_triplet = @target@
-
-@SET_MAKE@
-AMDEP = @AMDEP@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
@@ -74,15 +72,16 @@ CC = @CC@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
 DSUFFIX = @DSUFFIX@
+ECHO = @ECHO@
+EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INSTALL_STRIP_PROGRAM_ENV = @INSTALL_STRIP_PROGRAM_ENV@
 LDFLAGS = @LDFLAGS@
 LIBFLAGS = @LIBFLAGS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAINT = @MAINT@
-MAKEINFO = @MAKEINFO@
 OBJDUMP = @OBJDUMP@
+OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
 PROFIT_CFLAGS = @PROFIT_CFLAGS@
 PROFIT_LIBTOOL_VERSION_INFO = @PROFIT_LIBTOOL_VERSION_INFO@
@@ -92,12 +91,9 @@ PROFIT_MINOR_VERSION = @PROFIT_MINOR_VERSION@
 RANLIB = @RANLIB@
 STRIP = @STRIP@
 VERSION = @VERSION@
-_am_include = @_am_include@
+am__include = @am__include@
+am__quote = @am__quote@
 install_sh = @install_sh@
-
-# **************************************************************************
-# Process this file with automake to generate Makefile.in.
-
 
 SUBDIRS = util nodes
 INCLUDES = -I$(top_srcdir)/include
@@ -130,55 +126,70 @@ libprofit_la_SOURCES = \
 	vertex.c \
 	cruft.c
 
-EXEEXT =
-OBJEXT = o
 subdir = src
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
-
-DEFS = @DEFS@ -I. -I$(srcdir) -I$(top_builddir)
-CPPFLAGS = @CPPFLAGS@
-LIBS = @LIBS@
 libprofit_la_DEPENDENCIES = util/libutil.la nodes/libnodes.la
 am_libprofit_la_OBJECTS = libprofit_la-basics.lo libprofit_la-debug.lo \
-libprofit_la-messages.lo libprofit_la-model.lo libprofit_la-node.lo \
-libprofit_la-nodeinfo.lo libprofit_la-profit.lo libprofit_la-state.lo \
-libprofit_la-vertex.lo libprofit_la-cruft.lo
+	libprofit_la-messages.lo libprofit_la-model.lo \
+	libprofit_la-node.lo libprofit_la-nodeinfo.lo \
+	libprofit_la-profit.lo libprofit_la-state.lo \
+	libprofit_la-vertex.lo libprofit_la-cruft.lo
 libprofit_la_OBJECTS = $(am_libprofit_la_OBJECTS)
-COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-CFLAGS = @CFLAGS@
-CCLD = $(CC)
-LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-DIST_SOURCES = $(libprofit_la_SOURCES)
-depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP@DEP_FILES = $(DEPDIR)/libprofit_la-basics.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-cruft.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-debug.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-messages.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-model.Plo $(DEPDIR)/libprofit_la-node.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-nodeinfo.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-profit.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-state.Plo \
-@AMDEP@ $(DEPDIR)/libprofit_la-vertex.Plo
-DIST_COMMON = Makefile.am Makefile.in compile
 
+DEFS = @DEFS@
+DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
+@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/libprofit_la-basics.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-cruft.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-debug.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-messages.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-model.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-node.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-nodeinfo.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-profit.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-state.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libprofit_la-vertex.Plo
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) \
+	$(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+CFLAGS = @CFLAGS@
+DIST_SOURCES = $(libprofit_la_SOURCES)
+
+RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
+	uninstall-info-recursive all-recursive install-data-recursive \
+	install-exec-recursive installdirs-recursive install-recursive \
+	uninstall-recursive check-recursive installcheck-recursive
+DIST_COMMON = Makefile.am Makefile.in compile
 DIST_SUBDIRS = $(SUBDIRS)
 SOURCES = $(libprofit_la_SOURCES)
-OBJECTS = $(am_libprofit_la_OBJECTS)
 
 all: all-recursive
 
 .SUFFIXES:
 .SUFFIXES: .c .lo .o .obj
 
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+	-rm -f libtool
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.ac $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
 	  $(AUTOMAKE) --gnu  src/Makefile
-
 Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
@@ -202,21 +213,6 @@ uninstall-libLTLIBRARIES:
 
 clean-libLTLIBRARIES:
 	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
-
-mostlyclean-compile:
-	-rm -f *.$(OBJEXT) core *.core
-
-distclean-compile:
-	-rm -f *.tab.c
-
-mostlyclean-libtool:
-	-rm -f *.lo
-
-clean-libtool:
-	-rm -rf .libs _libs
-
-distclean-libtool:
-	-rm -f libtool
 libprofit_la-basics.lo: basics.c
 libprofit_la-debug.lo: debug.c
 libprofit_la-messages.lo: messages.c
@@ -227,9 +223,228 @@ libprofit_la-profit.lo: profit.c
 libprofit_la-state.lo: state.c
 libprofit_la-vertex.lo: vertex.c
 libprofit_la-cruft.lo: cruft.c
-
-libprofit.la: $(libprofit_la_OBJECTS) $(libprofit_la_DEPENDENCIES)
+libprofit.la: $(libprofit_la_OBJECTS) $(libprofit_la_DEPENDENCIES) 
 	$(LINK) -rpath $(libdir) $(libprofit_la_LDFLAGS) $(libprofit_la_OBJECTS) $(libprofit_la_LIBADD) $(LIBS)
+
+mostlyclean-compile:
+	-rm -f *.$(OBJEXT) core *.core
+
+distclean-compile:
+	-rm -f *.tab.c
+
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-basics.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-cruft.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-debug.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-messages.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-model.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-node.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-nodeinfo.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-profit.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-state.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@$(DEPDIR)/libprofit_la-vertex.Plo@am__quote@
+
+distclean-depend:
+	-rm -rf $(DEPDIR)
+
+.c.o:
+@AMDEP_TRUE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(COMPILE) -c `test -f $< || echo '$(srcdir)/'`$<
+
+.c.obj:
+@AMDEP_TRUE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(COMPILE) -c `cygpath -w $<`
+
+.c.lo:
+@AMDEP_TRUE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
+
+libprofit_la-basics.o: basics.c
+@AMDEP_TRUE@	source='basics.c' object='libprofit_la-basics.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-basics.Po' tmpdepfile='$(DEPDIR)/libprofit_la-basics.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-basics.o `test -f basics.c || echo '$(srcdir)/'`basics.c
+
+libprofit_la-basics.obj: basics.c
+@AMDEP_TRUE@	source='basics.c' object='libprofit_la-basics.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-basics.Po' tmpdepfile='$(DEPDIR)/libprofit_la-basics.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-basics.obj `cygpath -w basics.c`
+
+libprofit_la-basics.lo: basics.c
+@AMDEP_TRUE@	source='basics.c' object='libprofit_la-basics.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-basics.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-basics.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-basics.lo `test -f basics.c || echo '$(srcdir)/'`basics.c
+
+libprofit_la-debug.o: debug.c
+@AMDEP_TRUE@	source='debug.c' object='libprofit_la-debug.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-debug.Po' tmpdepfile='$(DEPDIR)/libprofit_la-debug.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-debug.o `test -f debug.c || echo '$(srcdir)/'`debug.c
+
+libprofit_la-debug.obj: debug.c
+@AMDEP_TRUE@	source='debug.c' object='libprofit_la-debug.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-debug.Po' tmpdepfile='$(DEPDIR)/libprofit_la-debug.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-debug.obj `cygpath -w debug.c`
+
+libprofit_la-debug.lo: debug.c
+@AMDEP_TRUE@	source='debug.c' object='libprofit_la-debug.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-debug.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-debug.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-debug.lo `test -f debug.c || echo '$(srcdir)/'`debug.c
+
+libprofit_la-messages.o: messages.c
+@AMDEP_TRUE@	source='messages.c' object='libprofit_la-messages.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-messages.Po' tmpdepfile='$(DEPDIR)/libprofit_la-messages.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-messages.o `test -f messages.c || echo '$(srcdir)/'`messages.c
+
+libprofit_la-messages.obj: messages.c
+@AMDEP_TRUE@	source='messages.c' object='libprofit_la-messages.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-messages.Po' tmpdepfile='$(DEPDIR)/libprofit_la-messages.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-messages.obj `cygpath -w messages.c`
+
+libprofit_la-messages.lo: messages.c
+@AMDEP_TRUE@	source='messages.c' object='libprofit_la-messages.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-messages.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-messages.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-messages.lo `test -f messages.c || echo '$(srcdir)/'`messages.c
+
+libprofit_la-model.o: model.c
+@AMDEP_TRUE@	source='model.c' object='libprofit_la-model.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-model.Po' tmpdepfile='$(DEPDIR)/libprofit_la-model.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-model.o `test -f model.c || echo '$(srcdir)/'`model.c
+
+libprofit_la-model.obj: model.c
+@AMDEP_TRUE@	source='model.c' object='libprofit_la-model.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-model.Po' tmpdepfile='$(DEPDIR)/libprofit_la-model.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-model.obj `cygpath -w model.c`
+
+libprofit_la-model.lo: model.c
+@AMDEP_TRUE@	source='model.c' object='libprofit_la-model.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-model.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-model.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-model.lo `test -f model.c || echo '$(srcdir)/'`model.c
+
+libprofit_la-node.o: node.c
+@AMDEP_TRUE@	source='node.c' object='libprofit_la-node.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-node.Po' tmpdepfile='$(DEPDIR)/libprofit_la-node.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-node.o `test -f node.c || echo '$(srcdir)/'`node.c
+
+libprofit_la-node.obj: node.c
+@AMDEP_TRUE@	source='node.c' object='libprofit_la-node.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-node.Po' tmpdepfile='$(DEPDIR)/libprofit_la-node.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-node.obj `cygpath -w node.c`
+
+libprofit_la-node.lo: node.c
+@AMDEP_TRUE@	source='node.c' object='libprofit_la-node.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-node.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-node.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-node.lo `test -f node.c || echo '$(srcdir)/'`node.c
+
+libprofit_la-nodeinfo.o: nodeinfo.c
+@AMDEP_TRUE@	source='nodeinfo.c' object='libprofit_la-nodeinfo.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-nodeinfo.Po' tmpdepfile='$(DEPDIR)/libprofit_la-nodeinfo.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-nodeinfo.o `test -f nodeinfo.c || echo '$(srcdir)/'`nodeinfo.c
+
+libprofit_la-nodeinfo.obj: nodeinfo.c
+@AMDEP_TRUE@	source='nodeinfo.c' object='libprofit_la-nodeinfo.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-nodeinfo.Po' tmpdepfile='$(DEPDIR)/libprofit_la-nodeinfo.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-nodeinfo.obj `cygpath -w nodeinfo.c`
+
+libprofit_la-nodeinfo.lo: nodeinfo.c
+@AMDEP_TRUE@	source='nodeinfo.c' object='libprofit_la-nodeinfo.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-nodeinfo.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-nodeinfo.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-nodeinfo.lo `test -f nodeinfo.c || echo '$(srcdir)/'`nodeinfo.c
+
+libprofit_la-profit.o: profit.c
+@AMDEP_TRUE@	source='profit.c' object='libprofit_la-profit.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-profit.Po' tmpdepfile='$(DEPDIR)/libprofit_la-profit.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-profit.o `test -f profit.c || echo '$(srcdir)/'`profit.c
+
+libprofit_la-profit.obj: profit.c
+@AMDEP_TRUE@	source='profit.c' object='libprofit_la-profit.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-profit.Po' tmpdepfile='$(DEPDIR)/libprofit_la-profit.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-profit.obj `cygpath -w profit.c`
+
+libprofit_la-profit.lo: profit.c
+@AMDEP_TRUE@	source='profit.c' object='libprofit_la-profit.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-profit.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-profit.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-profit.lo `test -f profit.c || echo '$(srcdir)/'`profit.c
+
+libprofit_la-state.o: state.c
+@AMDEP_TRUE@	source='state.c' object='libprofit_la-state.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-state.Po' tmpdepfile='$(DEPDIR)/libprofit_la-state.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-state.o `test -f state.c || echo '$(srcdir)/'`state.c
+
+libprofit_la-state.obj: state.c
+@AMDEP_TRUE@	source='state.c' object='libprofit_la-state.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-state.Po' tmpdepfile='$(DEPDIR)/libprofit_la-state.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-state.obj `cygpath -w state.c`
+
+libprofit_la-state.lo: state.c
+@AMDEP_TRUE@	source='state.c' object='libprofit_la-state.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-state.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-state.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-state.lo `test -f state.c || echo '$(srcdir)/'`state.c
+
+libprofit_la-vertex.o: vertex.c
+@AMDEP_TRUE@	source='vertex.c' object='libprofit_la-vertex.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-vertex.Po' tmpdepfile='$(DEPDIR)/libprofit_la-vertex.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-vertex.o `test -f vertex.c || echo '$(srcdir)/'`vertex.c
+
+libprofit_la-vertex.obj: vertex.c
+@AMDEP_TRUE@	source='vertex.c' object='libprofit_la-vertex.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-vertex.Po' tmpdepfile='$(DEPDIR)/libprofit_la-vertex.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-vertex.obj `cygpath -w vertex.c`
+
+libprofit_la-vertex.lo: vertex.c
+@AMDEP_TRUE@	source='vertex.c' object='libprofit_la-vertex.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-vertex.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-vertex.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-vertex.lo `test -f vertex.c || echo '$(srcdir)/'`vertex.c
+
+libprofit_la-cruft.o: cruft.c
+@AMDEP_TRUE@	source='cruft.c' object='libprofit_la-cruft.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-cruft.Po' tmpdepfile='$(DEPDIR)/libprofit_la-cruft.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-cruft.o `test -f cruft.c || echo '$(srcdir)/'`cruft.c
+
+libprofit_la-cruft.obj: cruft.c
+@AMDEP_TRUE@	source='cruft.c' object='libprofit_la-cruft.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-cruft.Po' tmpdepfile='$(DEPDIR)/libprofit_la-cruft.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-cruft.obj `cygpath -w cruft.c`
+
+libprofit_la-cruft.lo: cruft.c
+@AMDEP_TRUE@	source='cruft.c' object='libprofit_la-cruft.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@	depfile='$(DEPDIR)/libprofit_la-cruft.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-cruft.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-cruft.lo `test -f cruft.c || echo '$(srcdir)/'`cruft.c
+CCDEPMODE = @CCDEPMODE@
+uninstall-info-am:
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -237,10 +452,7 @@ libprofit.la: $(libprofit_la_OBJECTS) $(libprofit_la_DEPENDENCIES)
 # (1) if the variable is set in `config.status', edit `config.status'
 #     (which will cause the Makefiles to be regenerated when you run `make');
 # (2) otherwise, pass the desired values on the `make' command line.
-all-recursive install-data-recursive install-exec-recursive \
-installdirs-recursive install-recursive uninstall-recursive \
-install-info-recursive uninstall-info-recursive \
-check-recursive installcheck-recursive info-recursive dvi-recursive:
+$(RECURSIVE_TARGETS):
 	@set fnord $(MAKEFLAGS); amf=$$2; \
 	dot_seen=no; \
 	target=`echo $@ | sed s/-recursive//`; \
@@ -305,9 +517,9 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
-   if test "$$subdir" = .; then :; else \
+	  if test "$$subdir" = .; then :; else \
 	    test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
-   fi; \
+	  fi; \
 	done; \
 	list='$(SOURCES) $(HEADERS) $(TAGS_FILES)'; \
 	unique=`for i in $$list; do \
@@ -321,245 +533,10 @@ TAGS: tags-recursive $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) \
 GTAGS:
 	here=`CDPATH=: && cd $(top_builddir) && pwd` \
 	  && cd $(top_srcdir) \
-	  && gtags -i $$here
+	  && gtags -i $(GTAGS_ARGS) $$here
 
 distclean-tags:
-	-rm -f TAGS ID
-
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-basics.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-cruft.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-debug.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-messages.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-model.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-node.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-nodeinfo.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-profit.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-state.Plo
-@AMDEP@@_am_include@ $(DEPDIR)/libprofit_la-vertex.Plo
-
-distclean-depend:
-	-rm -rf $(DEPDIR)
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-.c.o:
-@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(COMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
-
-.c.lo:
-@AMDEP@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/$*.Plo' tmpdepfile='$(DEPDIR)/$*.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LTCOMPILE) -c -o $@ `test -f $< || echo '$(srcdir)/'`$<
-
-.c.obj:
-@AMDEP@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/$*.Po' tmpdepfile='$(DEPDIR)/$*.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(COMPILE) -c -o $@ `cygpath -w $<`
-
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-basics.o: basics.c
-@AMDEP@	source='basics.c' object='libprofit_la-basics.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-basics.Po' tmpdepfile='$(DEPDIR)/libprofit_la-basics.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-basics.o `test -f basics.c || echo '$(srcdir)/'`basics.c
-
-libprofit_la-basics.lo: basics.c
-@AMDEP@	source='basics.c' object='libprofit_la-basics.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-basics.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-basics.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-basics.lo `test -f basics.c || echo '$(srcdir)/'`basics.c
-
-libprofit_la-basics.obj: basics.c
-@AMDEP@	source='basics.c' object='libprofit_la-basics.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-basics.Po' tmpdepfile='$(DEPDIR)/libprofit_la-basics.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-basics.obj `cygpath -w basics.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-debug.o: debug.c
-@AMDEP@	source='debug.c' object='libprofit_la-debug.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-debug.Po' tmpdepfile='$(DEPDIR)/libprofit_la-debug.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-debug.o `test -f debug.c || echo '$(srcdir)/'`debug.c
-
-libprofit_la-debug.lo: debug.c
-@AMDEP@	source='debug.c' object='libprofit_la-debug.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-debug.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-debug.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-debug.lo `test -f debug.c || echo '$(srcdir)/'`debug.c
-
-libprofit_la-debug.obj: debug.c
-@AMDEP@	source='debug.c' object='libprofit_la-debug.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-debug.Po' tmpdepfile='$(DEPDIR)/libprofit_la-debug.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-debug.obj `cygpath -w debug.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-messages.o: messages.c
-@AMDEP@	source='messages.c' object='libprofit_la-messages.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-messages.Po' tmpdepfile='$(DEPDIR)/libprofit_la-messages.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-messages.o `test -f messages.c || echo '$(srcdir)/'`messages.c
-
-libprofit_la-messages.lo: messages.c
-@AMDEP@	source='messages.c' object='libprofit_la-messages.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-messages.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-messages.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-messages.lo `test -f messages.c || echo '$(srcdir)/'`messages.c
-
-libprofit_la-messages.obj: messages.c
-@AMDEP@	source='messages.c' object='libprofit_la-messages.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-messages.Po' tmpdepfile='$(DEPDIR)/libprofit_la-messages.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-messages.obj `cygpath -w messages.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-model.o: model.c
-@AMDEP@	source='model.c' object='libprofit_la-model.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-model.Po' tmpdepfile='$(DEPDIR)/libprofit_la-model.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-model.o `test -f model.c || echo '$(srcdir)/'`model.c
-
-libprofit_la-model.lo: model.c
-@AMDEP@	source='model.c' object='libprofit_la-model.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-model.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-model.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-model.lo `test -f model.c || echo '$(srcdir)/'`model.c
-
-libprofit_la-model.obj: model.c
-@AMDEP@	source='model.c' object='libprofit_la-model.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-model.Po' tmpdepfile='$(DEPDIR)/libprofit_la-model.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-model.obj `cygpath -w model.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-node.o: node.c
-@AMDEP@	source='node.c' object='libprofit_la-node.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-node.Po' tmpdepfile='$(DEPDIR)/libprofit_la-node.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-node.o `test -f node.c || echo '$(srcdir)/'`node.c
-
-libprofit_la-node.lo: node.c
-@AMDEP@	source='node.c' object='libprofit_la-node.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-node.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-node.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-node.lo `test -f node.c || echo '$(srcdir)/'`node.c
-
-libprofit_la-node.obj: node.c
-@AMDEP@	source='node.c' object='libprofit_la-node.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-node.Po' tmpdepfile='$(DEPDIR)/libprofit_la-node.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-node.obj `cygpath -w node.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-nodeinfo.o: nodeinfo.c
-@AMDEP@	source='nodeinfo.c' object='libprofit_la-nodeinfo.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-nodeinfo.Po' tmpdepfile='$(DEPDIR)/libprofit_la-nodeinfo.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-nodeinfo.o `test -f nodeinfo.c || echo '$(srcdir)/'`nodeinfo.c
-
-libprofit_la-nodeinfo.lo: nodeinfo.c
-@AMDEP@	source='nodeinfo.c' object='libprofit_la-nodeinfo.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-nodeinfo.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-nodeinfo.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-nodeinfo.lo `test -f nodeinfo.c || echo '$(srcdir)/'`nodeinfo.c
-
-libprofit_la-nodeinfo.obj: nodeinfo.c
-@AMDEP@	source='nodeinfo.c' object='libprofit_la-nodeinfo.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-nodeinfo.Po' tmpdepfile='$(DEPDIR)/libprofit_la-nodeinfo.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-nodeinfo.obj `cygpath -w nodeinfo.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-profit.o: profit.c
-@AMDEP@	source='profit.c' object='libprofit_la-profit.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-profit.Po' tmpdepfile='$(DEPDIR)/libprofit_la-profit.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-profit.o `test -f profit.c || echo '$(srcdir)/'`profit.c
-
-libprofit_la-profit.lo: profit.c
-@AMDEP@	source='profit.c' object='libprofit_la-profit.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-profit.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-profit.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-profit.lo `test -f profit.c || echo '$(srcdir)/'`profit.c
-
-libprofit_la-profit.obj: profit.c
-@AMDEP@	source='profit.c' object='libprofit_la-profit.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-profit.Po' tmpdepfile='$(DEPDIR)/libprofit_la-profit.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-profit.obj `cygpath -w profit.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-state.o: state.c
-@AMDEP@	source='state.c' object='libprofit_la-state.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-state.Po' tmpdepfile='$(DEPDIR)/libprofit_la-state.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-state.o `test -f state.c || echo '$(srcdir)/'`state.c
-
-libprofit_la-state.lo: state.c
-@AMDEP@	source='state.c' object='libprofit_la-state.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-state.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-state.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-state.lo `test -f state.c || echo '$(srcdir)/'`state.c
-
-libprofit_la-state.obj: state.c
-@AMDEP@	source='state.c' object='libprofit_la-state.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-state.Po' tmpdepfile='$(DEPDIR)/libprofit_la-state.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-state.obj `cygpath -w state.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-vertex.o: vertex.c
-@AMDEP@	source='vertex.c' object='libprofit_la-vertex.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-vertex.Po' tmpdepfile='$(DEPDIR)/libprofit_la-vertex.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-vertex.o `test -f vertex.c || echo '$(srcdir)/'`vertex.c
-
-libprofit_la-vertex.lo: vertex.c
-@AMDEP@	source='vertex.c' object='libprofit_la-vertex.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-vertex.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-vertex.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-vertex.lo `test -f vertex.c || echo '$(srcdir)/'`vertex.c
-
-libprofit_la-vertex.obj: vertex.c
-@AMDEP@	source='vertex.c' object='libprofit_la-vertex.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-vertex.Po' tmpdepfile='$(DEPDIR)/libprofit_la-vertex.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-vertex.obj `cygpath -w vertex.c`
-
-@AMDEP@CCDEPMODE = @CCDEPMODE@
-
-libprofit_la-cruft.o: cruft.c
-@AMDEP@	source='cruft.c' object='libprofit_la-cruft.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-cruft.Po' tmpdepfile='$(DEPDIR)/libprofit_la-cruft.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-cruft.o `test -f cruft.c || echo '$(srcdir)/'`cruft.c
-
-libprofit_la-cruft.lo: cruft.c
-@AMDEP@	source='cruft.c' object='libprofit_la-cruft.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-cruft.Plo' tmpdepfile='$(DEPDIR)/libprofit_la-cruft.TPlo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-cruft.lo `test -f cruft.c || echo '$(srcdir)/'`cruft.c
-
-libprofit_la-cruft.obj: cruft.c
-@AMDEP@	source='cruft.c' object='libprofit_la-cruft.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP@	depfile='$(DEPDIR)/libprofit_la-cruft.Po' tmpdepfile='$(DEPDIR)/libprofit_la-cruft.TPo' @AMDEPBACKSLASH@
-@AMDEP@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libprofit_la_CFLAGS) $(CFLAGS) -c -o libprofit_la-cruft.obj `cygpath -w cruft.c`
+	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH
 
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 
@@ -568,7 +545,11 @@ distdir = $(top_distdir)/$(PACKAGE)-$(VERSION)
 
 distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
-	  d=$(srcdir); \
+	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	    $(mkinstalldirs) "$(distdir)/$$dir"; \
+	  fi; \
 	  if test -d $$d/$$file; then \
 	    cp -pR $$d/$$file $(distdir) \
 	    || exit 1; \
@@ -594,7 +575,6 @@ distdir: $(DISTFILES)
 check-am: all-am
 check: check-recursive
 all-am: Makefile $(LTLIBRARIES) all-local
-
 installdirs: installdirs-recursive
 installdirs-am:
 	$(mkinstalldirs) $(DESTDIR)$(libdir)
@@ -608,23 +588,20 @@ install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 
 installcheck: installcheck-recursive
-
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM="$(INSTALL_STRIP_PROGRAM)" \
-	  INSTALL_PROGRAM_ENV='$(INSTALL_STRIP_PROGRAM_ENV)' install
-
+	  `test -z '$(STRIP)' || \
+	    echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
 mostlyclean-generic:
 
 clean-generic:
 
 distclean-generic:
-	-rm -f Makefile $(CONFIG_CLEAN_FILES)
-	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	-rm -f Makefile $(CONFIG_CLEAN_FILES) stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-	-rm -f Makefile.in
 clean: clean-recursive
 
 clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
@@ -635,11 +612,11 @@ distclean: distclean-recursive
 distclean-am: clean-am distclean-compile distclean-depend \
 	distclean-generic distclean-libtool distclean-tags
 
-dvi:
+dvi: dvi-recursive
 
 dvi-am:
 
-info:
+info: info-recursive
 
 info-am:
 
@@ -647,7 +624,7 @@ install-data-am: install-data-local
 
 install-exec-am: install-exec-local install-libLTLIBRARIES
 
-install-info:
+install-info: install-info-recursive
 
 install-man:
 
@@ -662,26 +639,27 @@ mostlyclean: mostlyclean-recursive
 mostlyclean-am: mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool
 
-uninstall-am: uninstall-libLTLIBRARIES uninstall-local
+uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES uninstall-local
 
-.PHONY: all all-am all-local all-recursive check check-am \
-	check-recursive clean clean-generic clean-libLTLIBRARIES \
-	clean-libtool clean-recursive distclean distclean-compile \
-	distclean-depend distclean-generic distclean-libtool \
-	distclean-recursive distclean-tags distdir dvi dvi-am \
-	dvi-recursive info info-am info-recursive install install-am \
-	install-data install-data-am install-data-local \
-	install-data-recursive install-exec install-exec-am \
-	install-exec-local install-exec-recursive install-info \
-	install-info-recursive install-libLTLIBRARIES install-man \
-	install-recursive install-strip installcheck installcheck-am \
-	installcheck-recursive installdirs installdirs-am \
-	installdirs-recursive maintainer-clean maintainer-clean-generic \
-	maintainer-clean-recursive mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool mostlyclean-recursive \
-	tags tags-recursive uninstall uninstall-am \
-	uninstall-info-recursive uninstall-libLTLIBRARIES \
-	uninstall-local uninstall-recursive
+uninstall-info: uninstall-info-recursive
+
+.PHONY: $(RECURSIVE_TARGETS) GTAGS all all-am all-local check check-am \
+	clean clean-generic clean-libLTLIBRARIES clean-libtool \
+	clean-recursive distclean distclean-compile distclean-depend \
+	distclean-generic distclean-libtool distclean-recursive \
+	distclean-tags distdir dvi dvi-am dvi-recursive info info-am \
+	info-recursive install install-am install-data install-data-am \
+	install-data-local install-data-recursive install-exec \
+	install-exec-am install-exec-local install-exec-recursive \
+	install-info install-info-am install-info-recursive \
+	install-libLTLIBRARIES install-man install-recursive \
+	install-strip installcheck installcheck-am installdirs \
+	installdirs-am installdirs-recursive maintainer-clean \
+	maintainer-clean-generic maintainer-clean-recursive mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	mostlyclean-recursive tags tags-recursive uninstall \
+	uninstall-am uninstall-info-am uninstall-info-recursive \
+	uninstall-libLTLIBRARIES uninstall-local uninstall-recursive
 
 
 # **************************************************************************
@@ -751,7 +729,6 @@ uninstall-local:
 	done;
 
 # EOF **********************************************************************
-
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
