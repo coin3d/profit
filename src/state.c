@@ -396,8 +396,8 @@ prf_state_dump_matrix(
 {
     matrix4x4_f32_t * m;
     m = state->matrix[ state->state_push_level ];
-    assert( FALSE ); /* FIXME: print matrix - larsa 290499 */
-} /* state_dump_matrix() */
+    /* FIXME: print matrix - larsa 199904299 */
+} /* prf_state_dump_matrix() */
 
 /**************************************************************************/
 

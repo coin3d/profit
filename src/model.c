@@ -496,7 +496,7 @@ prf_model_macros_fix(
 {
     assert( model != NULL );
 
-/* FIXME: 990504 larsa: not implemented
+/* FIXME: 19990504 larsa: not implemented
    add replications
    add internal instance references */
 

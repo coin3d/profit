@@ -45,15 +45,15 @@ struct _array
 /**************************************************************************/
 
 static void *
-prf_array_to_id( array *ptr )
+prf_array_to_id( array * ptr )
 {
-  return (void *)(((char*)ptr)+sizeof(array));
+  return (void *)(((char *)ptr)+sizeof(array));
 }
 
-static array*
-id_to_array( void *ptr )
+static array *
+id_to_array( void * ptr )
 {
-  return (array*) (((char*)ptr)-sizeof(array));
+  return (array *) (((char *)ptr)-sizeof(array));
 } /* id_to_array() */
 
 /**************************************************************************/
@@ -190,18 +190,12 @@ prf_array_insert_int(void *id, int idx, int elem)
 void *
 prf_array_remove(void *id, int index)
 {
-  int i, n;
-  array *arr; 
-  void **ptr;
-
-  /* FIXME: use memmove instead */
-  arr = id_to_array(id);
-  n = arr->numelem-1;
-  ptr = (void**)id;
-
-  for (i = index; i < n; i++)
-    ptr[i] = ptr[i+1];
- 
+  array * arr = id_to_array(id);
+  if ( (arr->numelem - 1) > index ) {
+    void ** ptr = (void **) id;
+    memmove( ptr[index], ptr[index + 1],
+             (arr->numelem - index - 1) * sizeof(void *));
+  }
   arr->numelem--;
   return id;
 } /* prf_array_remove() */
@@ -209,10 +203,7 @@ prf_array_remove(void *id, int index)
 void *
 prf_array_remove_fast(void *id, int index)
 {
-  void **ptr;
-
-  ptr = (void**)id;
-
+  void ** ptr = (void **) id;
   ptr[index] = ptr[--id_to_array(id)->numelem];
   return id;
 } /* prf_array_remove_fast() */

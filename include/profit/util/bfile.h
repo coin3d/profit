@@ -52,20 +52,10 @@ int32_t       bf_get_int32_be( bfile_t * bfile );
 uint32_t      bf_get_uint32_be( bfile_t * bfile );
 int32_t       bf_get_int32_le( bfile_t * bfile );
 uint32_t      bf_get_uint32_le( bfile_t * bfile );
-#if 0
-int64_t       bf_get_int64_be( bfile_t * bfile );
-uint64_t      bf_get_uint64_be( bfile_t * bfile );
-int64_t       bf_get_int64_le( bfile_t * bfile );
-uint64_t      bf_get_uint64_le( bfile_t * bfile );
-#endif /* 0 */
 float32_t     bf_get_float32_be( bfile_t * bfile );
 float32_t     bf_get_float32_le( bfile_t * bfile );
 float64_t     bf_get_float64_be( bfile_t * bfile );
 float64_t     bf_get_float64_le( bfile_t * bfile );
-#if 0
-float128_t    bf_get_float128_be( bfile_t * bfile );
-float128_t    bf_get_float128_le( bfile_t * bfile );
-#endif /* 0 */
 
 void          bf_unget_uint32_be( bfile_t * bfile, uint32_t data );
 
@@ -83,12 +73,6 @@ uint32_t      bf_peek_uint32_be( bfile_t * bfile );
 int32_t       bf_peek_int32_le( bfile_t * bfile );
 uint32_t      bf_peek_uint32_le( bfile_t * bfile );
 */
-#if 0
-int64_t       bf_peek_int64_be( bfile_t * bfile );
-uint64_t      bf_peek_uint64_be( bfile_t * bfile );
-int64_t       bf_peek_int64_le( bfile_t * bfile );
-uint64_t      bf_peek_uint64_le( bfile_t * bfile );
-#endif /* 0 */
 
 bool_t        bf_put_int8( bfile_t * bfile, int8_t value );
 bool_t        bf_put_uint8( bfile_t * bfile, uint8_t value );
@@ -100,20 +84,10 @@ bool_t        bf_put_int32_be( bfile_t * bfile, int32_t value );
 bool_t        bf_put_uint32_be( bfile_t * bfile, uint32_t value );
 bool_t        bf_put_int32_le( bfile_t * bfile, int32_t value );
 bool_t        bf_put_uint32_le( bfile_t * bfile, uint32_t value );
-#if 0
-bool_t        bf_put_int64_be( bfile_t * bfile, int64_t value );
-bool_t        bf_put_uint64_be( bfile_t * bfile, uint64_t value );
-bool_t        bf_put_int64_le( bfile_t * bfile, int64_t value );
-bool_t        bf_put_uint64_le( bfile_t * bfile, uint64_t value );
-#endif /* 0 */
 bool_t        bf_put_float32_be( bfile_t * bfile, float32_t value );
 bool_t        bf_put_float32_le( bfile_t * bfile, float32_t value );
 bool_t        bf_put_float64_be( bfile_t * bfile, float64_t value );
 bool_t        bf_put_float64_le( bfile_t * bfile, float64_t value );
-#if 0
-bool_t        bf_put_float128_be( bfile_t * bfile, float128_t value );
-bool_t        bf_put_float128_le( bfile_t * bfile, float128_t value );
-#endif /* 0 */
 
 bool_t        bf_is_readable( bfile_t * bfile );
 bool_t        bf_is_writable( bfile_t * bfile );
@@ -135,4 +109,3 @@ int           bf_hex_dump( bfile_t * bfile, FILE * file, uint32_t num_bytes,
 #endif /* ! BFILE_H */
 
 /* $Id$ */
-

@@ -280,7 +280,6 @@ bf_write_buffer(
 } /* bf_write_buffer() */
 
 /**************************************************************************/
-/* todo */
 
 int
 bf_read(
@@ -350,14 +349,21 @@ bf_rewind(
     bfile_t * bfile,
     uint32_t num_bytes )
 {
+    int prevbuf, newbuf;
     assert( bfile != NULL );
-/* FIXME - this may crash the system */
+    prevbuf = bfile->pos / bfile->buffer_size;
     bfile->pos -= num_bytes;
     if ( bfile->pos < 0 ) {
-        fprintf( stderr, "error: rewinding past beginning of file.\n" );
         bfile->pos = 0;
+        fprintf( stderr, "warning: tried rewinding past beginning of file.\n" );
     }
-    fprintf( stderr, "warning: rewinded %d bytes.\n", num_bytes );
+    newbuf = bfile->pos / bfile->buffer_size;
+    if ( newbuf < prevbuf ) { /* rewinded past block boundary */
+        /* refresh "preloaded" buffer with old buffer */
+        bfile->ipos = newbuf * bfile->buffer_size;
+        fseek( bfile->file, bfile->ipos, SEEK_SET );
+        bf_read_buffer( bfile );
+    }
     return num_bytes;
 } /* bf_rewind() */
 
@@ -670,7 +676,11 @@ bf_peek_int16_be(
     if ( (bufoff == 0) && (bfile->pos == bfile->ipos) )
         bf_read_buffer( bfile );
 
-    assert( bfile->pos <= (bfile->ipos - 2) ); /* FIXME todo */
+    if ( bfile->pos > (bfile->ipos - 2) ) {
+        fprintf( stderr,
+            "bfile warning: could not peek on next int16.\n" );
+        return 0;
+    }
 
     buffer = (int8_t *) bfile->buffer;
     value = buffer[bufoff] << 8;
@@ -695,7 +705,11 @@ bf_peek_uint16_be(
     if ( (bufoff == 0) && (bfile->pos == bfile->ipos) )
         bf_read_buffer( bfile );
 
-    assert( bfile->pos <= (bfile->ipos - 2) ); /* FIXME todo */
+    if ( bfile->pos > (bfile->ipos - 2) ) {
+        fprintf( stderr,
+            "bfile warning: could not peek on next uint16.\n" );
+        return 0;
+    }
 
     bufoff = bfile->pos % bfile->buffer_size;
     value = bfile->buffer[bufoff] << 8;
@@ -720,7 +734,11 @@ bf_peek_int16_le(
     if ( (bufoff == 0) && (bfile->pos == bfile->ipos) )
         bf_read_buffer( bfile );
 
-    assert( bfile->pos <= (bfile->ipos - 2) ); /* FIXME todo */
+    if ( bfile->pos > (bfile->ipos - 2) ) {
+        fprintf( stderr,
+            "bfile warning: could not peek on next int16.\n" );
+        return 0;
+    }
 
     bufoff = bfile->pos % bfile->buffer_size;
     buffer = (int8_t *) bfile->buffer;
@@ -745,7 +763,11 @@ bf_peek_uint16_le(
     if ( (bufoff == 0) && (bfile->pos == bfile->ipos) )
         bf_read_buffer( bfile );
 
-    assert( bfile->pos <= (bfile->ipos - 2) ); /* FIXME todo */
+    if ( bfile->pos > (bfile->ipos - 2) ) {
+        fprintf( stderr,
+            "bfile warning: could not peek on next uint16.\n" );
+        return 0;
+    }
 
     bufoff = bfile->pos % bfile->buffer_size;
     value = bfile->buffer[bufoff];
