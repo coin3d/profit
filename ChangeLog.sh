@@ -5,10 +5,11 @@
 #  using the cvs2cl script.
 #
 
-project=profit
+moduledir=${0%/[^/]*}
+module=${moduledir##*/}
 cvs2cl=$HOME/store/cvs/cvs2cl/cvs2cl.pl
-projectdir=$HOME/code/coin/src/$project
 headerfile=/tmp/$project.header
+cd $moduledir
 
 ############################################################################
 cat > $headerfile <<ENDOFHEADER
@@ -25,8 +26,6 @@ cvs2cl script used to generate this file.
 
 ENDOFHEADER
 ############################################################################
-
-cd $projectdir
 
 # generate ChangeLog, but strip off uninteresting entries
 cvs log | $cvs2cl --stdin --header $headerfile --separate-header --prune \

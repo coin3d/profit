@@ -32,16 +32,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_pop_attribute_info;
-
-/**************************************************************************/
-
-void
-prf_pop_attribute_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_pop_attribute_info );
-} /* prf_pop_attribute_init() */
+static prf_nodeinfo_t prf_pop_attribute_info = {
+    123, PRF_CONTROL | PRF_POP_NODE,
+    "Pop Attribute",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_pop_attribute_info */
 
 /**************************************************************************/
 
@@ -63,17 +64,13 @@ prf_pop_attribute_exit_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_pop_attribute_info = {
-    123, PRF_CONTROL | PRF_POP_NODE,
-    "Pop Attribute",
-    NULL,
-    NULL,
-    NULL,
-    prf_pop_attribute_exit_f,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_pop_attribute_info */
+void
+prf_pop_attribute_init(
+    void )
+{
+  prf_pop_attribute_info.exit_f=prf_pop_attribute_exit_f;
+  prf_nodeinfo_set( &prf_pop_attribute_info );
+} /* prf_pop_attribute_init() */
 
 /**************************************************************************/
 

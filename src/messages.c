@@ -47,15 +47,15 @@ prf_messages_init(
     void )
 {
     prf_handlers[ PRF_MSG_INFO ] =
-        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
+        (prf_msg_handler_t **)prf_array_init( 4, sizeof( prf_msg_handler_t *));
     prf_handlers[ PRF_MSG_DEBUG ] =
-        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
+        (prf_msg_handler_t **)prf_array_init( 4, sizeof( prf_msg_handler_t *));
     prf_handlers[ PRF_MSG_WARNING ] =
-        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
+        (prf_msg_handler_t **)prf_array_init( 4, sizeof( prf_msg_handler_t *));
     prf_handlers[ PRF_MSG_ERROR ] =
-        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
+        (prf_msg_handler_t **)prf_array_init( 4, sizeof( prf_msg_handler_t *));
     prf_handlers[ PRF_MSG_FATAL_ERROR ] =
-        prf_array_init( 4, sizeof( prf_msg_handler_t * ) );
+        (prf_msg_handler_t **)prf_array_init( 4, sizeof( prf_msg_handler_t *));
 } /* messages_init() */
 
 /**************************************************************************/
@@ -173,7 +173,7 @@ prf_messages_add_handler(
     prf_msg_handler_t * handler;
     int i, count;
     assert( type > 0 && type < 6 );
-    handler = malloc( sizeof( prf_msg_handler_t ) );
+    handler = (prf_msg_handler_t *)malloc( sizeof( prf_msg_handler_t ) );
     assert( handler != NULL );
     handler->level = level;
     handler->func = func;
@@ -185,7 +185,8 @@ prf_messages_add_handler(
             return;
         }
     }
-    prf_handlers[type] = prf_array_append_ptr( prf_handlers[type], handler );
+    prf_handlers[type] = 
+      (prf_msg_handler_t **)prf_array_append_ptr( prf_handlers[type], handler);
 } /* prf_messages_add_handler() */
 
 /**************************************************************************/

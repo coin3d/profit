@@ -98,7 +98,7 @@ bsp_create(
 
     assert( dimensions > 0 && dimensions < 128 );
 
-    tree = malloc( sizeof( bsp_tree ) );
+    tree = (bsp_tree *)malloc( sizeof( bsp_tree ) );
     assert( tree != NULL );
 
     tree->dimensions = dimensions;
@@ -107,7 +107,7 @@ bsp_create(
     tree->maxnodepoints = 64;
     tree->mempoolid = 0;
 
-    tree->pointarrays = malloc( sizeof(float *) * (dimensions + 1) );
+    tree->pointarrays = (float **)malloc( sizeof(float *) * (dimensions + 1) );
     assert( tree->pointarrays != NULL );
 
     for ( i = 0; i < dimensions; i++ ) {
@@ -439,7 +439,7 @@ _bsp_find_split(
     float * stats;
     float maxfact;
 
-    stats = malloc( sizeof(float) * 5 * dimensions );
+    stats = (float *)malloc( sizeof(float) * 5 * dimensions );
     assert( stats != NULL );
 
     cnt = array_count( idxarray );
@@ -627,7 +627,7 @@ bsp_remove_point_by_idx(
     int i;
     tree = (bsp_tree *) handle;
     assert( tree != NULL );
-    point = malloc( sizeof(float) * tree->dimensions );
+    point = (float *)malloc( sizeof(float) * tree->dimensions );
     assert( point != NULL );
     for ( i = 0; i < tree->dimensions; i++ ) {
         point[i] = tree->pointarrays[i][idx];

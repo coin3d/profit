@@ -39,20 +39,24 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_header_info;
+static prf_nodeinfo_t prf_header_info = {
+    1, PRF_PRIMARY,
+    "Header",
+    NULL,
+    NULL,
+    NULL,
+    NULL, /* exit_f */
+    NULL, /* traverse_f */
+    NULL, /* destroy_f */
+    NULL
+}; /* struct prf_header_info */
+
+/**************************************************************************/
+
 
 typedef  struct prf_header_data  node_data;
 #define  NODE_DATA_SIZE          274
 #define  NODE_DATA_PAD           (sizeof(node_data)-NODE_DATA_SIZE)
-
-/**************************************************************************/
-
-void
-prf_header_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_header_info );
-} /* header_init() */
 
 /**************************************************************************/
 
@@ -83,9 +87,9 @@ prf_header_load_f(
     if ( (node->length > 4) && (node->data == NULL) ) {
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+            node->data = (uint8_t *)malloc( node->length - 4 + NODE_DATA_PAD );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 + NODE_DATA_PAD );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -440,7 +444,7 @@ prf_header_entry_f(
 
 
     state->header = node;
-    state->materials = prf_array_set_count( state->materials, 0 );
+    state->materials = (prf_node_t **)prf_array_set_count( state->materials,0);
 
     if ( state->model == NULL ) {
         prf_error( 9, "model is " );
@@ -468,7 +472,8 @@ prf_header_clone_f(
     if ( target->mempool_id == 0 ) {
         clone = prf_node_create();
     } else {
-        clone = pool_malloc( target->mempool_id, sizeof( prf_node_t ) );
+        clone = (prf_node_t *)pool_malloc( target->mempool_id, 
+					   sizeof( prf_node_t ) );
         prf_node_clear( clone );
     }
     if ( clone == NULL ) {
@@ -483,9 +488,9 @@ prf_header_clone_f(
     assert( orig->data != NULL && orig->length > 4 );
 
     if ( target->mempool_id == 0 )
-        clone->data = malloc( orig->length - 4 + NODE_DATA_PAD );
+        clone->data = (uint8_t *)malloc( orig->length - 4 + NODE_DATA_PAD );
     else
-        clone->data = pool_malloc( target->mempool_id,
+        clone->data = (uint8_t *)pool_malloc( target->mempool_id,
             orig->length - 4 + NODE_DATA_PAD );
     if ( clone->data == NULL ) {
         prf_error( 9, "memory allocation failure (returned NULL)" );
@@ -499,17 +504,16 @@ prf_header_clone_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_header_info = {
-    1, PRF_PRIMARY,
-    "Header",
-    prf_header_load_f,
-    prf_header_save_f,
-    prf_header_entry_f,
-    NULL, /* exit_f */
-    NULL, /* traverse_f */
-    NULL, /* destroy_f */
-    prf_header_clone_f
-}; /* struct prf_header_info */
+void
+prf_header_init(
+    void )
+{
+  prf_header_info.load_f=prf_header_load_f;
+  prf_header_info.save_f=prf_header_save_f;
+  prf_header_info.entry_f=prf_header_entry_f;
+  prf_header_info.clone_f=prf_header_clone_f;
+  prf_nodeinfo_set( &prf_header_info );
+} /* header_init() */
 
 /**************************************************************************/
 

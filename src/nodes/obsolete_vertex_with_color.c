@@ -41,7 +41,20 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_obsolete_vertex_with_color_info;
+static prf_nodeinfo_t prf_obsolete_vertex_with_color_info = {
+    8, PRF_VERTEX | PRF_OBSOLETE,
+    "Vertex with Color (obsolete)",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_obsolete_vertex_with_color_info */
+
+/**************************************************************************/
+
 
 typedef  struct prf_obsolete_vertex_with_color_data  node_data;
 
@@ -77,15 +90,6 @@ prf_obsolete_vertex_with_color_fill_vertex(
 
 /**************************************************************************/
 
-void
-prf_obsolete_vertex_with_color_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_obsolete_vertex_with_color_info );
-} /* prf_obsolete_vertex_with_color_inin() */
-
-/**************************************************************************/
-
 static
 bool_t
 prf_obsolete_vertex_with_color_load_f(
@@ -110,9 +114,9 @@ prf_obsolete_vertex_with_color_load_f(
     if ( node->length > 4 && node->data == NULL ) { /* not preallocated */
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 );
+            node->data = (uint8_t *)malloc( node->length - 4 );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -180,17 +184,16 @@ prf_obsolete_vertex_with_color_save_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_obsolete_vertex_with_color_info = {
-    8, PRF_VERTEX | PRF_OBSOLETE,
-    "Vertex with Color (obsolete)",
-    prf_obsolete_vertex_with_color_load_f,
-    prf_obsolete_vertex_with_color_save_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_obsolete_vertex_with_color_info */
+void
+prf_obsolete_vertex_with_color_init(
+    void )
+{
+  prf_obsolete_vertex_with_color_info.load_f=
+    prf_obsolete_vertex_with_color_load_f;
+  prf_obsolete_vertex_with_color_info.save_f=
+    prf_obsolete_vertex_with_color_save_f;
+  prf_nodeinfo_set( &prf_obsolete_vertex_with_color_info );
+} /* prf_obsolete_vertex_with_color_inin() */
 
 /**************************************************************************/
 

@@ -38,20 +38,24 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_material_info;
+static prf_nodeinfo_t prf_material_info = {
+  113, PRF_ANCILLARY,
+  "Material Record",
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL
+}; /* struct prf_material_info */
+
+/**************************************************************************/
+
 
 typedef  struct prf_material_data  node_data;
 
 #define  NODE_DATA_PAD 0
-
-/**************************************************************************/
-
-void
-prf_material_init(
-  void )
-{
-  prf_nodeinfo_set( &prf_material_info );
-} /* prf_material_init() */
 
 /**************************************************************************/
 
@@ -119,9 +123,9 @@ prf_material_load_f(
     if ( node->data == NULL && node->length > 4 ) {
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+            node->data = (uint8_t *)malloc( node->length - 4 + NODE_DATA_PAD );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 + NODE_DATA_PAD );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -275,22 +279,21 @@ prf_material_entry_f(
         return;
     }
 
-    state->materials = prf_array_append_ptr( state->materials, node );
+    state->materials = (prf_node_t **)prf_array_append_ptr( state->materials, 
+							    node );
 } /* prf_material_entry_f() */
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_material_info = {
-  113, PRF_ANCILLARY,
-  "Material Record",
-  prf_material_load_f,
-  prf_material_save_f,
-  prf_material_entry_f,
-  NULL,
-  NULL,
-  NULL,
-  NULL
-}; /* struct prf_material_info */
+void
+prf_material_init(
+  void )
+{
+  prf_material_info.load_f=prf_material_load_f;
+  prf_material_info.save_f=prf_material_save_f;
+  prf_material_info.entry_f=prf_material_entry_f;
+  prf_nodeinfo_set( &prf_material_info );
+} /* prf_material_init() */
 
 /**************************************************************************/
 

@@ -25,6 +25,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 
 /* fixme */
 #define profit_malloc malloc
@@ -63,7 +64,7 @@ prf_array_init(int initsize, int elemsize)
 {
   array *arr;
 
-  arr = profit_malloc(initsize*elemsize+sizeof(array));
+  arr = (array *)profit_malloc(initsize*elemsize+sizeof(array));
   assert( arr != NULL );
   
   arr->size = initsize;
@@ -236,8 +237,8 @@ prf_array_set_size(void *id, int newsize)
   oldarray = id_to_array(id);
   elemsize = oldarray->elemsize;
   numelem = oldarray->numelem;
-  newarray = profit_realloc(oldarray, 
-			    newsize*elemsize + sizeof(array));
+  newarray = (array *)profit_realloc(oldarray, 
+				     newsize*elemsize + sizeof(array));
   
   newarray->size = newsize;
   newarray->elemsize = elemsize;

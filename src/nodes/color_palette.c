@@ -38,20 +38,24 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_color_palette_info;
+static prf_nodeinfo_t prf_color_palette_info = {
+    32, PRF_ANCILLARY,
+    "Color Palette",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_color_palette_info */
+
+/**************************************************************************/
+
 
 typedef struct prf_color_palette_data node_data;
 
 #define NODE_DATA_PAD 0
-
-/**************************************************************************/
-
-void
-prf_color_palette_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_color_palette_info );
-} /* prf_color_palette_info() */
 
 /**************************************************************************/
 
@@ -78,9 +82,9 @@ prf_color_palette_load_f(
     if ( node->data == NULL ) { /* not pre-allocated */
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+            node->data = (uint8_t *)malloc( node->length - 4 + NODE_DATA_PAD );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 + NODE_DATA_PAD );
         if ( node->data == NULL ) {
             prf_error( 6, "malloc returned NULL" );
@@ -217,17 +221,16 @@ prf_color_palette_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_color_palette_info = {
-    32, PRF_ANCILLARY,
-    "Color Palette",
-    prf_color_palette_load_f,
-    prf_color_palette_save_f,
-    prf_color_palette_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_color_palette_info */
+void
+prf_color_palette_init(
+    void )
+{
+  prf_color_palette_info.load_f=prf_color_palette_load_f;
+  prf_color_palette_info.save_f=prf_color_palette_save_f;
+  prf_color_palette_info.entry_f=prf_color_palette_entry_f;
+
+  prf_nodeinfo_set( &prf_color_palette_info );
+} /* prf_color_palette_info() */
 
 /**************************************************************************/
 

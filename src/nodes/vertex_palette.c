@@ -52,17 +52,21 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_vertex_palette_info;
-typedef struct prf_vertex_palette_data node_data;
+static prf_nodeinfo_t prf_vertex_palette_info = {
+    67, PRF_ANCILLARY,
+    "Vertex Palette",
+    NULL,
+    NULL,
+    NULL,
+    /* exit_f */      NULL,
+    /* traverse_f */  NULL, /* prf_vertex_palette_traverse_f, */
+    /* destroy_f */   NULL,
+    NULL
+}; /* struct prf_vertex_palette_info */
 
 /**************************************************************************/
 
-void
-prf_vertex_palette_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_vertex_palette_info );
-} /* prf_vertex_palette_init() */
+typedef struct prf_vertex_palette_data node_data;
 
 /**************************************************************************/
 
@@ -97,9 +101,10 @@ prf_vertex_palette_load_f(
     if ( length > 4 && node->data == NULL ) {
         assert( state->model != NULL );
         if ( state->model->mempool_id != 0 ) {
-            node->data = pool_malloc( state->model->mempool_id, length );
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id, 
+						 length );
         } else {
-            node->data = malloc( length );
+            node->data = (uint8_t *)malloc( length );
         }
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -394,7 +399,8 @@ prf_vertex_palette_clone_f(
     if ( target->mempool_id == 0 ) {
         clone = prf_node_create();
     } else {
-        clone = pool_malloc( target->mempool_id, sizeof( prf_node_t ) );
+        clone = (prf_node_t *)pool_malloc( target->mempool_id, 
+					   sizeof( prf_node_t ) );
         prf_node_clear( clone );
     }
     if ( clone == NULL ) {
@@ -415,9 +421,9 @@ prf_vertex_palette_clone_f(
             length += source->vertextras[i]->position;
     }
     if ( target->mempool_id == 0 ) 
-        clone->data = malloc( length );
+        clone->data = (uint8_t *)malloc( length );
     else
-        clone->data = pool_malloc( target->mempool_id, length );
+        clone->data = (uint8_t *)pool_malloc( target->mempool_id, length );
     if ( clone->data == NULL ) {
         prf_error( 9, "memory allocation problems (returned NULL)" );
         if ( (clone->flags & PRF_NODE_MEMPOOLED) == 0 )
@@ -446,17 +452,16 @@ prf_vertex_palette_clone_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_vertex_palette_info = {
-    67, PRF_ANCILLARY,
-    "Vertex Palette",
-    /* load_f */      prf_vertex_palette_load_f,
-    /* save_f */      prf_vertex_palette_save_f,
-    /* entry_f */     prf_vertex_palette_entry_f,
-    /* exit_f */      NULL,
-    /* traverse_f */  NULL, /* prf_vertex_palette_traverse_f, */
-    /* destroy_f */   NULL,
-    /* clone_f */     prf_vertex_palette_clone_f
-}; /* struct prf_vertex_palette_info */
+void
+prf_vertex_palette_init(
+    void )
+{
+  prf_vertex_palette_info.load_f=prf_vertex_palette_load_f;
+  prf_vertex_palette_info.save_f=prf_vertex_palette_save_f;
+  prf_vertex_palette_info.entry_f=prf_vertex_palette_entry_f;
+  prf_vertex_palette_info.clone_f=prf_vertex_palette_clone_f;
+  prf_nodeinfo_set( &prf_vertex_palette_info );
+} /* prf_vertex_palette_init() */
 
 /**************************************************************************/
 

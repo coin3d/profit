@@ -36,20 +36,24 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_material_palette_info;
+static prf_nodeinfo_t prf_material_palette_info = {
+    66, PRF_ANCILLARY | PRF_OBSOLETE,
+    "Material Palette",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_material_palette_info */
+
+/**************************************************************************/
+
 
 typedef struct prf_material_palette_data node_data;
 
 #define NODE_DATA_PAD 0
-
-/**************************************************************************/
-
-void
-prf_material_palette_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_material_palette_info );
-} /* prf_material_palette_init() */
 
 /**************************************************************************/
 
@@ -77,9 +81,9 @@ prf_material_palette_load_f(
     if ( node->length > 4 && node->data == NULL ) { /* node preallocated */
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+            node->data = (uint8_t *)malloc( node->length - 4 + NODE_DATA_PAD );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 + NODE_DATA_PAD );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -241,17 +245,15 @@ prf_material_palette_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_material_palette_info = {
-    66, PRF_ANCILLARY | PRF_OBSOLETE,
-    "Material Palette",
-    prf_material_palette_load_f,
-    prf_material_palette_save_f,
-    prf_material_palette_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_material_palette_info */
+void
+prf_material_palette_init(
+    void )
+{
+  prf_material_palette_info.load_f=prf_material_palette_load_f;
+  prf_material_palette_info.save_f=prf_material_palette_save_f;
+  prf_material_palette_info.entry_f=prf_material_palette_entry_f;
+  prf_nodeinfo_set( &prf_material_palette_info );
+} /* prf_material_palette_init() */
 
 /**************************************************************************/
 

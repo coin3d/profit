@@ -32,16 +32,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_pop_subface_info;
-
-/**************************************************************************/
-
-void
-prf_pop_subface_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_pop_subface_info );
-} /* prf_pop_subface_init() */
+static prf_nodeinfo_t prf_pop_subface_info = {
+    20, PRF_CONTROL | PRF_POP_NODE,
+    "Pop Subface",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_pop_subface_info */
 
 /**************************************************************************/
 
@@ -62,17 +63,13 @@ prf_pop_subface_exit_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_pop_subface_info = {
-    20, PRF_CONTROL | PRF_POP_NODE,
-    "Pop Subface",
-    NULL,
-    NULL,
-    NULL,
-    prf_pop_subface_exit_f,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_pop_subface_info */
+void
+prf_pop_subface_init(
+    void )
+{
+  prf_pop_subface_info.exit_f=prf_pop_subface_exit_f;
+  prf_nodeinfo_set( &prf_pop_subface_info );
+} /* prf_pop_subface_init() */
 
 /**************************************************************************/
 

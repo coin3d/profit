@@ -32,16 +32,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_push_extension_info;
-
-/**************************************************************************/
-
-void
-prf_push_extension_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_push_extension_info );
-} /* prf_push_extension_init() */
+static prf_nodeinfo_t prf_push_extension_info = {
+    21, PRF_CONTROL | PRF_PUSH_NODE,
+    "Push Extension",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_push_extension_info */
 
 /**************************************************************************/
 
@@ -63,17 +64,13 @@ prf_push_extension_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_push_extension_info = {
-    21, PRF_CONTROL | PRF_PUSH_NODE,
-    "Push Extension",
-    NULL,
-    NULL,
-    prf_push_extension_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_push_extension_info */
+void
+prf_push_extension_init(
+    void )
+{
+  prf_push_extension_info.entry_f=prf_push_extension_entry_f;
+  prf_nodeinfo_set( &prf_push_extension_info );
+} /* prf_push_extension_init() */
 
 /**************************************************************************/
 

@@ -39,20 +39,24 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_vertex_with_texture_info;
+static prf_nodeinfo_t prf_vertex_with_texture_info = {
+    71, PRF_VERTEX,
+    "Vertex with Texture",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_vertex_with_texture_info */
+
+/**************************************************************************/
+
 
 typedef  struct prf_vertex_with_texture_data  node_data;
 #define  NODE_DATA_SIZE                       44
 #define  NODE_DATA_PAD                        0
-
-/**************************************************************************/
-
-void
-prf_vertex_with_texture_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_vertex_with_texture_info );
-} /* prf_vertex_with_texture_init() */
 
 /**************************************************************************/
 
@@ -139,9 +143,9 @@ prf_vertex_with_texture_load_f(
     if ( node->length > 4 && node->data == NULL ) { /* not preallocated */
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 );
+            node->data = (uint8_t *)malloc( node->length - 4 );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -228,17 +232,14 @@ prf_vertex_with_texture_save_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_vertex_with_texture_info = {
-    71, PRF_VERTEX,
-    "Vertex with Texture",
-    prf_vertex_with_texture_load_f,
-    prf_vertex_with_texture_save_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_vertex_with_texture_info */
+void
+prf_vertex_with_texture_init(
+    void )
+{
+  prf_vertex_with_texture_info.load_f=prf_vertex_with_texture_load_f;
+  prf_vertex_with_texture_info.save_f=prf_vertex_with_texture_save_f;
+  prf_nodeinfo_set( &prf_vertex_with_texture_info );
+} /* prf_vertex_with_texture_init() */
 
 /**************************************************************************/
 

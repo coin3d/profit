@@ -32,16 +32,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_push_subface_info;
-
-/**************************************************************************/
-
-void
-prf_push_subface_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_push_subface_info );
-} /* prf_push_subface_init() */
+static prf_nodeinfo_t prf_push_subface_info = {
+    19, PRF_CONTROL | PRF_PUSH_NODE,
+    "Push Subface",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_push_subface_info */
 
 /**************************************************************************/
 
@@ -65,17 +66,13 @@ prf_push_subface_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_push_subface_info = {
-    19, PRF_CONTROL | PRF_PUSH_NODE,
-    "Push Subface",
-    NULL,
-    NULL,
-    prf_push_subface_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_push_subface_info */
+void
+prf_push_subface_init(
+    void )
+{
+  prf_push_subface_info.entry_f=prf_push_subface_entry_f;
+  prf_nodeinfo_set( &prf_push_subface_info );
+} /* prf_push_subface_init() */
 
 /**************************************************************************/
 

@@ -36,20 +36,24 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_matrix_info;
+static prf_nodeinfo_t prf_matrix_info = {
+    49, PRF_ANCILLARY | PRF_TRANSFORM,
+    "Matrix",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_matrix_info */
+
+/**************************************************************************/
+
 
 typedef  struct prf_matrix_data  node_data;
 #define  NODE_DATA_SIZE          64
 #define  NODE_DATA_PAD           (sizeof(node_data)-NODE_DATA_SIZE)
-
-/**************************************************************************/
-
-void
-prf_matrix_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_matrix_info );
-} /* prf_matrix_init() */
 
 /**************************************************************************/
 
@@ -83,9 +87,9 @@ prf_matrix_load_f(
     if ( node->length > 4 && node->data == NULL ) {
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+            node->data = (uint8_t *)malloc( node->length - 4 + NODE_DATA_PAD );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 + NODE_DATA_PAD );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -195,17 +199,15 @@ prf_matrix_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_matrix_info = {
-    49, PRF_ANCILLARY | PRF_TRANSFORM,
-    "Matrix",
-    prf_matrix_load_f,
-    prf_matrix_save_f,
-    prf_matrix_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_matrix_info */
+void
+prf_matrix_init(
+    void )
+{
+  prf_matrix_info.load_f=prf_matrix_load_f;
+  prf_matrix_info.save_f=prf_matrix_save_f;
+  prf_matrix_info.entry_f=prf_matrix_entry_f;
+  prf_nodeinfo_set( &prf_matrix_info );
+} /* prf_matrix_init() */
 
 /**************************************************************************/
 

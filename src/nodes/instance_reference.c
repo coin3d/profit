@@ -36,16 +36,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static const prf_nodeinfo_t prf_instance_reference_info;
-typedef struct prf_instance_reference_data node_data;
+static prf_nodeinfo_t prf_instance_reference_info = {
+    61, PRF_CONTROL | PRF_REFERENCE,
+    "Instance Reference",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct instance_reference_info */
 
 /**************************************************************************/
 
-void
-prf_instance_reference_init()
-{
-  prf_nodeinfo_set(&prf_instance_reference_info);
-} /* instance_reference_init() */
+typedef struct prf_instance_reference_data node_data;
 
 /**************************************************************************/
 
@@ -73,9 +78,9 @@ prf_instance_reference_load_f(prf_node_t * node,
   if (node->data == NULL && node->length > 4) {
     assert( state->model != NULL );
     if (state->model->mempool_id == 0)
-      node->data = malloc( node->length - 4);
+      node->data = (uint8_t *)malloc( node->length - 4);
     else
-      node->data = pool_malloc( state->model->mempool_id,
+      node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
 				node->length - 4);
     if (node->data == NULL) {
       prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -129,17 +134,13 @@ prf_instance_reference_save_f(prf_node_t * node,
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_instance_reference_info = {
-    61, PRF_CONTROL | PRF_REFERENCE,
-    "Instance Reference",
-    prf_instance_reference_load_f,
-    prf_instance_reference_save_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct instance_reference_info */
+void
+prf_instance_reference_init()
+{
+  prf_instance_reference_info.load_f=prf_instance_reference_load_f;
+  prf_instance_reference_info.save_f=prf_instance_reference_save_f;
+  prf_nodeinfo_set(&prf_instance_reference_info);
+} /* instance_reference_init() */
 
 /**************************************************************************/
 

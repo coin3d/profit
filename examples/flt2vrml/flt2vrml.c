@@ -29,7 +29,6 @@
 #include <profit/nodes/group.h>
 #include <profit/nodes/vertex_palette.h>
 #include <profit/util/bfile.h>
-#include <profit/util/array.h>
 #include <profit/callback.h>
 
 #include "array.h"
@@ -236,8 +235,8 @@ do_convert(prf_model_t *model, FILE *file)
   prf_model_traverse_io(model, cb);
   
   for (i = 0; i < array_count(facesets); i++) {
-    convertFaceset(facesets[i], file);
-    faceset_delete(facesets[i]);
+    convertFaceset((faceset *)facesets[i], file);
+    faceset_delete((faceset *)facesets[i]);
     facesets[i] = NULL;
   }
 }
@@ -611,9 +610,9 @@ profitCB(void *mystate, void *ud)
     unsigned short lightmode;  
     int idx;
     
-    array_set_count(vertexarray, 0);
-    array_set_count(texcoordarray, 0);
-    array_set_count(colorarray, 0);
+    vertexarray=(float *)_array_set_count(vertexarray, 0);
+    texcoordarray=(float *)_array_set_count(texcoordarray, 0);
+    colorarray=(int *)_array_set_count(colorarray, 0);
     
     face = (struct prf_face_data*) state->node->data;
 
@@ -673,7 +672,8 @@ profitCB(void *mystate, void *ud)
 	  if (prf_state_texture_lookup(state, texture_pattern_index, &tex)) {
 	    
 	    if (strlen(tex.filename)) {
-	      data->texture_pattern_filename = malloc(strlen(tex.filename)+1);
+	      data->texture_pattern_filename = 
+		(char *)malloc(strlen(tex.filename)+1);
 	      strcpy(data->texture_pattern_filename, tex.filename);
 	    }
 	  }

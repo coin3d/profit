@@ -38,20 +38,25 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_texture_info;
+static prf_nodeinfo_t prf_texture_info = 
+{
+  64, PRF_ANCILLARY,
+  "Texture Record",
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  NULL
+}; /* struct prf_texture_info */
+
+/**************************************************************************/
+
 
 typedef struct prf_texture_data node_data;
 
 #define NODE_DATA_PAD 0
-
-/**************************************************************************/
-
-void
-prf_texture_init(
-  void )
-{
-  prf_nodeinfo_set( &prf_texture_info );
-} /* prf_texture_init() */
 
 /**************************************************************************/
 
@@ -100,9 +105,9 @@ prf_texture_load_f(prf_node_t * node,
   if ( node->data == NULL && node->length > 4 ) {
     assert( state->model != NULL );
     if ( state->model->mempool_id == 0 )
-      node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+      node->data = (uint8_t *)malloc( node->length - 4 + NODE_DATA_PAD );
     else
-      node->data = pool_malloc( state->model->mempool_id,
+      node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
 				node->length - 4 + NODE_DATA_PAD );
     if ( node->data == NULL ) {
       prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -190,23 +195,20 @@ prf_texture_entry_f(
 	       node->opcode );
     return;
   }
-  state->textures = prf_array_append_ptr(state->textures, node);
+  state->textures = (prf_node_t **)prf_array_append_ptr(state->textures, node);
 } /* prf_texture_entry_f() */
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_texture_info = 
+void
+prf_texture_init(
+  void )
 {
-  64, PRF_ANCILLARY,
-  "Texture Record",
-  prf_texture_load_f,
-  prf_texture_save_f,
-  prf_texture_entry_f,
-  NULL,
-  NULL,
-  NULL,
-  NULL
-}; /* struct prf_texture_info */
+  prf_texture_info.load_f=prf_texture_load_f;
+  prf_texture_info.save_f=prf_texture_save_f;
+  prf_texture_info.entry_f=prf_texture_entry_f;
+  prf_nodeinfo_set( &prf_texture_info );
+} /* prf_texture_init() */
 
 /**************************************************************************/
 

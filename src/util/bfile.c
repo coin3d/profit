@@ -86,7 +86,7 @@ create_bfile_t(
     uint32_t buffer_size )
 {
     bfile_t * bfile;
-    bfile = malloc( sizeof( struct bfile_s ) );
+    bfile = (bfile_t *)malloc( sizeof( struct bfile_s ) );
     assert( bfile != NULL );
     bfile->flags = 0;
     bfile->file = NULL;
@@ -95,7 +95,7 @@ create_bfile_t(
     bfile->ipos = 0;
     bfile->filename = NULL;
     if ( buffer_size ) {
-      bfile->buffer = malloc( buffer_size );
+      bfile->buffer = (uint8_t *)malloc( buffer_size );
       assert( bfile->buffer != NULL );
       bfile->buffer_size = buffer_size;
     }
@@ -153,7 +153,7 @@ bf_create_r(
     if ( file ) {
         bfile = create_bfile_t( BFILE_BLOCK_SIZE );
         bfile->file = file;
-        bfile->filename = malloc( strlen( filename ) + 1 );
+        bfile->filename = (char *)malloc( strlen( filename ) + 1 );
         assert( bfile->filename );
         strcpy( bfile->filename, filename );
         stat( filename, &buf );
@@ -178,7 +178,7 @@ bf_create_w(
     if ( file != NULL ) {
         bfile = create_bfile_t( BFILE_BLOCK_SIZE );
         bfile->file = file;
-        bfile->filename = malloc( strlen( filename ) + 1 );
+        bfile->filename = (char *)malloc( strlen( filename ) + 1 );
         assert( bfile->filename );
         strcpy( bfile->filename, filename );
         bfile->flags |= BF_WRITABLE;

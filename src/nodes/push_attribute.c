@@ -32,16 +32,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_push_attribute_info;
-
-/**************************************************************************/
-
-void
-prf_push_attribute_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_push_attribute_info );
-} /* prf_push_attribute_init() */
+static prf_nodeinfo_t prf_push_attribute_info = {
+    122, PRF_CONTROL | PRF_PUSH_NODE,
+    "Push Attribute",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_push_attribute_info */
 
 /**************************************************************************/
 
@@ -63,17 +64,13 @@ prf_push_attribute_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_push_attribute_info = {
-    122, PRF_CONTROL | PRF_PUSH_NODE,
-    "Push Attribute",
-    NULL,
-    NULL,
-    prf_push_attribute_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_push_attribute_info */
+void
+prf_push_attribute_init(
+    void )
+{
+  prf_push_attribute_info.entry_f=prf_push_attribute_entry_f;
+  prf_nodeinfo_set( &prf_push_attribute_info );
+} /* prf_push_attribute_init() */
 
 /**************************************************************************/
 

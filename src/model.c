@@ -96,7 +96,7 @@ prf_model_create(
     void )
 {
     prf_model_t * model;
-    model = malloc( sizeof( prf_model_t ) );
+    model = (prf_model_t *)malloc( sizeof( prf_model_t ) );
     if ( model == NULL )
         prf_error( 9, "memory allocation error (returned NULL)" );
     prf_model_clear( model );
@@ -207,9 +207,9 @@ prf_model_load_with_callback(
     assert( model != NULL && bfile != NULL );
     assert( model->header == NULL );
 
-    stack = prf_array_init( 8, sizeof( prf_node_t ** ) );
+    stack = (prf_node_t ***)prf_array_init( 8, sizeof( prf_node_t ** ) );
     assert( stack != NULL );
-    stack[0] = prf_array_init( 8, sizeof( prf_node_t * ) );
+    stack[0] = (prf_node_t **)prf_array_init( 8, sizeof( prf_node_t * ) );
     assert( stack[0] != NULL );
     level = 0;
     state = prf_state_create();
@@ -232,7 +232,8 @@ prf_model_load_with_callback(
                 goto error;
             }
         } else {
-            node = pool_malloc( model->mempool_id, sizeof( prf_node_t ) );
+            node = (prf_node_t *)pool_malloc( model->mempool_id, 
+					      sizeof( prf_node_t ) );
             if ( node == NULL ) {
                 prf_error( 6, "could not allocate memory for new node." );
                 goto error;
@@ -266,9 +267,9 @@ prf_model_load_with_callback(
                 goto error;
             if ( node->length > 4 ) {
                 if ( model->mempool_id == 0 ) {
-                    node->data = malloc( node->length - 4 );
+                    node->data = (uint8_t *)malloc( node->length - 4 );
                 } else {
-                    node->data = pool_malloc( model->mempool_id,
+                    node->data = (uint8_t *)pool_malloc( model->mempool_id,
                         node->length - 4 );
                     node->flags |= PRF_NODE_MEMPOOLED;
                 }
@@ -288,9 +289,10 @@ prf_model_load_with_callback(
             int cnt;
             cnt = prf_array_count( stack[level] );
             if ( (stack[level])[cnt-1]->children == NULL ) {
-                stack = prf_array_set_count( stack, level+1 );
-                stack = prf_array_append_ptr( stack, NULL );
-                stack[level+1] = prf_array_init( 8, sizeof( prf_node_t * ) );
+                stack = (prf_node_t ***)prf_array_set_count( stack, level+1 );
+                stack = (prf_node_t ***)prf_array_append_ptr( stack, NULL );
+                stack[level+1] = 
+		  (prf_node_t **)prf_array_init( 8, sizeof( prf_node_t * ) );
             }
             if ( (info->flags & PRF_PUSH_NODE) != 0 )
                 level++;
@@ -299,7 +301,8 @@ prf_model_load_with_callback(
         if ( (info->flags & PRF_ANCILLARY) != 0 ) {
             int cnt, anodes, i;
             assert( stack[level+1] != NULL );
-            stack[level+1] = prf_array_append_ptr( stack[level+1], node );
+            stack[level+1] = 
+	      (prf_node_t **)prf_array_append_ptr( stack[level+1], node );
             assert( level >= 0 );
             cnt = prf_array_count( stack[level] );
             stack[level][cnt-1]->children = (prf_node_t **) stack[level+1];
@@ -308,7 +311,8 @@ prf_model_load_with_callback(
                 stack[level+1][i]->parent = stack[level][cnt-1];
         } else {
             assert( stack[level] != NULL );
-            stack[level] = prf_array_append_ptr( stack[level], node );
+            stack[level] = 
+	      (prf_node_t **)prf_array_append_ptr( stack[level], node );
         }
 
         prf_cb_call( callback, node );
@@ -588,7 +592,7 @@ prf_model_vertex_palette_optimize(
             for ( i = 0; i < count; i++ )
                 length += model->vertextras[i]->position;
         }
-        rlt = malloc( length );
+        rlt = (uint8_t *)malloc( length );
         if ( rlt == NULL ) {
             prf_error( 9, "memory allocation error (malloc returned NULL)" );
             return FALSE;
@@ -607,7 +611,7 @@ prf_model_vertex_palette_optimize(
         int32_t datasize = 0;
         int32_t orig_length = 0;
         uint8_t * ptr = NULL, * origdata = NULL;
-        uint8_t * buffer = malloc( length );
+        uint8_t * buffer = (uint8_t *)malloc( length );
 
         if ( buffer == NULL ) {
             prf_error( 9, "memory allocation error (malloc returned NULL)" );
@@ -672,7 +676,8 @@ prf_model_vertex_palette_optimize(
 
         if ( model->mempool_id == 0 ) {
             free( model->vertex_palette->data );
-            model->vertex_palette->data = realloc( buffer, orig_length-offset );
+            model->vertex_palette->data = 
+	      (uint8_t *)realloc( buffer, orig_length-offset );
         } else {
             if ( ((uint32_t *)model->vertex_palette->data)[0] >=
                  (orig_length - offset) ) {
@@ -680,7 +685,7 @@ prf_model_vertex_palette_optimize(
                     orig_length - offset );
             } else {
                 /* some memory is wasted here until memory pool is freed */
-                model->vertex_palette->data =
+	      model->vertex_palette->data = (uint8_t *)
                     pool_malloc( model->mempool_id, orig_length - offset );
                 memcpy( model->vertex_palette->data, buffer,
                     orig_length - offset );
@@ -731,18 +736,19 @@ prf_model_traverse_io_(
 
     assert( root != NULL && state != NULL );
 
-    stack = prf_array_init( 8, sizeof( prf_node_t ** ) );
+    stack = (prf_node_t ***)prf_array_init( 8, sizeof( prf_node_t ** ) );
     assert( stack != NULL );
-    array = prf_array_init( 1, sizeof( prf_node_t * ) );
+    array = (prf_node_t **)prf_array_init( 1, sizeof( prf_node_t * ) );
     assert( array != NULL );
-    array = prf_array_append_ptr( array, root );
-    stack = prf_array_append_ptr( stack, array );
-    child = prf_array_init( 4, sizeof( int ) );
+    array = (prf_node_t **)prf_array_append_ptr( array, root );
+    stack = (prf_node_t ***)prf_array_append_ptr( stack, array );
+    child = (int *)prf_array_init( 4, sizeof( int ) );
     assert( child != NULL );
-    child = prf_array_append_int( child, 0 );
-    limit = prf_array_init( 4, sizeof( int ) );
+    child = (int *)prf_array_append_int( child, 0 );
+    limit = (int *)prf_array_init( 4, sizeof( int ) );
     assert( limit != NULL );
-    limit = prf_array_append_int( limit, prf_array_count( stack[ 0 ] ) );
+    limit = 
+      (int *)prf_array_append_int( limit, prf_array_count(stack[0]));
 
     while ( child[0] < limit[0] ) {
 
@@ -778,10 +784,10 @@ prf_model_traverse_io_(
         if ( traverse == PRF_TRAV_CONTINUE ) {
             /* visit children */
             if ( stack[level][child[level]]->children != NULL ) {
-                stack = prf_array_append_ptr( stack,
+                stack = (prf_node_t ***)prf_array_append_ptr( stack,
                     stack[level][child[level]]->children );
-                child = prf_array_append_int( child, 0 );
-                limit = prf_array_append_int( limit,
+                child = (int *)prf_array_append_int( child, 0 );
+                limit = (int *)prf_array_append_int( limit,
                     prf_array_count( stack[level+1] ) );
                 prf_state_push( state );
                 level++;
@@ -802,9 +808,11 @@ prf_model_traverse_io_(
         child[ level ]++;
 
         while ( (level > 0) && (child[level] >= limit[level]) ) {
-            stack = prf_array_set_count( stack, prf_array_count( stack ) - 1 );
-            child = prf_array_set_count( child, prf_array_count( child ) - 1 );
-            limit = prf_array_set_count( limit, prf_array_count( limit ) - 1 );
+            stack = 
+	      (prf_node_t ***)prf_array_set_count(stack,
+						  prf_array_count(stack)-1);
+            child = (int *)prf_array_set_count(child,prf_array_count(child)-1);
+            limit = (int *)prf_array_set_count(limit,prf_array_count(limit)-1);
             level--;
             child[ level ]++;
             prf_state_pop( state );
@@ -879,18 +887,18 @@ prf_model_traverse_df( /* depth-first traversal */
 
     state = prf_state_create();
     state->model = model;
-    stack = prf_array_init( 8, sizeof( prf_node_t ** ) );
+    stack = (prf_node_t ***)prf_array_init( 8, sizeof( prf_node_t ** ) );
     assert( stack != NULL );
-    array = prf_array_init( 1, sizeof( prf_node_t * ) );
+    array = (prf_node_t **)prf_array_init( 1, sizeof( prf_node_t * ) );
     assert( array != NULL );
-    array = prf_array_append_ptr( array, model->header );
-    stack = prf_array_append_ptr( stack, array );
-    child = prf_array_init( 4, sizeof( int ) );
+    array = (prf_node_t **)prf_array_append_ptr( array, model->header );
+    stack = (prf_node_t ***)prf_array_append_ptr( stack, array );
+    child = (int *)prf_array_init( 4, sizeof( int ) );
     assert( child != NULL );
-    child = prf_array_append_int( child, 0 );
-    limit = prf_array_init( 4, sizeof( int ) );
+    child = (int *)prf_array_append_int( child, 0 );
+    limit = (int *)prf_array_init( 4, sizeof( int ) );
     assert( limit != NULL );
-    limit = prf_array_append_int( limit, prf_array_count( stack[ 0 ] ) );
+    limit = (int *)prf_array_append_int( limit, prf_array_count(stack[0]));
     traverse = PRF_TRAV_CONTINUE;
 
     level = 0;
@@ -902,9 +910,9 @@ prf_model_traverse_df( /* depth-first traversal */
             (*info->entry_f)(node, state);
 
         while ( node->children != NULL ) {
-            stack = prf_array_append_ptr( stack, node->children );
-            child = prf_array_append_int( child, 0 );
-            limit = prf_array_append_int( limit, prf_array_count( stack[level+1] ) );
+            stack = (prf_node_t ***)prf_array_append_ptr(stack,node->children);
+            child = (int *)prf_array_append_int( child, 0 );
+            limit = (int *)prf_array_append_int(limit, prf_array_count(stack[level+1]));
             prf_state_push( state );
             level++;
             state->physical_level++;
@@ -938,9 +946,9 @@ prf_model_traverse_df( /* depth-first traversal */
         child[level]++;
 
         if ( (level > 0) && (child[level] >= limit[level]) ) {
-            stack = prf_array_set_count( stack, prf_array_count( stack ) - 1 );
-            child = prf_array_set_count( child, prf_array_count( child ) - 1 );
-            limit = prf_array_set_count( limit, prf_array_count( limit ) - 1 );
+            stack = (prf_node_t ***)prf_array_set_count( stack, prf_array_count( stack ) - 1 );
+            child = (int *)prf_array_set_count( child, prf_array_count( child ) - 1 );
+            limit = (int *)prf_array_set_count( limit, prf_array_count( limit ) - 1 );
             prf_state_pop( state );
             level--;
             state->physical_level--;
@@ -1004,17 +1012,18 @@ prf_model_traverse_bf(
 
     assert( model != NULL && model->header != NULL );
 
-    this_level = prf_array_init( 8, sizeof( prf_node_t ** ) );
-    this_level_states = prf_array_init( 8, sizeof( prf_state_t * ) );
-    next_level = prf_array_init( 8, sizeof( prf_node_t ** ) );
-    next_level_states = prf_array_init( 8, sizeof( prf_state_t * ) );
+    this_level = (prf_node_t ***)prf_array_init( 8, sizeof( prf_node_t ** ) );
+    this_level_states = (prf_state_t **)prf_array_init(8,sizeof(prf_state_t*));
+    next_level = (prf_node_t ***)prf_array_init( 8, sizeof( prf_node_t ** ) );
+    next_level_states = (prf_state_t **)prf_array_init(8,sizeof(prf_state_t*));
 
-    array = prf_array_init( 1, sizeof( prf_node_t * ) );
+    array = (prf_node_t **)prf_array_init( 1, sizeof( prf_node_t * ) );
     assert( array != NULL );
-    array = prf_array_append_ptr( array, model->header );
-    this_level = prf_array_append_ptr( this_level, array );
-    this_level_states = prf_array_append_ptr( this_level_states,
-          prf_state_clone( state ) );
+    array = (prf_node_t **)prf_array_append_ptr( array, model->header );
+    this_level = (prf_node_t ***)prf_array_append_ptr( this_level, array );
+    this_level_states = 
+      (prf_state_t **)prf_array_append_ptr( this_level_states,
+					    prf_state_clone( state ) );
 
     traverse = PRF_TRAV_CONTINUE;
 
@@ -1045,9 +1054,9 @@ prf_model_traverse_bf(
                     clone = prf_state_clone( state );
                     prf_state_push( clone );
                     clone->physical_level++;
-                    next_level = prf_array_append_ptr( next_level,
-                        children[j]->children );
-                    next_level_states = prf_array_append_ptr(
+                    next_level = (prf_node_t ***)prf_array_append_ptr( 
+                        next_level, children[j]->children );
+                    next_level_states = (prf_state_t **)prf_array_append_ptr(
                         next_level_states, clone );
                 }
                 if ( info->exit_f != NULL )
@@ -1070,9 +1079,10 @@ prf_model_traverse_bf(
         this_level = next_level;
         this_level_states = next_level_states;
         next_level = temp_nodes;
-        next_level = prf_array_set_count( next_level, 0 );
+        next_level = (prf_node_t ***)prf_array_set_count( next_level, 0 );
         next_level_states = temp_states;
-        next_level_states = prf_array_set_count( next_level_states, 0 );
+        next_level_states = 
+	  (prf_state_t **)prf_array_set_count( next_level_states, 0 );
     }
 
     prf_state_destroy( state );
@@ -1114,7 +1124,8 @@ clone_cb(
                 state->physical_level == 0 );
         node = prf_node_clone( state->node, state->model, clone_info->model );
         clone_info->model->header = node;
-        clone_info->stack = prf_array_append_ptr( clone_info->stack, node );
+        clone_info->stack = 
+	  (prf_node_t **)prf_array_append_ptr( clone_info->stack, node );
     } else {
         prf_node_t * node;
         assert( clone_info->model->header != NULL &&
@@ -1123,12 +1134,13 @@ clone_cb(
         node->parent = clone_info->stack[state->physical_level-1];
         if ( clone_info->stack[state->physical_level-1]->children == NULL )
             clone_info->stack[state->physical_level-1]->children =
-                prf_array_init( 4, sizeof( prf_node_t * ) );
+                (prf_node_t **)prf_array_init( 4, sizeof( prf_node_t * ) );
         clone_info->stack[state->physical_level-1]->children =
-            prf_array_append_ptr(
+            (prf_node_t **)prf_array_append_ptr(
                 clone_info->stack[state->physical_level-1]->children, node );
         prf_array_set_count( clone_info->stack, state->physical_level );
-        clone_info->stack = prf_array_append_ptr( clone_info->stack, node );
+        clone_info->stack = 
+	  (prf_node_t **)prf_array_append_ptr( clone_info->stack, node );
     }
 
     return PRF_TRAV_CONTINUE;
@@ -1148,9 +1160,10 @@ prf_model_clone(
     clone = prf_model_create();
     state = prf_state_create();
     state->model = model;
-    clone_info = malloc( sizeof( struct prf_clone_info_s ) );
+    clone_info = 
+      (struct prf_clone_info_s *)malloc( sizeof( struct prf_clone_info_s ) );
     clone_info->model = clone;
-    clone_info->stack = prf_array_init( 8, sizeof( prf_node_t * ) );
+    clone_info->stack = (prf_node_t **)prf_array_init(8, sizeof(prf_node_t *));
 
     if ( use_mempooling != FALSE )
         prf_model_poolmem( clone );
@@ -1177,12 +1190,14 @@ prf_vertextras_init(
 
     assert( model != NULL );
 
-    model->vertextras = prf_array_init( 4, sizeof( prf_vertex_pool_t * ) );
+    model->vertextras = (struct prf_vertex_pool_s **)
+      prf_array_init( 4, sizeof( prf_vertex_pool_t * ) );
     assert( model->vertextras != NULL );
-    first = malloc( sizeof( prf_vertex_pool_t ) );
+    first = (prf_vertex_pool_t *)malloc( sizeof( prf_vertex_pool_t ) );
     assert( first != NULL );
-    model->vertextras = prf_array_append_ptr( model->vertextras, first );
-    model->vertextras[0]->data = malloc( PRF_POOL_BLOCK_SIZE );
+    model->vertextras = (struct prf_vertex_pool_s **)
+      prf_array_append_ptr( model->vertextras, first );
+    model->vertextras[0]->data = (uint8_t *)malloc( PRF_POOL_BLOCK_SIZE );
     assert( model->vertextras[0]->data != NULL );
     model->vertextras[0]->data_size = PRF_POOL_BLOCK_SIZE;
     model->vertextras[0]->position = 0;
@@ -1261,13 +1276,14 @@ prf_model_add_vertex(
     }
 
     if ( pool->data_size - pool->position < length ) {
-        pool = malloc( sizeof( prf_vertex_pool_t ) );
+        pool = (prf_vertex_pool_t *)malloc( sizeof( prf_vertex_pool_t ) );
         assert( pool != NULL );
-        pool->data = malloc( PRF_POOL_BLOCK_SIZE );
+        pool->data = (uint8_t *)malloc( PRF_POOL_BLOCK_SIZE );
         assert( pool->data != NULL );
         pool->data_size = PRF_POOL_BLOCK_SIZE;
         pool->position = 0;
-        model->vertextras = prf_array_append_ptr( model->vertextras, pool );
+        model->vertextras = (struct prf_vertex_pool_s **)
+          prf_array_append_ptr( model->vertextras, pool);
     }
 
     ptr8 = pool->data + pool->position;

@@ -36,16 +36,21 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static const prf_nodeinfo_t prf_instance_definition_info;
-typedef struct prf_instance_definition_data node_data;
+static prf_nodeinfo_t prf_instance_definition_info = {
+    62, PRF_CONTROL | PRF_DEFINITION,
+    "Instance Definition",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct instance_definition_info */
 
 /**************************************************************************/
 
-void
-prf_instance_definition_init()
-{
-  prf_nodeinfo_set(&prf_instance_definition_info);
-} /* instance_definition_init() */
+typedef struct prf_instance_definition_data node_data;
 
 /**************************************************************************/
 
@@ -73,9 +78,9 @@ prf_instance_definition_load_f(prf_node_t * node,
   if (node->data == NULL && node->length > 4) {
     assert( state->model != NULL );
     if (state->model->mempool_id == 0)
-      node->data = malloc( node->length - 4);
+      node->data = (uint8_t *)malloc( node->length - 4);
     else
-      node->data = pool_malloc( state->model->mempool_id,
+      node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
 				node->length - 4);
     if (node->data == NULL) {
       prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -146,23 +151,20 @@ prf_instance_definition_entry_f(prf_node_t * node,
     if (state->instances[i] == node) break;
   } 
   if (i == n) {
-    state->instances = prf_array_append_ptr(state->instances, node);
+    state->instances = (prf_node_t **)prf_array_append_ptr(state->instances, node);
   }
 } /* prf_instance_definition_entry_f() */
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_instance_definition_info = {
-    62, PRF_CONTROL | PRF_DEFINITION,
-    "Instance Definition",
-    prf_instance_definition_load_f,
-    prf_instance_definition_save_f,
-    prf_instance_definition_entry_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct instance_definition_info */
+void
+prf_instance_definition_init()
+{
+  prf_instance_definition_info.load_f=prf_instance_definition_load_f;
+  prf_instance_definition_info.save_f=prf_instance_definition_save_f;
+  prf_instance_definition_info.entry_f=prf_instance_definition_entry_f;
+  prf_nodeinfo_set(&prf_instance_definition_info);
+} /* instance_definition_init() */
 
 /**************************************************************************/
 

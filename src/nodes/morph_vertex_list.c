@@ -36,16 +36,20 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_morph_vertex_list_info;
+static prf_nodeinfo_t prf_morph_vertex_list_info = {
+    89, PRF_PRIMARY,
+    "Morph Vertex List",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_morph_vertex_list_info */
 
 /**************************************************************************/
 
-void
-prf_morph_vertex_list_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_morph_vertex_list_info );
-} /* prf_morph_vertex_list_init() */
 
 /**************************************************************************/
 
@@ -93,9 +97,9 @@ prf_morph_vertex_list_load_f(
     if ( node->length > 4 && node->data == NULL ) { /* not preallocated */
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 );
+            node->data = (uint8_t *)malloc( node->length - 4 );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -151,17 +155,14 @@ prf_morph_vertex_list_save_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_morph_vertex_list_info = {
-    89, PRF_PRIMARY,
-    "Morph Vertex List",
-    prf_morph_vertex_list_load_f,
-    prf_morph_vertex_list_save_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_morph_vertex_list_info */
+void
+prf_morph_vertex_list_init(
+    void )
+{
+  prf_morph_vertex_list_info.load_f=prf_morph_vertex_list_load_f;
+  prf_morph_vertex_list_info.save_f=prf_morph_vertex_list_save_f;
+  prf_nodeinfo_set( &prf_morph_vertex_list_info );
+} /* prf_morph_vertex_list_init() */
 
 /**************************************************************************/
 

@@ -31,138 +31,8 @@
 /**************************************************************************/
 
 static prf_nodeinfo_t **  nodetypes;
-prf_nodeinfo_t  prf_nodeinfo_defaults[];
-
-/**************************************************************************/
-
-void
-prf_nodeinfo_init(
-    void )
-{
-    int idx;
-
-    nodetypes = prf_array_init( 128, sizeof( prf_nodeinfo_t ) );
-    assert( nodetypes != NULL );
-
-    idx = 0;
-    while ( prf_nodeinfo_defaults[ idx ].opcode != 0 ) {
-        prf_nodeinfo_set( &prf_nodeinfo_defaults[ idx ] );
-        idx++;
-    }
-
-    /* place functions for setting load_f, save_f, and state_f here... */
-
-    prf_header_init();
-    prf_group_init();
-    prf_object_init();
-    prf_face_init();
-
-    prf_push_attribute_init();
-    prf_pop_attribute_init();
-    prf_push_extension_init();
-    prf_pop_extension_init();
-    prf_push_level_init();
-    prf_pop_level_init();
-    prf_push_subface_init();
-    prf_pop_subface_init();
-
-    prf_vertex_palette_init();
-    prf_vertex_with_color_init();
-    prf_obsolete_vertex_with_color_init();
-    prf_vertex_with_normal_init();
-    prf_obsolete_vertex_with_normal_init();
-    prf_vertex_with_normal_and_texture_init();
-    prf_vertex_with_texture_init();
-
-    prf_vertex_list_init();
-    prf_morph_vertex_list_init();
-
-    prf_color_palette_init();
-    prf_material_init();
-    prf_texture_init();
-    prf_material_palette_init(); /* obsolete */
-    prf_instance_definition_init();
-    prf_instance_reference_init();
-
-    prf_matrix_init();
-
-} /* prf_nodeinfo_init() */
-
-/**************************************************************************/
-
-void
-prf_nodeinfo_exit(
-    void )
-{
-    int i, count;
-    count = prf_array_count( nodetypes );
-    for ( i = 0; i < count; i++ ) {
-        if ( nodetypes[i] != NULL ) {
-            free( nodetypes[ i ]->name );
-            free( nodetypes[ i ] );
-        }
-    }
-    prf_array_free( nodetypes );
-    nodetypes = NULL;
-} /* prf_nodeinfo_exit() */
-
-/**************************************************************************/
-
-bool_t
-prf_nodeinfo_set(
-    const prf_nodeinfo_t * nodeinfo )
-{
-    int i;
-    prf_nodeinfo_t * newnodeinfo;
-
-    assert( nodeinfo->opcode > 0 );
-
-    i = prf_array_count( nodetypes );
-    while ( i <= nodeinfo->opcode ) {
-        nodetypes = prf_array_append_ptr( nodetypes, NULL );
-        i++;
-    }
-
-    if ( nodetypes[ nodeinfo->opcode ] != NULL ) {
-        assert( nodetypes[ nodeinfo->opcode ] != nodeinfo );
-        free( nodetypes[ nodeinfo->opcode ]->name );
-        free( nodetypes[ nodeinfo->opcode ] );
-    }
-
-    newnodeinfo = malloc( sizeof( struct prf_nodeinfo_s ) );
-    assert( newnodeinfo != NULL );
-    nodetypes[ nodeinfo->opcode ] = newnodeinfo;
-    newnodeinfo->opcode = nodeinfo->opcode;
-    newnodeinfo->flags = nodeinfo->flags;
-    newnodeinfo->load_f = nodeinfo->load_f;
-    newnodeinfo->save_f = nodeinfo->save_f;
-    newnodeinfo->entry_f = nodeinfo->entry_f;
-    newnodeinfo->exit_f = nodeinfo->exit_f;
-    newnodeinfo->traverse_f = nodeinfo->traverse_f;
-    newnodeinfo->destroy_f = nodeinfo->destroy_f;
-    newnodeinfo->clone_f = nodeinfo->clone_f;
-    newnodeinfo->name = malloc( strlen( nodeinfo->name ) + 1 );
-    assert( newnodeinfo->name != NULL );
-    strcpy( newnodeinfo->name, nodeinfo->name );
-    
-    return TRUE;
-} /* prf_nodeinfo_set() */
-
-/**************************************************************************/
-
-prf_nodeinfo_t *
-prf_nodeinfo_get(
-    uint16_t opcode )
-{
-    if ( opcode < prf_array_count( nodetypes ) )
-        return nodetypes[ opcode ];
-    return NULL;
-} /* prf_nodeinfo_get() */
-
-/**************************************************************************/
 
 /* These are just default entries without hooks.  */
-
 prf_nodeinfo_t prf_nodeinfo_defaults[] = {
     {   1, PRF_PRIMARY,                      "Header" },
     {   2, PRF_PRIMARY,                      "Group" },
@@ -285,6 +155,132 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
 }; /* struct prf_nodeinfo_defaults[] */
 
 /****************************************************************************/
+
+void
+prf_nodeinfo_init(
+    void )
+{
+    int idx;
+
+    nodetypes = (prf_nodeinfo_t **)prf_array_init(128, sizeof(prf_nodeinfo_t));
+    assert( nodetypes != NULL );
+
+    idx = 0;
+    while ( prf_nodeinfo_defaults[ idx ].opcode != 0 ) {
+        prf_nodeinfo_set( &prf_nodeinfo_defaults[ idx ] );
+        idx++;
+    }
+
+    /* place functions for setting load_f, save_f, and state_f here... */
+
+    prf_header_init();
+    prf_group_init();
+    prf_object_init();
+    prf_face_init();
+
+    prf_push_attribute_init();
+    prf_pop_attribute_init();
+    prf_push_extension_init();
+    prf_pop_extension_init();
+    prf_push_level_init();
+    prf_pop_level_init();
+    prf_push_subface_init();
+    prf_pop_subface_init();
+
+    prf_vertex_palette_init();
+    prf_vertex_with_color_init();
+    prf_obsolete_vertex_with_color_init();
+    prf_vertex_with_normal_init();
+    prf_obsolete_vertex_with_normal_init();
+    prf_vertex_with_normal_and_texture_init();
+    prf_vertex_with_texture_init();
+
+    prf_vertex_list_init();
+    prf_morph_vertex_list_init();
+
+    prf_color_palette_init();
+    prf_material_init();
+    prf_texture_init();
+    prf_material_palette_init(); /* obsolete */
+    prf_instance_definition_init();
+    prf_instance_reference_init();
+
+    prf_matrix_init();
+
+} /* prf_nodeinfo_init() */
+
+/**************************************************************************/
+
+void
+prf_nodeinfo_exit(
+    void )
+{
+    int i, count;
+    count = prf_array_count( nodetypes );
+    for ( i = 0; i < count; i++ ) {
+        if ( nodetypes[i] != NULL ) {
+            free( nodetypes[ i ]->name );
+            free( nodetypes[ i ] );
+        }
+    }
+    prf_array_free( nodetypes );
+    nodetypes = NULL;
+} /* prf_nodeinfo_exit() */
+
+/**************************************************************************/
+
+bool_t
+prf_nodeinfo_set(
+    const prf_nodeinfo_t * nodeinfo )
+{
+    int i;
+    prf_nodeinfo_t * newnodeinfo;
+
+    assert( nodeinfo->opcode > 0 );
+
+    i = prf_array_count( nodetypes );
+    while ( i <= nodeinfo->opcode ) {
+        nodetypes = (prf_nodeinfo_t **)prf_array_append_ptr( nodetypes, NULL );
+        i++;
+    }
+
+    if ( nodetypes[ nodeinfo->opcode ] != NULL ) {
+        assert( nodetypes[ nodeinfo->opcode ] != nodeinfo );
+        free( nodetypes[ nodeinfo->opcode ]->name );
+        free( nodetypes[ nodeinfo->opcode ] );
+    }
+
+    newnodeinfo = (prf_nodeinfo_t *)malloc( sizeof( struct prf_nodeinfo_s ) );
+    assert( newnodeinfo != NULL );
+    nodetypes[ nodeinfo->opcode ] = newnodeinfo;
+    newnodeinfo->opcode = nodeinfo->opcode;
+    newnodeinfo->flags = nodeinfo->flags;
+    newnodeinfo->load_f = nodeinfo->load_f;
+    newnodeinfo->save_f = nodeinfo->save_f;
+    newnodeinfo->entry_f = nodeinfo->entry_f;
+    newnodeinfo->exit_f = nodeinfo->exit_f;
+    newnodeinfo->traverse_f = nodeinfo->traverse_f;
+    newnodeinfo->destroy_f = nodeinfo->destroy_f;
+    newnodeinfo->clone_f = nodeinfo->clone_f;
+    newnodeinfo->name = (char *)malloc( strlen( nodeinfo->name ) + 1 );
+    assert( newnodeinfo->name != NULL );
+    strcpy( newnodeinfo->name, nodeinfo->name );
+    
+    return TRUE;
+} /* prf_nodeinfo_set() */
+
+/**************************************************************************/
+
+prf_nodeinfo_t *
+prf_nodeinfo_get(
+    uint16_t opcode )
+{
+    if ( opcode < prf_array_count( nodetypes ) )
+        return nodetypes[ opcode ];
+    return NULL;
+} /* prf_nodeinfo_get() */
+
+/**************************************************************************/
 
 /* $Id$ */
 

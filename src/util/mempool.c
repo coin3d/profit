@@ -59,10 +59,10 @@ new_pool(
 {
     pool_info_t pool;
 
-    pool = malloc( sizeof( struct pool_info_s ) );
+    pool = (pool_info_t)malloc( sizeof( struct pool_info_s ) );
     assert( pool != NULL );
     pool->block_size = block_size;
-    pool->blocks = prf_array_init( 8, sizeof( pool_info_t ) );
+    pool->blocks = (pool_node_t *)prf_array_init( 8, sizeof( pool_info_t ) );
     assert( pool->blocks != NULL );
 
     return pool;
@@ -74,7 +74,7 @@ void
 pool_system_init(
     void )
 {
-    pools = prf_array_init( 8, sizeof( pool_info_t ) );
+    pools = (pool_info_t *)prf_array_init( 8, sizeof( pool_info_t ) );
     assert( pools != NULL );
     prf_array_append_ptr( pools, NULL ); /* reserve pools[0] */
 } /* pool_system_init() */
@@ -111,7 +111,7 @@ pool_create_sized(
             return pool_id;
         }
     }
-    pools = prf_array_append_ptr( pools, NULL );
+    pools = (pool_info_t *)prf_array_append_ptr( pools, NULL );
     pools[ pool_id ] = new_pool( block_size );
 
     return pool_id;
@@ -185,13 +185,13 @@ pool_malloc(
     }
     /* need new block */
 
-    newnode = malloc( sizeof( struct pool_node_s ) );
+    newnode = (pool_node_t)malloc( sizeof( struct pool_node_s ) );
     assert( newnode != NULL );
     newnode->data_size = PRF_MAX( pool->block_size, size );
     newnode->data_pos = size;
-    newnode->data = malloc( newnode->data_size );
+    newnode->data = (uint8_t *)malloc( newnode->data_size );
     assert( newnode->data != NULL );
-    pool->blocks = prf_array_append_ptr( pool->blocks, newnode );
+    pool->blocks = (pool_node_t *)prf_array_append_ptr(pool->blocks, newnode );
     return newnode->data;
 } /* pool_allocate() */
 

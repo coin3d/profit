@@ -18,6 +18,7 @@ static const char * const rcsid =
 #include <stddef.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 
 #include "array.h"
 
@@ -58,7 +59,7 @@ _array_append_##name(                                                      \
     array_t * handle;                                                      \
     handle = _HANDLE(array);                                               \
     if ( handle->numelem >= handle->size ) {                               \
-        array_set_size( array, handle->size << 1 );                        \
+        array=(type *)_array_set_size( array, handle->size << 1 );         \
         handle = _HANDLE(array);                                           \
     }                                                                      \
     array[handle->numelem] = item;                                         \
@@ -139,7 +140,7 @@ array_create(
     int elemsize )
 {
     array_t * handle;
-    handle = malloc( sizeof(array_t) + elemsize * initsize );
+    handle = (array_t *)malloc( sizeof(array_t) + elemsize * initsize );
     assert( handle != NULL );
     handle->size = initsize;
     handle->elemsize = elemsize;
@@ -187,8 +188,9 @@ _array_set_size(
     array_t * oldhandle, * newhandle; 
     int elemsize, numelem;
     oldhandle = _HANDLE(array);
-    newhandle = realloc( oldhandle,
-                         sizeof(array_t) + newsize * oldhandle->elemsize );
+    newhandle = 
+      (array_t *)realloc( oldhandle,
+			  sizeof(array_t) + newsize * oldhandle->elemsize );
     newhandle->size = newsize;
     return _ARRAY(newhandle);
 } /* _array_set_size() */

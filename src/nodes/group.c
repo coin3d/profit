@@ -36,20 +36,24 @@
 
 /**************************************************************************/
 
-static  const prf_nodeinfo_t  prf_group_info;
+static prf_nodeinfo_t prf_group_info = {
+    2, PRF_PRIMARY,
+    "Group",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_group_info */
+
+/**************************************************************************/
+
 
 typedef  struct prf_group_data  node_data;
 #define  NODE_DATA_SIZE         28
 #define  NODE_DATA_PAD          (sizeof(node_data)-NODE_DATA_SIZE)
-
-/**************************************************************************/
-
-void
-prf_group_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_group_info );
-} /* prf_group_init() */
 
 /**************************************************************************/
 
@@ -83,9 +87,9 @@ prf_group_load_f(
     if ( node->length > 4 && node->data == NULL ) {
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-             node->data = malloc( node->length - 4 + NODE_DATA_PAD );
+             node->data = (uint8_t *)malloc( node->length-4+NODE_DATA_PAD );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 + NODE_DATA_PAD );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -182,17 +186,14 @@ prf_group_entry_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_group_info = {
-    2, PRF_PRIMARY,
-    "Group",
-    prf_group_load_f,
-    prf_group_save_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_group_info */
+void
+prf_group_init(
+    void )
+{
+  prf_group_info.load_f=prf_group_load_f;
+  prf_group_info.save_f=prf_group_save_f;
+  prf_nodeinfo_set( &prf_group_info );
+} /* prf_group_init() */
 
 /**************************************************************************/
 

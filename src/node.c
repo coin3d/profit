@@ -37,7 +37,7 @@ prf_node_t *
 prf_node_create()
 {
   prf_node_t * node;
-  node = malloc( sizeof( struct prf_node_s ) );
+  node = (prf_node_t *)malloc( sizeof( struct prf_node_s ) );
   prf_node_clear( node );
   return node;
 } /* prf_node_create() */
@@ -49,12 +49,13 @@ prf_node_create_etc(prf_model_t *model,
   prf_node_t *node = NULL;
   if (model->mempool_id == 0) {
     node = prf_node_create();
-    if (datasize) node->data = malloc(datasize);
+    if (datasize) node->data = (uint8_t *)malloc(datasize);
   }
   else {
-    node = pool_malloc(model->mempool_id, sizeof( prf_node_t ) );
+    node = (prf_node_t *)pool_malloc(model->mempool_id, sizeof( prf_node_t ) );
     prf_node_clear(node);
-    if (datasize) node->data = pool_malloc(model->mempool_id, datasize);
+    if (datasize) 
+      node->data = (uint8_t *)pool_malloc(model->mempool_id, datasize);
   }
   
   if (node == NULL || (datasize > 0 && node->data == NULL)) {
@@ -119,7 +120,8 @@ prf_node_clone(
         if ( target->mempool_id == 0 ) {
             newnode = prf_node_create();
         } else {
-            newnode = pool_malloc( target->mempool_id, sizeof( prf_node_t ) );
+            newnode = (prf_node_t *)pool_malloc( target->mempool_id, 
+						 sizeof( prf_node_t ) );
             prf_node_clear( newnode );
         }
         if ( newnode == NULL ) {
@@ -131,9 +133,10 @@ prf_node_clone(
         if ( target->mempool_id != 0 )
             newnode->flags |= PRF_NODE_MEMPOOLED;
         if ( (node->length > 4) && (target->mempool_id == 0) )
-            newnode->data = malloc( node->length - 4 );
+            newnode->data = (uint8_t *)malloc( node->length - 4 );
         else if ( node->length > 4 )
-            newnode->data = pool_malloc( target->mempool_id, node->length - 4 );
+            newnode->data = (uint8_t *)pool_malloc( target->mempool_id, 
+						    node->length - 4 );
         if ( (node->length > 4) && (newnode->data == NULL) ) {
             prf_error( 9, "memory allocation failure (returned NULL)" );
             if ( target->mempool_id == 0 )

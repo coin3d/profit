@@ -32,18 +32,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_pop_extension_info;
-
-/**************************************************************************/
-
-void
-prf_pop_extension_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_pop_extension_info );
-} /* prf_pop_extension_init() */
-
-/**************************************************************************/
+static prf_nodeinfo_t prf_pop_extension_info = {
+    22, PRF_CONTROL | PRF_POP_NODE,
+    "Pop Extension",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_pop_extension_info */
 
 static
 void
@@ -63,17 +62,13 @@ prf_pop_extension_exit_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_pop_extension_info = {
-    22, PRF_CONTROL | PRF_POP_NODE,
-    "Pop Extension",
-    NULL,
-    NULL,
-    NULL,
-    prf_pop_extension_exit_f,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_pop_extension_info */
+void
+prf_pop_extension_init(
+    void )
+{
+  prf_pop_extension_info.exit_f=prf_pop_extension_exit_f;
+  prf_nodeinfo_set( &prf_pop_extension_info );
+} /* prf_pop_extension_init() */
 
 /**************************************************************************/
 

@@ -36,7 +36,17 @@
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_vertex_list_info;
+static prf_nodeinfo_t prf_vertex_list_info = {
+    72, PRF_PRIMARY,
+    "Vertex List",
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+}; /* struct prf_vertex_list_info */
 
 /**************************************************************************/
 
@@ -95,15 +105,6 @@ prf_vertex_list_set_list(
 
 /**************************************************************************/
 
-void
-prf_vertex_list_init(
-    void )
-{
-    prf_nodeinfo_set( &prf_vertex_list_info );
-} /* prf_vertex_list_init() */
-
-/**************************************************************************/
-
 prf_node_t *
 prf_vertex_list_node_create(
   prf_model_t * model,
@@ -144,9 +145,9 @@ prf_vertex_list_load_f(
     if ( node->length > 4 && node->data == NULL ) { /* not preallocated */
         assert( state->model != NULL );
         if ( state->model->mempool_id == 0 )
-            node->data = malloc( node->length - 4 );
+            node->data = (uint8_t *)malloc( node->length - 4 );
         else
-            node->data = pool_malloc( state->model->mempool_id,
+            node->data = (uint8_t *)pool_malloc( state->model->mempool_id,
                 node->length - 4 );
         if ( node->data == NULL ) {
             prf_error( 9, "memory allocation problem (returned NULL)" );
@@ -202,17 +203,14 @@ prf_vertex_list_save_f(
 
 /**************************************************************************/
 
-static const prf_nodeinfo_t prf_vertex_list_info = {
-    72, PRF_PRIMARY,
-    "Vertex List",
-    prf_vertex_list_load_f,
-    prf_vertex_list_save_f,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-}; /* struct prf_vertex_list_info */
+void
+prf_vertex_list_init(
+    void )
+{
+  prf_vertex_list_info.load_f=prf_vertex_list_load_f;
+  prf_vertex_list_info.save_f=prf_vertex_list_save_f;
+  prf_nodeinfo_set( &prf_vertex_list_info );
+} /* prf_vertex_list_init() */
 
 /**************************************************************************/
 
