@@ -20,10 +20,7 @@
 
 /* $Id$ */
 
-#include <profit/types.h>
-#include <profit/basic_funcs.h>
-#include <config.h>
-
+#include <profit/basics.h>
 #include <profit/model.h>
 #include <profit/state.h>
 #include <profit/debug.h>
@@ -40,11 +37,16 @@
 #include <profit/nodes/vertex_with_texture.h>
 #include <profit/util/array.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include <assert.h>
+#ifdef HAVE_STRING_H
+#include <string.h>
+#endif
 
 /*
   NOTES:

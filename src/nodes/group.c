@@ -28,7 +28,9 @@
 #include <profit/nodes/group.h>
 #include <profit/util/mempool.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

@@ -20,7 +20,7 @@
 
 /* $Id$ */
 
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
 #include <profit/vertex.h>
 #include <profit/node.h>
 #include <profit/nodes/vertex_with_color.h>
@@ -29,7 +29,9 @@
 #include <profit/nodes/vertex_with_texture.h>
 #include <profit/nodes/obsolete_vertex_with_normal.h>
 #include <profit/nodes/vertex_with_normal_and_texture.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <stdio.h>
 

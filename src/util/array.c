@@ -21,11 +21,15 @@
 /* $Id$ */
 
 #include <profit/util/array.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 #include <stddef.h>
 #include <stdlib.h>
 #include <assert.h>
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
 
 /* fixme */
 #define profit_malloc malloc
@@ -253,20 +257,18 @@ prf_array_fit(void *id)
   return prf_array_set_size(id, id_to_array(id)->numelem);
 } /* prf_array_fit() */
 
-#ifndef NDEBUG
-
 int 
-prf_array_alloc_count(void *id)
+prf_array_alloc_count(
+    void * id )
 {
-  return id_to_array(id)->size;
+    return id_to_array(id)->size;
 } /* prf_array_alloc_count() */
 
 int 
-prf_array_elemsize(void *id)
+prf_array_elemsize(
+    void * id )
 {
-  return id_to_array(id)->elemsize;
+    return id_to_array(id)->elemsize;
 } /* prf_array_elemsize() */
-
-#endif /* ! NDEBUG */
 
 /**************************************************************************/

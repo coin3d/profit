@@ -20,16 +20,18 @@
 
 /* $Id$ */
 
-#include <profit/types.h>
+#include <profit/nodes/object.h>
+#include <profit/basics.h>
 #include <profit/model.h>
 #include <profit/nodeinfo.h>
 #include <profit/node.h>
 #include <profit/state.h>
 #include <profit/debug.h>
-#include <profit/nodes/object.h>
 #include <profit/util/mempool.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

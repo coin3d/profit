@@ -21,8 +21,7 @@
 /* $Id$ */
 
 #include <profit/nodes/color_palette.h>
-#include <profit/basic_funcs.h>
-#include <profit/types.h>
+#include <profit/basics.h>
 #include <profit/model.h>
 #include <profit/state.h>
 #include <profit/node.h>
@@ -30,7 +29,9 @@
 #include <profit/debug.h>
 #include <profit/util/mempool.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <stdlib.h>
 #include <assert.h>

@@ -21,8 +21,7 @@
 /* $Id$ */
 
 #include <profit/nodes/header.h>
-#include <profit/types.h>
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
 #include <profit/model.h>
 #include <profit/state.h>
 #include <profit/node.h>
@@ -31,7 +30,9 @@
 #include <profit/util/bfile.h>
 #include <profit/util/mempool.h>
 #include <profit/util/array.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

@@ -20,8 +20,8 @@
 
 /* $Id$ */
 
+#include <profit/basics.h>
 #include <profit/profit.h>
-#include <profit/types.h>
 #include <profit/nodeinfo.h>
 #include <profit/messages.h>
 #include <profit/util/mempool.h>

@@ -34,8 +34,8 @@
 
 /**************************************************************************/
 
-/* redundant declarations of init functions
-   (instead of including all the header files) */
+/* declarations for node init functions - they are not in the node header
+   files, since they aren't suitable for the exported API */
 
 void prf_header_init( void );
 void prf_group_init( void );

@@ -20,8 +20,7 @@
 
 /* $Id$ */
 
-#include <profit/basic_types.h>
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
 #include <profit/node.h>
 #include <profit/nodeinfo.h>
 #include <profit/model.h>
@@ -30,7 +29,9 @@
 #include <profit/nodes/instance_reference.h>
 #include <profit/util/bfile.h>
 #include <profit/util/array.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

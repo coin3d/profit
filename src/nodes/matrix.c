@@ -21,14 +21,16 @@
 /* $Id$ */
 
 #include <profit/nodes/matrix.h>
-#include <profit/types.h>
+#include <profit/basics.h>
 #include <profit/nodeinfo.h>
 #include <profit/node.h>
 #include <profit/model.h>
 #include <profit/state.h>
 #include <profit/debug.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

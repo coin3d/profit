@@ -20,13 +20,15 @@
 
 /* $Id$ */
 
-#include <profit/types.h>
+#include <profit/nodes/push_subface.h>
+#include <profit/basics.h>
 #include <profit/nodeinfo.h>
 #include <profit/state.h>
 #include <profit/debug.h>
 #include <profit/node.h>
-#include <profit/nodes/push_subface.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 

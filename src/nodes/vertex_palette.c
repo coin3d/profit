@@ -28,14 +28,14 @@
   Data must be read word by word to translate data to native endianness.
 */
 
-#include <profit/types.h>
+#include <profit/nodes/vertex_palette.h>
+#include <profit/basics.h>
 #include <profit/nodeinfo.h>
 #include <profit/node.h>
 #include <profit/vertex.h>
 #include <profit/model.h>
 #include <profit/state.h>
 #include <profit/debug.h>
-#include <profit/nodes/vertex_palette.h>
 #include <profit/nodes/vertex_with_color.h>
 #include <profit/nodes/obsolete_vertex_with_color.h>
 #include <profit/nodes/vertex_with_normal.h>
@@ -44,7 +44,9 @@
 #include <profit/nodes/vertex_with_texture.h>
 #include <profit/util/bfile.h>
 #include <profit/util/array.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

@@ -20,15 +20,17 @@
 
 /* $Id$ */
 
-#include <profit/types.h>
+#include <profit/nodes/vertex_list.h>
+#include <profit/basics.h>
 #include <profit/node.h>
 #include <profit/nodeinfo.h>
 #include <profit/model.h>
 #include <profit/state.h>
 #include <profit/debug.h>
-#include <profit/nodes/vertex_list.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

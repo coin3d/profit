@@ -20,10 +20,12 @@
 
 /* $Id$ */
 
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
 #include <profit/util/mempool.h>
 #include <profit/util/array.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>

@@ -24,8 +24,7 @@
 */
 
 #include <profit/nodes/obsolete_vertex_with_normal.h>
-
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
 #include <profit/node.h>
 #include <profit/vertex.h>
 #include <profit/nodeinfo.h>
@@ -34,7 +33,9 @@
 #include <profit/debug.h>
 #include <profit/util/mempool.h>
 #include <profit/util/bfile.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>

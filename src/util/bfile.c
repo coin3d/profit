@@ -21,15 +21,19 @@
 /* $Id$ */
 
 #include <profit/util/bfile.h>
-#include <profit/basic_funcs.h>
+#include <profit/basics.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <sys/stat.h>
 #include <ctype.h>
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
 
 /*
   DEPENDENCIES
