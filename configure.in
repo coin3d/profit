@@ -39,6 +39,7 @@ AC_SUBST(LT_AGE)
 
 VERSION=$PROFIT_VERSION
 
+AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE(libprofit, $VERSION)
 AM_CONFIG_HEADER(config.h)
 
@@ -57,7 +58,7 @@ AC_ARG_WITH(bigendian,
 		yes)  want_bigendian=yes ;;
 		no)   want_bigendian=no ;;
 		auto) want_bigendian=auto ;;
-		*) AC_MSG_ERROR(bad value \"${withval}\" for --with-bigendian) ;;
+		*) AC_MSG_ERROR(bad value "${withval}" for --with-bigendian) ;;
 	esac],
 	[want_bigendian=auto])
 
