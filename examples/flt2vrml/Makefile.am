@@ -12,8 +12,7 @@ flt2vrml_SOURCES = \
 	bsptree.h
 
 if BUILD_WITH_MSVC
-flt2vrml_LDFLAGS = -L$(top_builddir)/src
-flt2vrml_LIBS = -lprofit@PROFIT_MAJOPR_VERSION@@SUFFIX@
+flt2vrml_LDFLAGS = -L$(top_builddir)/src -lprofit@PROFIT_MAJOPR_VERSION@@SUFFIX@
 else
 flt2vrml_LDADD = $(top_builddir)/src/libprofit.la -lm
 endif

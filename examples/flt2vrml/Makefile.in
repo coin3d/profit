@@ -105,8 +105,7 @@ flt2vrml_SOURCES = \
 	bsptree.h
 
 
-@BUILD_WITH_MSVC_TRUE@flt2vrml_LDFLAGS = -L$(top_builddir)/src
-@BUILD_WITH_MSVC_TRUE@flt2vrml_LIBS = -lprofit@PROFIT_MAJOPR_VERSION@@SUFFIX@
+@BUILD_WITH_MSVC_TRUE@flt2vrml_LDFLAGS = -L$(top_builddir)/src -lprofit@PROFIT_MAJOPR_VERSION@@SUFFIX@
 @BUILD_WITH_MSVC_FALSE@flt2vrml_LDADD = $(top_builddir)/src/libprofit.la -lm
 subdir = examples/flt2vrml
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
