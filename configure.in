@@ -44,7 +44,7 @@ AM_CONFIG_HEADER(config.h)
 
 dnl AM_DISABLE_STATIC
 AM_MAINTAINER_MODE
-AM_PROG_LIBTOOL
+AC_PROG_LIBTOOL
 
 dnl ************************************************************************
 dnl * Check if host CPU is bigendian or littleendian
@@ -72,8 +72,16 @@ fi
 
 dnl ************************************************************************
 
-AC_OUTPUT(Makefile \
-	src/Makefile src/util/Makefile src/nodes/Makefile \
-	examples/Makefile examples/fltdump/Makefile examples/fltstrip/Makefile \
-        examples/fltnode/Makefile examples/flt2vrml/Makefile)
+AC_OUTPUT([
+	Makefile
+	src/Makefile
+	src/util/Makefile
+	src/nodes/Makefile
+	examples/Makefile
+	examples/fltdump/Makefile
+	examples/fltstrip/Makefile
+        examples/fltnode/Makefile
+	examples/flt2vrml/Makefile
+])
 
+dnl ************************************************************************

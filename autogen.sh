@@ -49,10 +49,7 @@ autoheader
 
 echo
 echo "Running automake..."
-echo "(NB: if you're compiling with gcc, you might wish to"
-echo "run automake by hand without the --include-deps argument"
-echo "to get dependency tracking. 19990908 mortene.)"
-automake --include-deps --foreign
+automake
 
 echo
 echo "Running autoconf..."
@@ -60,3 +57,4 @@ autoconf
 
 echo
 echo "Now type './configure' and 'make' to compile $PROJECT."
+
