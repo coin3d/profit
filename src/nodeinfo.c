@@ -303,6 +303,7 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     { 127, PRF_PRIMARY,                      "Road Construction",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+// V15.8
     { 128, PRF_ANCILLARY,                    "Light Point Appearance Palette",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     { 129, PRF_ANCILLARY,                    "Light Point Animation Palette",
@@ -312,6 +313,9 @@ prf_nodeinfo_t prf_nodeinfo_defaults[] = {
     { 131, PRF_PRIMARY,                      "Light Point System",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL },
     { 132, PRF_ANCILLARY,                    "Indexed String",
+           NULL, NULL, NULL, NULL, NULL, NULL, NULL },
+// V16.0
+    { 133, PRF_ANCILLARY,                    "Shader Palette",
            NULL, NULL, NULL, NULL, NULL, NULL, NULL }
 }; /* struct prf_nodeinfo_defaults[] */
 
