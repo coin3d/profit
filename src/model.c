@@ -611,18 +611,17 @@ prf_model_vertex_palette_optimize(
         origdata = model->vertex_palette->data;
         datasize = ((uint32_t *)(origdata))[0];
        
-        /* node for node, check if tagged */ /* update move offset */
+        /* node for node, check if tagged, and update move offset */
         ptr = origdata + 8;
         while ( (ptr-origdata) < datasize ) {
             uint16_t * uint16ptr = (uint16_t *) ptr;
             if ( ((uint32_t *)(rlt+(ptr-origdata)))[0] != 0 ) {
-                /* vertex is in use */
-                /* move vertex into buffer */
+                /* vertex is in use, move vertex into new buffer */
                 memmove( buffer + (ptr-origdata) - offset, ptr, uint16ptr[1] );
                 /* set reverse lookup index in rtl table */
                 ((uint32_t *)(rlt+(ptr-origdata)))[0] = (ptr-origdata) - offset;
             } else {
-                /* vertex is not in use */
+                /* vertex not in use => accumulate offset */
                 offset += uint16ptr[1]; /* add node length to offset */
             }
             ptr += uint16ptr[1];
@@ -637,18 +636,17 @@ prf_model_vertex_palette_optimize(
                 while ( pos < pool->position ) {
                      uint16_t * uint16ptr = (uint16_t *) (pool->data + pos);
                      if ( ((uint32_t *)(rlt + orig_length + pos))[0] != 0 ) {
-                         /* vertex in use */
-                         /* move vertex to buffer */
+                         /* vertex in use, move vertex to buffer */
                          memmove( buffer + (orig_length + pos) - offset,
                              uint16ptr, uint16ptr[1] );
                          /* create reverse lookup */
                          ((uint32_t *)(rlt + (orig_length+pos)))[0] =
                                 (orig_length+pos) - offset;
                      } else {
-                         /* vertex not in use */
+                         /* vertex not in use, accumulate offset */
                          offset += uint16ptr[1];
                      }
-                     pos += ((uint16_t *)(pool->data + pos))[1];
+                     pos += uint16ptr[1];
                 }
                 orig_length += pool->position;
             }
@@ -656,11 +654,12 @@ prf_model_vertex_palette_optimize(
 
         /* move buffer back into model with vertextras */
         if ( model->vertextras != NULL ) {
-            int i = prf_array_count( model->vertextras );
-            while ( --i ) {
+            int i, count = prf_array_count( model->vertextras );
+            for ( i = 0; i < count; i++ ) {
                 free( model->vertextras[i]->data );
                 free( model->vertextras[i] );
             }
+            prf_array_free( model->vertextras );
             model->vertextras = NULL;
         }
 
