@@ -114,7 +114,7 @@ libprofit_la_LIBADD = \
 
 
 libprofit_la_SOURCES = \
-	basic_funcs.c \
+	basics.c \
 	debug.c \
 	messages.c \
 	model.c \
@@ -132,7 +132,7 @@ CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
 libprofit_la_DEPENDENCIES = util/libutil.la nodes/libnodes.la
-am_libprofit_la_OBJECTS = basic_funcs.lo debug.lo messages.lo model.lo \
+am_libprofit_la_OBJECTS = basics.lo debug.lo messages.lo model.lo \
 	node.lo nodeinfo.lo profit.lo state.lo vertex.lo cruft.lo
 libprofit_la_OBJECTS = $(am_libprofit_la_OBJECTS)
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
@@ -154,7 +154,7 @@ RECURSIVE_TARGETS = all-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/basic_funcs.Plo $(DEPDIR)/cruft.Plo \
+@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/basics.Plo $(DEPDIR)/cruft.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/debug.Plo $(DEPDIR)/messages.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/model.Plo $(DEPDIR)/node.Plo \
 @AMDEP_TRUE@	$(DEPDIR)/nodeinfo.Plo $(DEPDIR)/profit.Plo \
@@ -307,7 +307,7 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID
 
-@_am_include@ @_am_quote@$(DEPDIR)/basic_funcs.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/basics.Plo@_am_quote@
 @_am_include@ @_am_quote@$(DEPDIR)/cruft.Plo@_am_quote@
 @_am_include@ @_am_quote@$(DEPDIR)/debug.Plo@_am_quote@
 @_am_include@ @_am_quote@$(DEPDIR)/messages.Plo@_am_quote@

@@ -15,7 +15,7 @@ libprofit_la_LIBADD = \
 	nodes/libnodes.la
 
 libprofit_la_SOURCES = \
-	basic_funcs.c \
+	basics.c \
 	debug.c \
 	messages.c \
 	model.c \
