@@ -1,6 +1,6 @@
 ## Process this file with automake to generate Makefile.in.
 
-INCLUDES = -I$(top_srcdir)/include
+DEFAULT_INCLUDES = -I$(top_builddir)/include -I$(top_srcdir)/include
 
 bin_PROGRAMS = flt2vrml
 
@@ -11,6 +11,10 @@ flt2vrml_SOURCES = \
 	bsptree.c \
 	bsptree.h
 
-flt2vrml_LDADD = \
-	$(top_builddir)/src/libprofit.la -lm
+if BUILD_WITH_MSVC
+flt2vrml_LDFLAGS = -L$(top_builddir)/src
+flt2vrml_LIBS = -lprofit@PROFIT_MAJOPR_VERSION@@SUFFIX@
+else
+flt2vrml_LDADD = $(top_builddir)/src/libprofit.la -lm
+endif
 

@@ -93,7 +93,7 @@ am__include = @am__include@
 am__quote = @am__quote@
 install_sh = @install_sh@
 
-INCLUDES = -I$(top_srcdir)/include
+DEFAULT_INCLUDES = -I$(top_builddir)/include -I$(top_srcdir)/include
 
 bin_PROGRAMS = flt2vrml
 
@@ -105,9 +105,9 @@ flt2vrml_SOURCES = \
 	bsptree.h
 
 
-flt2vrml_LDADD = \
-	$(top_builddir)/src/libprofit.la -lm
-
+@BUILD_WITH_MSVC_TRUE@flt2vrml_LDFLAGS = -L$(top_builddir)/src
+@BUILD_WITH_MSVC_TRUE@flt2vrml_LIBS = -lprofit@PROFIT_MAJOPR_VERSION@@SUFFIX@
+@BUILD_WITH_MSVC_FALSE@flt2vrml_LDADD = $(top_builddir)/src/libprofit.la -lm
 subdir = examples/flt2vrml
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/include/config.h
@@ -118,11 +118,11 @@ PROGRAMS = $(bin_PROGRAMS)
 am_flt2vrml_OBJECTS = flt2vrml.$(OBJEXT) array.$(OBJEXT) \
 	bsptree.$(OBJEXT)
 flt2vrml_OBJECTS = $(am_flt2vrml_OBJECTS)
-flt2vrml_DEPENDENCIES = $(top_builddir)/src/libprofit.la
-flt2vrml_LDFLAGS =
+@BUILD_WITH_MSVC_TRUE@flt2vrml_DEPENDENCIES =
+@BUILD_WITH_MSVC_FALSE@flt2vrml_DEPENDENCIES = \
+@BUILD_WITH_MSVC_FALSE@	$(top_builddir)/src/libprofit.la
 
 DEFS = @DEFS@
-DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/include
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
