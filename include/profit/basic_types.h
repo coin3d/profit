@@ -25,7 +25,7 @@
 
 #include <sys/types.h>
 
-#ifdef __sgi
+#if defined(__sgi) || defined(__hpux)
 #define HAVE_INTTYPES
 #define HAVE_UINTTYPES
 #endif
