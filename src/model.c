@@ -516,6 +516,9 @@ vt_tag_cb(
     uint8_t * rlt = (uint8_t *) userdata;
     prf_node_t * node = state->node;
 
+    if ( node->flags & PRF_NODE_DELETED )
+        return PRF_TRAV_SIBLING;
+
     switch ( node->opcode ) {
     case 72: /* vertex list */
     case 89: /* morph vertex list */
@@ -543,6 +546,9 @@ vt_fix_cb(
     prf_state_t * state = (prf_state_t *) sysdata;
     uint8_t * rlt = (uint8_t *) userdata;
     prf_node_t * node = state->node;
+
+    if ( node->flags & PRF_NODE_DELETED )
+        return PRF_TRAV_SIBLING;
 
     switch ( node->opcode ) {
     case 72: /* vertex list */
