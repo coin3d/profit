@@ -107,15 +107,16 @@ prf_vertex_list_set_list(
 
 prf_node_t *
 prf_vertex_list_node_create(
-  prf_model_t * model,
-  int numvertices )
+    prf_model_t * model,
+    int numvertices )
 {
-  prf_node_t *node = prf_node_create_etc(model, numvertices*4);
-  if (node) {
-    node->opcode = 72;
-    node->length = 4 + numvertices * 4;
-  }
-  return node;
+    prf_node_t * node =
+        prf_node_create_etc( model, (uint16_t) (numvertices * 4) );
+    if ( node ) {
+        node->opcode = 72;
+        node->length = 4 + numvertices * 4;
+    }
+    return node;
 } /* prf_vertex_list_node_create() */
 
 /**************************************************************************/
