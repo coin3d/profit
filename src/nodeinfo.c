@@ -22,11 +22,53 @@
 
 #include <profit/nodeinfo.h>
 #include <profit/util/array.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 
 #include <assert.h>
 #include <stdlib.h>
+#ifdef HAVE_STRING_H
 #include <string.h>
+#endif
+
+/**************************************************************************/
+
+/* redundant declarations of init functions
+   (instead of including all the header files) */
+
+void prf_header_init( void );
+void prf_group_init( void );
+void prf_object_init( void );
+void prf_face_init( void );
+
+void prf_matrix_init( void );
+
+void prf_vertex_palette_init( void );
+void prf_color_palette_init( void );
+void prf_material_init( void );
+void prf_texture_init( void );
+void prf_material_palette_init( void );
+
+void prf_push_attribute_init( void );
+void prf_pop_attribute_init( void );
+void prf_push_extension_init( void );
+void prf_pop_extension_init( void );
+void prf_push_level_init( void );
+void prf_pop_level_init( void );
+void prf_push_subface_init( void );
+void prf_pop_subface_init( void );
+
+void prf_vertex_with_color_init( void );
+void prf_obsolete_vertex_with_color_init( void );
+void prf_vertex_with_normal_init( void );
+void prf_obsolete_vertex_with_normal_init( void );
+void prf_vertex_with_normal_and_texture_init( void );
+void prf_vertex_with_texture_init( void );
+void prf_vertex_list_init( void );
+void prf_morph_vertex_list_init( void );
+void prf_instance_definition_init( void );
+void prf_instance_reference_init( void );
 
 /**************************************************************************/
 
