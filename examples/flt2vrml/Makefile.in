@@ -86,7 +86,7 @@ VERSION = @VERSION@
 
 INCLUDES = -I$(top_srcdir)/include
 bin_PROGRAMS = flt2vrml
-flt2vrml_SOURCES = flt2vrml.c
+flt2vrml_SOURCES = flt2vrml.c array.c bsptree.c
 flt2vrml_LDADD = $(top_builddir)/src/libprofit.la
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../../config.h
@@ -98,7 +98,7 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I../..
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-flt2vrml_OBJECTS =  flt2vrml.o
+flt2vrml_OBJECTS =  flt2vrml.o array.o bsptree.o
 flt2vrml_DEPENDENCIES =  $(top_builddir)/src/libprofit.la
 flt2vrml_LDFLAGS = 
 CFLAGS = @CFLAGS@
