@@ -72,21 +72,22 @@ target_triplet = @target@
 AMTAR = @AMTAR@
 AS = @AS@
 AWK = @AWK@
+BUILD_WITH_MSVC = @BUILD_WITH_MSVC@
 CC = @CC@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
 DSUFFIX = @DSUFFIX@
-ECHO = @ECHO@
-EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INSTALL_STRIP_PROGRAM_ENV = @INSTALL_STRIP_PROGRAM_ENV@
+LDFLAGS = @LDFLAGS@
+LIBFLAGS = @LIBFLAGS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 MAINT = @MAINT@
 MAKEINFO = @MAKEINFO@
 OBJDUMP = @OBJDUMP@
-OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
+PROFIT_CFLAGS = @PROFIT_CFLAGS@
 PROFIT_LIBTOOL_VERSION_INFO = @PROFIT_LIBTOOL_VERSION_INFO@
 PROFIT_MAJOR_VERSION = @PROFIT_MAJOR_VERSION@
 PROFIT_MICRO_VERSION = @PROFIT_MICRO_VERSION@
@@ -102,6 +103,10 @@ INCLUDES = -I$(top_srcdir)/include
 LIBS = 
 
 noinst_LTLIBRARIES = libnodes.la
+
+libnodes_la_CFLAGS = \
+	$(PROFIT_CFLAGS)
+
 
 libnodes_la_SOURCES = \
 	color_palette.c \
@@ -133,6 +138,8 @@ libnodes_la_SOURCES = \
 	vertex_with_normal_and_texture.c \
 	vertex_with_texture.c
 
+EXEEXT =
+OBJEXT = o
 subdir = src/nodes
 mkinstalldirs = $(SHELL) $(top_srcdir)/cfg/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -141,15 +148,23 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 
 libnodes_la_LDFLAGS =
 libnodes_la_LIBADD =
-am_libnodes_la_OBJECTS = color_palette.lo face.lo group.lo header.lo \
-	instance_definition.lo instance_reference.lo material.lo \
-	material_palette.lo matrix.lo morph_vertex_list.lo object.lo \
-	obsolete_vertex_with_color.lo obsolete_vertex_with_normal.lo \
-	pop_attribute.lo pop_extension.lo pop_level.lo pop_subface.lo \
-	push_attribute.lo push_extension.lo push_level.lo \
-	push_subface.lo texture.lo vertex_list.lo vertex_palette.lo \
-	vertex_with_color.lo vertex_with_normal.lo \
-	vertex_with_normal_and_texture.lo vertex_with_texture.lo
+am_libnodes_la_OBJECTS = libnodes_la-color_palette.lo \
+	libnodes_la-face.lo libnodes_la-group.lo libnodes_la-header.lo \
+	libnodes_la-instance_definition.lo \
+	libnodes_la-instance_reference.lo libnodes_la-material.lo \
+	libnodes_la-material_palette.lo libnodes_la-matrix.lo \
+	libnodes_la-morph_vertex_list.lo libnodes_la-object.lo \
+	libnodes_la-obsolete_vertex_with_color.lo \
+	libnodes_la-obsolete_vertex_with_normal.lo \
+	libnodes_la-pop_attribute.lo libnodes_la-pop_extension.lo \
+	libnodes_la-pop_level.lo libnodes_la-pop_subface.lo \
+	libnodes_la-push_attribute.lo libnodes_la-push_extension.lo \
+	libnodes_la-push_level.lo libnodes_la-push_subface.lo \
+	libnodes_la-texture.lo libnodes_la-vertex_list.lo \
+	libnodes_la-vertex_palette.lo libnodes_la-vertex_with_color.lo \
+	libnodes_la-vertex_with_normal.lo \
+	libnodes_la-vertex_with_normal_and_texture.lo \
+	libnodes_la-vertex_with_texture.lo
 libnodes_la_OBJECTS = $(am_libnodes_la_OBJECTS)
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
 	$(AM_CFLAGS) $(CFLAGS)
@@ -165,28 +180,34 @@ CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 DIST_SOURCES = $(libnodes_la_SOURCES)
 depcomp = $(SHELL) $(top_srcdir)/cfg/depcomp
-@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/color_palette.Plo $(DEPDIR)/face.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/group.Plo $(DEPDIR)/header.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/instance_definition.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/instance_reference.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/material.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/material_palette.Plo $(DEPDIR)/matrix.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/morph_vertex_list.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/object.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/obsolete_vertex_with_color.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/obsolete_vertex_with_normal.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/pop_attribute.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/pop_extension.Plo $(DEPDIR)/pop_level.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/pop_subface.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/push_attribute.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/push_extension.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/push_level.Plo $(DEPDIR)/push_subface.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/texture.Plo $(DEPDIR)/vertex_list.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/vertex_palette.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/vertex_with_color.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/vertex_with_normal.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/vertex_with_normal_and_texture.Plo \
-@AMDEP_TRUE@	$(DEPDIR)/vertex_with_texture.Plo
+@AMDEP_TRUE@DEP_FILES = $(DEPDIR)/libnodes_la-color_palette.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-face.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-group.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-header.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-instance_definition.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-instance_reference.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-material.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-material_palette.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-matrix.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-morph_vertex_list.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-object.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-pop_attribute.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-pop_extension.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-pop_level.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-pop_subface.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-push_attribute.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-push_extension.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-push_level.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-push_subface.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-texture.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_list.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_palette.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_with_color.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_with_normal.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Plo \
+@AMDEP_TRUE@	$(DEPDIR)/libnodes_la-vertex_with_texture.Plo
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = $(libnodes_la_SOURCES)
 OBJECTS = $(am_libnodes_la_OBJECTS)
@@ -207,6 +228,36 @@ Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.s
 
 clean-noinstLTLIBRARIES:
 	-test -z "$(noinst_LTLIBRARIES)" || rm -f $(noinst_LTLIBRARIES)
+libnodes_la-color_palette.lo: color_palette.c
+libnodes_la-face.lo: face.c
+libnodes_la-group.lo: group.c
+libnodes_la-header.lo: header.c
+libnodes_la-instance_definition.lo: instance_definition.c
+libnodes_la-instance_reference.lo: instance_reference.c
+libnodes_la-material.lo: material.c
+libnodes_la-material_palette.lo: material_palette.c
+libnodes_la-matrix.lo: matrix.c
+libnodes_la-morph_vertex_list.lo: morph_vertex_list.c
+libnodes_la-object.lo: object.c
+libnodes_la-obsolete_vertex_with_color.lo: obsolete_vertex_with_color.c
+libnodes_la-obsolete_vertex_with_normal.lo: \
+	obsolete_vertex_with_normal.c
+libnodes_la-pop_attribute.lo: pop_attribute.c
+libnodes_la-pop_extension.lo: pop_extension.c
+libnodes_la-pop_level.lo: pop_level.c
+libnodes_la-pop_subface.lo: pop_subface.c
+libnodes_la-push_attribute.lo: push_attribute.c
+libnodes_la-push_extension.lo: push_extension.c
+libnodes_la-push_level.lo: push_level.c
+libnodes_la-push_subface.lo: push_subface.c
+libnodes_la-texture.lo: texture.c
+libnodes_la-vertex_list.lo: vertex_list.c
+libnodes_la-vertex_palette.lo: vertex_palette.c
+libnodes_la-vertex_with_color.lo: vertex_with_color.c
+libnodes_la-vertex_with_normal.lo: vertex_with_normal.c
+libnodes_la-vertex_with_normal_and_texture.lo: \
+	vertex_with_normal_and_texture.c
+libnodes_la-vertex_with_texture.lo: vertex_with_texture.c
 
 libnodes.la: $(libnodes_la_OBJECTS) $(libnodes_la_DEPENDENCIES)
 	$(LINK)  $(libnodes_la_LDFLAGS) $(libnodes_la_OBJECTS) $(libnodes_la_LIBADD) $(LIBS)
@@ -258,34 +309,34 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID
 
-@_am_include@ @_am_quote@$(DEPDIR)/color_palette.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/face.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/group.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/header.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/instance_definition.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/instance_reference.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/material.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/material_palette.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/matrix.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/morph_vertex_list.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/object.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/obsolete_vertex_with_color.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/obsolete_vertex_with_normal.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/pop_attribute.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/pop_extension.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/pop_level.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/pop_subface.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/push_attribute.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/push_extension.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/push_level.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/push_subface.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/texture.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/vertex_list.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/vertex_palette.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_color.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_normal.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_normal_and_texture.Plo@_am_quote@
-@_am_include@ @_am_quote@$(DEPDIR)/vertex_with_texture.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-color_palette.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-face.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-group.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-header.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-instance_definition.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-instance_reference.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-material.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-material_palette.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-matrix.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-morph_vertex_list.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-object.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-pop_attribute.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-pop_extension.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-pop_level.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-pop_subface.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-push_attribute.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-push_extension.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-push_level.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-push_subface.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-texture.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-vertex_list.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-vertex_palette.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-vertex_with_color.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-vertex_with_normal.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Plo@_am_quote@
+@_am_include@ @_am_quote@$(DEPDIR)/libnodes_la-vertex_with_texture.Plo@_am_quote@
 
 distclean-depend:
 	-rm -rf $(DEPDIR)
@@ -310,6 +361,510 @@ CCDEPMODE = @CCDEPMODE@
 	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 	$(COMPILE) -c -o $@ `cygpath -w $<`
 
+
+libnodes_la-color_palette.o: color_palette.c
+	source='color_palette.c' object='libnodes_la-color_palette.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-color_palette.Po' tmpdepfile='$(DEPDIR)/libnodes_la-color_palette.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-color_palette.o `test -f color_palette.c || echo '$(srcdir)/'`color_palette.c
+
+libnodes_la-color_palette.lo: color_palette.c
+	source='color_palette.c' object='libnodes_la-color_palette.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-color_palette.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-color_palette.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-color_palette.lo `test -f color_palette.c || echo '$(srcdir)/'`color_palette.c
+
+libnodes_la-color_palette.obj: color_palette.c
+	source='color_palette.c' object='libnodes_la-color_palette.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-color_palette.Po' tmpdepfile='$(DEPDIR)/libnodes_la-color_palette.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-color_palette.obj `cygpath -w color_palette.c`
+
+libnodes_la-face.o: face.c
+	source='face.c' object='libnodes_la-face.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-face.Po' tmpdepfile='$(DEPDIR)/libnodes_la-face.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-face.o `test -f face.c || echo '$(srcdir)/'`face.c
+
+libnodes_la-face.lo: face.c
+	source='face.c' object='libnodes_la-face.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-face.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-face.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-face.lo `test -f face.c || echo '$(srcdir)/'`face.c
+
+libnodes_la-face.obj: face.c
+	source='face.c' object='libnodes_la-face.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-face.Po' tmpdepfile='$(DEPDIR)/libnodes_la-face.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-face.obj `cygpath -w face.c`
+
+libnodes_la-group.o: group.c
+	source='group.c' object='libnodes_la-group.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-group.Po' tmpdepfile='$(DEPDIR)/libnodes_la-group.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-group.o `test -f group.c || echo '$(srcdir)/'`group.c
+
+libnodes_la-group.lo: group.c
+	source='group.c' object='libnodes_la-group.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-group.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-group.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-group.lo `test -f group.c || echo '$(srcdir)/'`group.c
+
+libnodes_la-group.obj: group.c
+	source='group.c' object='libnodes_la-group.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-group.Po' tmpdepfile='$(DEPDIR)/libnodes_la-group.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-group.obj `cygpath -w group.c`
+
+libnodes_la-header.o: header.c
+	source='header.c' object='libnodes_la-header.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-header.Po' tmpdepfile='$(DEPDIR)/libnodes_la-header.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-header.o `test -f header.c || echo '$(srcdir)/'`header.c
+
+libnodes_la-header.lo: header.c
+	source='header.c' object='libnodes_la-header.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-header.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-header.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-header.lo `test -f header.c || echo '$(srcdir)/'`header.c
+
+libnodes_la-header.obj: header.c
+	source='header.c' object='libnodes_la-header.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-header.Po' tmpdepfile='$(DEPDIR)/libnodes_la-header.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-header.obj `cygpath -w header.c`
+
+libnodes_la-instance_definition.o: instance_definition.c
+	source='instance_definition.c' object='libnodes_la-instance_definition.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-instance_definition.Po' tmpdepfile='$(DEPDIR)/libnodes_la-instance_definition.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_definition.o `test -f instance_definition.c || echo '$(srcdir)/'`instance_definition.c
+
+libnodes_la-instance_definition.lo: instance_definition.c
+	source='instance_definition.c' object='libnodes_la-instance_definition.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-instance_definition.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-instance_definition.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_definition.lo `test -f instance_definition.c || echo '$(srcdir)/'`instance_definition.c
+
+libnodes_la-instance_definition.obj: instance_definition.c
+	source='instance_definition.c' object='libnodes_la-instance_definition.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-instance_definition.Po' tmpdepfile='$(DEPDIR)/libnodes_la-instance_definition.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_definition.obj `cygpath -w instance_definition.c`
+
+libnodes_la-instance_reference.o: instance_reference.c
+	source='instance_reference.c' object='libnodes_la-instance_reference.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-instance_reference.Po' tmpdepfile='$(DEPDIR)/libnodes_la-instance_reference.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_reference.o `test -f instance_reference.c || echo '$(srcdir)/'`instance_reference.c
+
+libnodes_la-instance_reference.lo: instance_reference.c
+	source='instance_reference.c' object='libnodes_la-instance_reference.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-instance_reference.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-instance_reference.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_reference.lo `test -f instance_reference.c || echo '$(srcdir)/'`instance_reference.c
+
+libnodes_la-instance_reference.obj: instance_reference.c
+	source='instance_reference.c' object='libnodes_la-instance_reference.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-instance_reference.Po' tmpdepfile='$(DEPDIR)/libnodes_la-instance_reference.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-instance_reference.obj `cygpath -w instance_reference.c`
+
+libnodes_la-material.o: material.c
+	source='material.c' object='libnodes_la-material.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-material.Po' tmpdepfile='$(DEPDIR)/libnodes_la-material.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-material.o `test -f material.c || echo '$(srcdir)/'`material.c
+
+libnodes_la-material.lo: material.c
+	source='material.c' object='libnodes_la-material.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-material.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-material.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-material.lo `test -f material.c || echo '$(srcdir)/'`material.c
+
+libnodes_la-material.obj: material.c
+	source='material.c' object='libnodes_la-material.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-material.Po' tmpdepfile='$(DEPDIR)/libnodes_la-material.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-material.obj `cygpath -w material.c`
+
+libnodes_la-material_palette.o: material_palette.c
+	source='material_palette.c' object='libnodes_la-material_palette.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-material_palette.Po' tmpdepfile='$(DEPDIR)/libnodes_la-material_palette.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-material_palette.o `test -f material_palette.c || echo '$(srcdir)/'`material_palette.c
+
+libnodes_la-material_palette.lo: material_palette.c
+	source='material_palette.c' object='libnodes_la-material_palette.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-material_palette.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-material_palette.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-material_palette.lo `test -f material_palette.c || echo '$(srcdir)/'`material_palette.c
+
+libnodes_la-material_palette.obj: material_palette.c
+	source='material_palette.c' object='libnodes_la-material_palette.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-material_palette.Po' tmpdepfile='$(DEPDIR)/libnodes_la-material_palette.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-material_palette.obj `cygpath -w material_palette.c`
+
+libnodes_la-matrix.o: matrix.c
+	source='matrix.c' object='libnodes_la-matrix.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-matrix.Po' tmpdepfile='$(DEPDIR)/libnodes_la-matrix.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-matrix.o `test -f matrix.c || echo '$(srcdir)/'`matrix.c
+
+libnodes_la-matrix.lo: matrix.c
+	source='matrix.c' object='libnodes_la-matrix.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-matrix.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-matrix.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-matrix.lo `test -f matrix.c || echo '$(srcdir)/'`matrix.c
+
+libnodes_la-matrix.obj: matrix.c
+	source='matrix.c' object='libnodes_la-matrix.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-matrix.Po' tmpdepfile='$(DEPDIR)/libnodes_la-matrix.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-matrix.obj `cygpath -w matrix.c`
+
+libnodes_la-morph_vertex_list.o: morph_vertex_list.c
+	source='morph_vertex_list.c' object='libnodes_la-morph_vertex_list.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-morph_vertex_list.Po' tmpdepfile='$(DEPDIR)/libnodes_la-morph_vertex_list.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-morph_vertex_list.o `test -f morph_vertex_list.c || echo '$(srcdir)/'`morph_vertex_list.c
+
+libnodes_la-morph_vertex_list.lo: morph_vertex_list.c
+	source='morph_vertex_list.c' object='libnodes_la-morph_vertex_list.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-morph_vertex_list.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-morph_vertex_list.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-morph_vertex_list.lo `test -f morph_vertex_list.c || echo '$(srcdir)/'`morph_vertex_list.c
+
+libnodes_la-morph_vertex_list.obj: morph_vertex_list.c
+	source='morph_vertex_list.c' object='libnodes_la-morph_vertex_list.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-morph_vertex_list.Po' tmpdepfile='$(DEPDIR)/libnodes_la-morph_vertex_list.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-morph_vertex_list.obj `cygpath -w morph_vertex_list.c`
+
+libnodes_la-object.o: object.c
+	source='object.c' object='libnodes_la-object.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-object.Po' tmpdepfile='$(DEPDIR)/libnodes_la-object.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-object.o `test -f object.c || echo '$(srcdir)/'`object.c
+
+libnodes_la-object.lo: object.c
+	source='object.c' object='libnodes_la-object.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-object.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-object.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-object.lo `test -f object.c || echo '$(srcdir)/'`object.c
+
+libnodes_la-object.obj: object.c
+	source='object.c' object='libnodes_la-object.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-object.Po' tmpdepfile='$(DEPDIR)/libnodes_la-object.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-object.obj `cygpath -w object.c`
+
+libnodes_la-obsolete_vertex_with_color.o: obsolete_vertex_with_color.c
+	source='obsolete_vertex_with_color.c' object='libnodes_la-obsolete_vertex_with_color.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.Po' tmpdepfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-obsolete_vertex_with_color.o `test -f obsolete_vertex_with_color.c || echo '$(srcdir)/'`obsolete_vertex_with_color.c
+
+libnodes_la-obsolete_vertex_with_color.lo: obsolete_vertex_with_color.c
+	source='obsolete_vertex_with_color.c' object='libnodes_la-obsolete_vertex_with_color.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-obsolete_vertex_with_color.lo `test -f obsolete_vertex_with_color.c || echo '$(srcdir)/'`obsolete_vertex_with_color.c
+
+libnodes_la-obsolete_vertex_with_color.obj: obsolete_vertex_with_color.c
+	source='obsolete_vertex_with_color.c' object='libnodes_la-obsolete_vertex_with_color.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.Po' tmpdepfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_color.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-obsolete_vertex_with_color.obj `cygpath -w obsolete_vertex_with_color.c`
+
+libnodes_la-obsolete_vertex_with_normal.o: obsolete_vertex_with_normal.c
+	source='obsolete_vertex_with_normal.c' object='libnodes_la-obsolete_vertex_with_normal.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.Po' tmpdepfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-obsolete_vertex_with_normal.o `test -f obsolete_vertex_with_normal.c || echo '$(srcdir)/'`obsolete_vertex_with_normal.c
+
+libnodes_la-obsolete_vertex_with_normal.lo: obsolete_vertex_with_normal.c
+	source='obsolete_vertex_with_normal.c' object='libnodes_la-obsolete_vertex_with_normal.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-obsolete_vertex_with_normal.lo `test -f obsolete_vertex_with_normal.c || echo '$(srcdir)/'`obsolete_vertex_with_normal.c
+
+libnodes_la-obsolete_vertex_with_normal.obj: obsolete_vertex_with_normal.c
+	source='obsolete_vertex_with_normal.c' object='libnodes_la-obsolete_vertex_with_normal.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.Po' tmpdepfile='$(DEPDIR)/libnodes_la-obsolete_vertex_with_normal.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-obsolete_vertex_with_normal.obj `cygpath -w obsolete_vertex_with_normal.c`
+
+libnodes_la-pop_attribute.o: pop_attribute.c
+	source='pop_attribute.c' object='libnodes_la-pop_attribute.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_attribute.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_attribute.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_attribute.o `test -f pop_attribute.c || echo '$(srcdir)/'`pop_attribute.c
+
+libnodes_la-pop_attribute.lo: pop_attribute.c
+	source='pop_attribute.c' object='libnodes_la-pop_attribute.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_attribute.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-pop_attribute.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_attribute.lo `test -f pop_attribute.c || echo '$(srcdir)/'`pop_attribute.c
+
+libnodes_la-pop_attribute.obj: pop_attribute.c
+	source='pop_attribute.c' object='libnodes_la-pop_attribute.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_attribute.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_attribute.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_attribute.obj `cygpath -w pop_attribute.c`
+
+libnodes_la-pop_extension.o: pop_extension.c
+	source='pop_extension.c' object='libnodes_la-pop_extension.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_extension.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_extension.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_extension.o `test -f pop_extension.c || echo '$(srcdir)/'`pop_extension.c
+
+libnodes_la-pop_extension.lo: pop_extension.c
+	source='pop_extension.c' object='libnodes_la-pop_extension.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_extension.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-pop_extension.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_extension.lo `test -f pop_extension.c || echo '$(srcdir)/'`pop_extension.c
+
+libnodes_la-pop_extension.obj: pop_extension.c
+	source='pop_extension.c' object='libnodes_la-pop_extension.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_extension.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_extension.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_extension.obj `cygpath -w pop_extension.c`
+
+libnodes_la-pop_level.o: pop_level.c
+	source='pop_level.c' object='libnodes_la-pop_level.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_level.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_level.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_level.o `test -f pop_level.c || echo '$(srcdir)/'`pop_level.c
+
+libnodes_la-pop_level.lo: pop_level.c
+	source='pop_level.c' object='libnodes_la-pop_level.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_level.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-pop_level.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_level.lo `test -f pop_level.c || echo '$(srcdir)/'`pop_level.c
+
+libnodes_la-pop_level.obj: pop_level.c
+	source='pop_level.c' object='libnodes_la-pop_level.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_level.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_level.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_level.obj `cygpath -w pop_level.c`
+
+libnodes_la-pop_subface.o: pop_subface.c
+	source='pop_subface.c' object='libnodes_la-pop_subface.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_subface.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_subface.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_subface.o `test -f pop_subface.c || echo '$(srcdir)/'`pop_subface.c
+
+libnodes_la-pop_subface.lo: pop_subface.c
+	source='pop_subface.c' object='libnodes_la-pop_subface.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_subface.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-pop_subface.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_subface.lo `test -f pop_subface.c || echo '$(srcdir)/'`pop_subface.c
+
+libnodes_la-pop_subface.obj: pop_subface.c
+	source='pop_subface.c' object='libnodes_la-pop_subface.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-pop_subface.Po' tmpdepfile='$(DEPDIR)/libnodes_la-pop_subface.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-pop_subface.obj `cygpath -w pop_subface.c`
+
+libnodes_la-push_attribute.o: push_attribute.c
+	source='push_attribute.c' object='libnodes_la-push_attribute.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_attribute.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_attribute.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_attribute.o `test -f push_attribute.c || echo '$(srcdir)/'`push_attribute.c
+
+libnodes_la-push_attribute.lo: push_attribute.c
+	source='push_attribute.c' object='libnodes_la-push_attribute.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_attribute.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-push_attribute.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_attribute.lo `test -f push_attribute.c || echo '$(srcdir)/'`push_attribute.c
+
+libnodes_la-push_attribute.obj: push_attribute.c
+	source='push_attribute.c' object='libnodes_la-push_attribute.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_attribute.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_attribute.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_attribute.obj `cygpath -w push_attribute.c`
+
+libnodes_la-push_extension.o: push_extension.c
+	source='push_extension.c' object='libnodes_la-push_extension.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_extension.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_extension.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_extension.o `test -f push_extension.c || echo '$(srcdir)/'`push_extension.c
+
+libnodes_la-push_extension.lo: push_extension.c
+	source='push_extension.c' object='libnodes_la-push_extension.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_extension.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-push_extension.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_extension.lo `test -f push_extension.c || echo '$(srcdir)/'`push_extension.c
+
+libnodes_la-push_extension.obj: push_extension.c
+	source='push_extension.c' object='libnodes_la-push_extension.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_extension.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_extension.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_extension.obj `cygpath -w push_extension.c`
+
+libnodes_la-push_level.o: push_level.c
+	source='push_level.c' object='libnodes_la-push_level.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_level.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_level.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_level.o `test -f push_level.c || echo '$(srcdir)/'`push_level.c
+
+libnodes_la-push_level.lo: push_level.c
+	source='push_level.c' object='libnodes_la-push_level.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_level.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-push_level.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_level.lo `test -f push_level.c || echo '$(srcdir)/'`push_level.c
+
+libnodes_la-push_level.obj: push_level.c
+	source='push_level.c' object='libnodes_la-push_level.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_level.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_level.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_level.obj `cygpath -w push_level.c`
+
+libnodes_la-push_subface.o: push_subface.c
+	source='push_subface.c' object='libnodes_la-push_subface.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_subface.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_subface.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_subface.o `test -f push_subface.c || echo '$(srcdir)/'`push_subface.c
+
+libnodes_la-push_subface.lo: push_subface.c
+	source='push_subface.c' object='libnodes_la-push_subface.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_subface.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-push_subface.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_subface.lo `test -f push_subface.c || echo '$(srcdir)/'`push_subface.c
+
+libnodes_la-push_subface.obj: push_subface.c
+	source='push_subface.c' object='libnodes_la-push_subface.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-push_subface.Po' tmpdepfile='$(DEPDIR)/libnodes_la-push_subface.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-push_subface.obj `cygpath -w push_subface.c`
+
+libnodes_la-texture.o: texture.c
+	source='texture.c' object='libnodes_la-texture.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-texture.Po' tmpdepfile='$(DEPDIR)/libnodes_la-texture.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-texture.o `test -f texture.c || echo '$(srcdir)/'`texture.c
+
+libnodes_la-texture.lo: texture.c
+	source='texture.c' object='libnodes_la-texture.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-texture.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-texture.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-texture.lo `test -f texture.c || echo '$(srcdir)/'`texture.c
+
+libnodes_la-texture.obj: texture.c
+	source='texture.c' object='libnodes_la-texture.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-texture.Po' tmpdepfile='$(DEPDIR)/libnodes_la-texture.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-texture.obj `cygpath -w texture.c`
+
+libnodes_la-vertex_list.o: vertex_list.c
+	source='vertex_list.c' object='libnodes_la-vertex_list.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_list.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_list.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_list.o `test -f vertex_list.c || echo '$(srcdir)/'`vertex_list.c
+
+libnodes_la-vertex_list.lo: vertex_list.c
+	source='vertex_list.c' object='libnodes_la-vertex_list.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_list.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_list.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_list.lo `test -f vertex_list.c || echo '$(srcdir)/'`vertex_list.c
+
+libnodes_la-vertex_list.obj: vertex_list.c
+	source='vertex_list.c' object='libnodes_la-vertex_list.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_list.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_list.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_list.obj `cygpath -w vertex_list.c`
+
+libnodes_la-vertex_palette.o: vertex_palette.c
+	source='vertex_palette.c' object='libnodes_la-vertex_palette.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_palette.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_palette.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_palette.o `test -f vertex_palette.c || echo '$(srcdir)/'`vertex_palette.c
+
+libnodes_la-vertex_palette.lo: vertex_palette.c
+	source='vertex_palette.c' object='libnodes_la-vertex_palette.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_palette.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_palette.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_palette.lo `test -f vertex_palette.c || echo '$(srcdir)/'`vertex_palette.c
+
+libnodes_la-vertex_palette.obj: vertex_palette.c
+	source='vertex_palette.c' object='libnodes_la-vertex_palette.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_palette.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_palette.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_palette.obj `cygpath -w vertex_palette.c`
+
+libnodes_la-vertex_with_color.o: vertex_with_color.c
+	source='vertex_with_color.c' object='libnodes_la-vertex_with_color.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_color.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_color.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_color.o `test -f vertex_with_color.c || echo '$(srcdir)/'`vertex_with_color.c
+
+libnodes_la-vertex_with_color.lo: vertex_with_color.c
+	source='vertex_with_color.c' object='libnodes_la-vertex_with_color.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_color.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_color.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_color.lo `test -f vertex_with_color.c || echo '$(srcdir)/'`vertex_with_color.c
+
+libnodes_la-vertex_with_color.obj: vertex_with_color.c
+	source='vertex_with_color.c' object='libnodes_la-vertex_with_color.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_color.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_color.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_color.obj `cygpath -w vertex_with_color.c`
+
+libnodes_la-vertex_with_normal.o: vertex_with_normal.c
+	source='vertex_with_normal.c' object='libnodes_la-vertex_with_normal.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_normal.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_normal.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_normal.o `test -f vertex_with_normal.c || echo '$(srcdir)/'`vertex_with_normal.c
+
+libnodes_la-vertex_with_normal.lo: vertex_with_normal.c
+	source='vertex_with_normal.c' object='libnodes_la-vertex_with_normal.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_normal.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_normal.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_normal.lo `test -f vertex_with_normal.c || echo '$(srcdir)/'`vertex_with_normal.c
+
+libnodes_la-vertex_with_normal.obj: vertex_with_normal.c
+	source='vertex_with_normal.c' object='libnodes_la-vertex_with_normal.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_normal.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_normal.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_normal.obj `cygpath -w vertex_with_normal.c`
+
+libnodes_la-vertex_with_normal_and_texture.o: vertex_with_normal_and_texture.c
+	source='vertex_with_normal_and_texture.c' object='libnodes_la-vertex_with_normal_and_texture.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_normal_and_texture.o `test -f vertex_with_normal_and_texture.c || echo '$(srcdir)/'`vertex_with_normal_and_texture.c
+
+libnodes_la-vertex_with_normal_and_texture.lo: vertex_with_normal_and_texture.c
+	source='vertex_with_normal_and_texture.c' object='libnodes_la-vertex_with_normal_and_texture.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_normal_and_texture.lo `test -f vertex_with_normal_and_texture.c || echo '$(srcdir)/'`vertex_with_normal_and_texture.c
+
+libnodes_la-vertex_with_normal_and_texture.obj: vertex_with_normal_and_texture.c
+	source='vertex_with_normal_and_texture.c' object='libnodes_la-vertex_with_normal_and_texture.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_normal_and_texture.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_normal_and_texture.obj `cygpath -w vertex_with_normal_and_texture.c`
+
+libnodes_la-vertex_with_texture.o: vertex_with_texture.c
+	source='vertex_with_texture.c' object='libnodes_la-vertex_with_texture.o' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_texture.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_texture.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_texture.o `test -f vertex_with_texture.c || echo '$(srcdir)/'`vertex_with_texture.c
+
+libnodes_la-vertex_with_texture.lo: vertex_with_texture.c
+	source='vertex_with_texture.c' object='libnodes_la-vertex_with_texture.lo' libtool=yes @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_texture.Plo' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_texture.TPlo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_texture.lo `test -f vertex_with_texture.c || echo '$(srcdir)/'`vertex_with_texture.c
+
+libnodes_la-vertex_with_texture.obj: vertex_with_texture.c
+	source='vertex_with_texture.c' object='libnodes_la-vertex_with_texture.obj' libtool=no @AMDEPBACKSLASH@
+	depfile='$(DEPDIR)/libnodes_la-vertex_with_texture.Po' tmpdepfile='$(DEPDIR)/libnodes_la-vertex_with_texture.TPo' @AMDEPBACKSLASH@
+	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+	$(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_la_CFLAGS) $(CFLAGS) -c -o libnodes_la-vertex_with_texture.obj `cygpath -w vertex_with_texture.c`
 
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 

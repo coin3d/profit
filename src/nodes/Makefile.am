@@ -6,6 +6,9 @@ LIBS =
 
 noinst_LTLIBRARIES = libnodes.la
 
+libnodes_la_CFLAGS = \
+	$(PROFIT_CFLAGS)
+
 libnodes_la_SOURCES = \
 	color_palette.c \
 	face.c \

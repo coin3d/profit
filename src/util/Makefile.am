@@ -6,6 +6,9 @@ LIBS =
 
 noinst_LTLIBRARIES = libutil.la
 
+libutil_la_CFLAGS = \
+	$(PROFIT_CFLAGS)
+
 libutil_la_SOURCES = \
 	array.c \
 	bfile.c \
