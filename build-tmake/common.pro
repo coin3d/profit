@@ -1,6 +1,7 @@
 TEMPLATE	= lib
 
 win32:INCLUDEPATH = .;..\include;
+DEFINES         = HAVE_CONFIG_H
 
 HEADERS		= ../include/profit/callback.h \
 		  ../include/profit/debug.h \
