@@ -156,7 +156,8 @@ faceset_create()
   fs->indices = array_create_int(4);
   fs->lineIndices = array_create_int(4);
   fs->texIndices = array_create_int(4);
-  
+  fs->colorIdx = array_create_int(4);
+
   fs->bspTree = bsp_create(3);
   return fs;
 }
@@ -172,6 +173,7 @@ faceset_delete(faceset *fs)
   array_destroy(fs->indices);
   array_destroy(fs->lineIndices);
   array_destroy(fs->texIndices);
+  array_destroy(fs->colorIdx);
   free(fs);
 }
 
@@ -844,9 +846,8 @@ profitCB(void *mystate, void *ud)
 
       int dotex = ((faceset*)facesets[current_index])->texture_pattern_index >= 0; 
 
-
       if (color_per_vertex) {
-	assert(array_count(colorarray) == array_count(vertexarray));
+	assert(array_count(colorarray) == array_count(vertexarray)/3);
       }
       if (dotex) {
 	/*
@@ -873,8 +874,8 @@ profitCB(void *mystate, void *ud)
 	  
 	}
 	if (color_per_vertex) {
-	  packed_to_vec(colorarray[i], tmp);
-	  array_append_int(colidx, bsp_add_point(colbsp, tmp));
+          packed_to_vec(colorarray[i], tmp);
+          array_append_int(colidx, bsp_add_point(colbsp, tmp));
 	}
       }
       array_append_int(idx, -1);
