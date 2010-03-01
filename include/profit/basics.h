@@ -39,7 +39,7 @@ extern "C" {
 #endif /* ! PROFIT_DLL */
 #endif /* ! PPROFIT_MAKE_DLL */
 
-#if defined(__sgi) || defined(__hpux) 
+#if defined(__sgi) || defined(__hpux)  || defined(__sun)
 #define HAVE_INTTYPES
 #define HAVE_UINTTYPES
 #endif
