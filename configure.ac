@@ -82,24 +82,40 @@ AM_DISABLE_STATIC
 AM_MAINTAINER_MODE
 AC_PROG_LIBTOOL
 
+# **************************************************************************
+#  These are used for constructing the profit pkg-config file.
+AC_SUBST([PROFIT_EXTRA_CPPFLAGS], [$CPPFLAGS])
+AC_SUBST([PROFIT_EXTRA_CFLAGS], [$CFLAGS])
+AC_SUBST([PROFIT_EXTRA_CXXFLAGS], [$CXXFLAGS])
+AC_SUBST([PROFIT_EXTRA_LDFLAGS], [$LDFLAGS])
+AC_SUBST([PROFIT_EXTRA_LIBS], [$LIBS])
+
 AM_CONDITIONAL([BUILD_WITH_MSVC], [$BUILD_WITH_MSVC])
 
 PROFIT_CFLAGS=
 AC_SUBST(PROFIT_CFLAGS)
+
+# Make it possible for the user to turn off optimization flags
+SIM_AC_COMPILER_OPTIMIZATION
+
 SIM_AC_COMPILE_DEBUG([
   PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_DEBUG=1"
 ], [
   PROFIT_CFLAGS="$PROFIT_CFLAGS -DPROFIT_DEBUG=0"
 ])
 
-# not needed
-# AC_DEFINE([PROFIT_INTERNAL],,
-#   [defined while compiling profit])
-
 SIM_AC_DEBUGSYMBOLS
 SIM_AC_COMPILER_WARNINGS
 
 AC_CHECK_HEADERS([string.h])
+
+# *******************************************************************
+# * Math library
+# *******************************************************************
+
+SIM_AC_CHECK_MATHLIB(
+  [PROFIT_EXTRA_LIBS="$PROFIT_EXTRA_LIBS $sim_ac_libm"],
+  [SIM_AC_ERROR([no-math-library])])
 
 # **************************************************************************
 # Check if host CPU is bigendian or littleendian
@@ -172,12 +188,12 @@ if $sim_ac_build_library; then
       LIBFLAGS="-DLL /INCREMENTAL:NO $LIBFLAGS"
       case $enable_symbols in
       no | false)
-        LIBFLAGS="$LIBFLAGS /RELEASE"
-        ;;
+	LIBFLAGS="$LIBFLAGS /RELEASE"
+	;;
       *)
-        PROFIT_CFLAGS="/Fd$debugfile $PROFIT_CFLAGS"
-        LIBFLAGS="$LIBFLAGS /DEBUG /PDB:profit$PROFIT_MAJOR_VERSION$SUFFIX.pdb"
-        ;;
+	PROFIT_CFLAGS="/Fd$debugfile $PROFIT_CFLAGS"
+	LIBFLAGS="$LIBFLAGS /DEBUG /PDB:profit$PROFIT_MAJOR_VERSION$SUFFIX.pdb"
+	;;
       esac
       LIBFLAGS="$LIBFLAGS /OUT:profit$PROFIT_MAJOR_VERSION$SUFFIX.dll"
     fi
@@ -189,6 +205,7 @@ fi
 AM_CONFIG_HEADER([include/config.h])
 
 AC_CONFIG_FILES([
+	profit.pc
 	Makefile
 	src/Makefile
 	src/util/Makefile
