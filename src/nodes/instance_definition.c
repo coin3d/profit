@@ -152,7 +152,7 @@ prf_instance_definition_entry_f(
     prf_node_t * node,
     prf_state_t * state )
 {
-    int i, n, number;
+    int i, n;
     assert( node != NULL && state != NULL );
 
     if ( node->opcode != prf_instance_definition_info.opcode ) {

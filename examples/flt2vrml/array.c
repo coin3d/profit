@@ -205,11 +205,10 @@ _array_set_size(
     int newsize )
 {
     array_t * oldhandle, * newhandle; 
-    int elemsize, numelem;
     oldhandle = _HANDLE(array);
     newhandle = 
       (array_t *)realloc( oldhandle,
-			  sizeof(array_t) + newsize * oldhandle->elemsize );
+        sizeof(array_t) + newsize * oldhandle->elemsize );
     newhandle->size = newsize;
     return _ARRAY(newhandle);
 } /* _array_set_size() */

@@ -383,7 +383,6 @@ _bsp_add_point(
 
     if ( node->idxarray == NULL ) {
         /* node has been split */
-        bsp_node * the_node;
         if ( point[node->splitdim] >= node->splitpos )
             return _bsp_add_point( node->ge, point, dimensions, maxnodepoints,
                 invdepth - 1 );
@@ -482,7 +481,7 @@ _bsp_find_split(
             diff = pointarrays[d][idxarray[i]] - mean;
             variance += diff * diff;
         }
-        deviation = sqrt( variance );
+        deviation = (float) sqrt( variance );
 
         stats[d*5] = mean;
         stats[d*5+1] = variance;
@@ -773,7 +772,7 @@ bsp_find_closest(
         diff = point[d] - tree->pointarrays[d][close];
         radius += diff * diff;
     }
-    radius = sqrt( radius );
+    radius = (float) sqrt( radius );
 
     indexarray = array_create_int( 8 );
     bsp_find_points( tree, point, radius, &indexarray );

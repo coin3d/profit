@@ -443,8 +443,8 @@ prf_state_get_inverse_matrix(
             for ( i = k; i < 4; i++ ) {
                 s = 0.0;
                 for ( j = k; j < 4; j++ )
-                    s += fabs( a[i][j] );
-                q = fabs( a[i][k] ) / s;
+                    s += (float32_t)fabs( a[i][j] );
+                q = (float32_t)fabs( a[i][k] ) / s;
                 if ( q > max ) {
                     max = q;
                     p[k] = i;
