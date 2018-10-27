@@ -61,6 +61,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
+#include <string.h>
 
 #define FLT2VRML_VERSION "0.2"
 
