@@ -1,0 +1,53 @@
+/* include/config.h.  Generated from config.h.cmake.in by CMake.  */
+
+/* Define if building universal (internal helper macro) */
+#cmakedefine AC_APPLE_UNIVERSAL_BUILD
+
+/* Define to 1 if you have the <string.h> header file. */
+#cmakedefine HAVE_STRING_H 1
+
+/* Name of package */
+#define PACKAGE "@PACKAGE@"
+
+/* Define to the address where bug reports for this package should be sent. */
+#define PACKAGE_BUGREPORT "@PACKAGE_BUGREPORT@"
+
+/* Define to the full name of this package. */
+#define PACKAGE_NAME "@PACKAGE_NAME@"
+
+/* Define to the full name and version of this package. */
+#define PACKAGE_STRING "@PACKAGE_STRING@"
+
+/* Define to the one symbol short name of this package. */
+#define PACKAGE_TARNAME "@PACKAGE_TARNAME@"
+
+/* Define to the home page for this package. */
+#define PACKAGE_URL "@PACKAGE_URL@"
+
+/* Define to the version of this package. */
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
+
+/* the current profit interface age */
+#define PROFIT_INTERFACE_AGE @PROFIT_INTERFACE_AGE@
+
+/* the current profit interface revision */
+#define PROFIT_INTERFACE_REVISION @PROFIT_INTERFACE_REVISION@
+
+/* the current profit interface version */
+#define PROFIT_INTERFACE_VERSION @PROFIT_INTERFACE_VERSION@
+
+/* the major part of the profit release version number */
+#define PROFIT_MAJOR_VERSION @PROJECT_VERSION_MAJOR@
+
+/* the micro part of the profit release version number */
+#define PROFIT_MICRO_VERSION @PROJECT_VERSION_PATCH@
+
+/* the minor part of the profit release version number */
+#define PROFIT_MINOR_VERSION @PROJECT_VERSION_MINOR@
+
+/* Version number of package */
+#define VERSION "@PACKAGE_VERSION@"
+
+/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+   significant byte first (like Motorola and SPARC, unlike Intel). */
+#cmakedefine WORDS_BIGENDIAN @PROFIT_IS_BIG_ENDIAN@
