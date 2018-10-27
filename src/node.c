@@ -36,12 +36,15 @@
 #include <profit/nodeinfo.h>
 #include <profit/model.h>
 #include <profit/debug.h>
+#ifdef HAVE_CONFIG_H
 #include <config.h>
+#endif
 #include <profit/util/array.h>
 #include <profit/util/mempool.h>
 
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 
 /**************************************************************************/
 

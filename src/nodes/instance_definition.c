@@ -48,6 +48,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 static prf_nodeinfo_t prf_instance_definition_info = {
     62, PRF_CONTROL | PRF_DEFINITION,

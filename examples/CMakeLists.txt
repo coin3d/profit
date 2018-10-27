@@ -9,6 +9,9 @@ set(FLT2VRML_HDRS
 )
 add_executable(flt2vrml ${FLT2VRML_SRCS} ${FLT2VRML_HDRS})
 target_link_libraries(flt2vrml PRIVATE profit)
+if(NOT WIN32)
+  target_link_libraries(flt2vrml PRIVATE m)
+endif()
 
 set(FLTDUMP_SRCS fltdump/fltdump.c)
 add_executable(fltdump ${FLTDUMP_SRCS})
