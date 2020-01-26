@@ -12,7 +12,7 @@ m4_define([INTERFACE_AGE],      [0])
 
 # **************************************************************************
 
-AC_INIT([profit], [PROFIT_RELEASE], [<profit-patches@coin3d.org>])
+AC_INIT([profit], [PROFIT_RELEASE], [<coin-support@coin3d.org>])
 AC_PREREQ([2.50])
 
 AC_CONFIG_AUX_DIR([cfg])
