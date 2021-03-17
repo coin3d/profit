@@ -80,7 +80,7 @@ prf_array_init(int initsize, int elemsize)
 {
   array *arr;
 
-  arr = (array *)profit_malloc(initsize*elemsize+sizeof(array));
+  arr = (array *)profit_malloc((size_t)initsize*elemsize+sizeof(array));
   assert( arr != NULL );
   
   arr->size = initsize;
@@ -253,8 +253,8 @@ prf_array_set_size(void *id, int newsize)
   oldarray = id_to_array(id);
   elemsize = oldarray->elemsize;
   numelem = oldarray->numelem;
-  newarray = (array *)profit_realloc(oldarray, 
-				     newsize*elemsize + sizeof(array));
+  newarray = (array *)profit_realloc(oldarray,
+                                     (size_t)newsize*elemsize + sizeof(array));
   
   newarray->size = newsize;
   newarray->elemsize = elemsize;
