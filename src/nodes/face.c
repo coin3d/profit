@@ -97,7 +97,7 @@ prf_face_get_material(
                 g = (data->packed_color_primary >> 8) & 0xff;
                 r = data->packed_color_primary & 0xff;
             } else {
-                prf_state_color_lookup( state, data->color_name_index, 0 );
+                (void)prf_state_color_lookup( state, data->color_name_index, 0 );
             }
         } else if ( data->light_mode == PRF_FACE_LIGHT_MODE_VERTEX_COLORS ) {
             // FIXME: implement proper action
