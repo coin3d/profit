@@ -78,7 +78,7 @@ _array_append_##name(                                                      \
     array_t * handle;                                                      \
     handle = _HANDLE(array);                                               \
     if ( handle->numelem >= handle->size ) {                               \
-        array=(type *)_array_set_size( array, handle->size << 1 );         \
+        array=(type *)_array_set_size( array, (size_t)handle->size << 1 ); \
         handle = _HANDLE(array);                                           \
     }                                                                      \
     array[handle->numelem] = item;                                         \
@@ -99,7 +99,7 @@ _array_insert_##name(                                                      \
     assert( idx >= 0 && idx < handle->numelem );                           \
     if ( idx < handle->numelem - 1 )                                       \
         memmove( &array[idx+1], &array[idx],                               \
-                 (handle->numelem-1-idx) * handle->elemsize );             \
+                 (handle->numelem-1-idx) * (size_t)handle->elemsize );     \
     array[idx] = item;                                                     \
     return array;                                                          \
 } /* array_insert_##name() */
@@ -114,7 +114,7 @@ _array_remove_##name(                                                      \
     handle = _HANDLE(array);                                               \
     if ( idx < handle->numelem-1 )                                         \
         memmove( &array[idx], &array[idx+1],                               \
-                 (handle->numelem-1-idx) * handle->elemsize );             \
+                 (handle->numelem-1-idx) * (size_t)handle->elemsize );     \
     handle->numelem--;                                                     \
     return array;                                                          \
 } /* array_remove_##name() */                                              \
@@ -159,7 +159,7 @@ array_create(
     int elemsize )
 {
     array_t * handle;
-    handle = (array_t *)malloc( sizeof(array_t) + elemsize * initsize );
+    handle = (array_t *)malloc( sizeof(array_t) + (size_t)elemsize * initsize );
     assert( handle != NULL );
     handle->size = initsize;
     handle->elemsize = elemsize;
@@ -208,7 +208,7 @@ _array_set_size(
     oldhandle = _HANDLE(array);
     newhandle = 
       (array_t *)realloc( oldhandle,
-        sizeof(array_t) + newsize * oldhandle->elemsize );
+        sizeof(array_t) + (size_t)newsize * oldhandle->elemsize );
     newhandle->size = newsize;
     return _ARRAY(newhandle);
 } /* _array_set_size() */

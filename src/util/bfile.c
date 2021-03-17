@@ -380,7 +380,7 @@ bf_rewind(
     newbuf = bfile->pos / bfile->buffer_size;
     if ( newbuf < prevbuf ) { /* rewinded past block boundary */
         /* refresh "preloaded" buffer with old buffer */
-        bfile->ipos = newbuf * bfile->buffer_size;
+        bfile->ipos = (size_t)newbuf * bfile->buffer_size;
         fseek( bfile->file, bfile->ipos, SEEK_SET );
         bf_read_buffer( bfile );
     }
