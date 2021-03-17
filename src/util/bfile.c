@@ -152,7 +152,8 @@ bf_create_m(
     bfile_t * bfile;
     bfile = create_bfile_t( 0 );
     bfile->buffer = (uint8_t*) buffer;
-    bfile->buffer_size = bfile->size = len;
+    bfile->size = len;
+    bfile->buffer_size = len;
     bfile->flags |= BF_MEMBUFFER | BF_READABLE;
     bfile->ipos = len;
     return bfile;
@@ -242,7 +243,7 @@ void
 bf_read_buffer(
     bfile_t * bfile )
 {
-    unsigned int bytes;
+    size_t bytes;
 
     if ( bfile->progress_cb ) {
         bfile->progress_cb( (float)bfile->ipos / (float)bfile->size,
@@ -255,10 +256,10 @@ bf_read_buffer(
 
     bytes = 0;
     while ( (bytes < bfile->buffer_size) && (bfile->ipos < bfile->size) ) {
-        int b;
+        size_t b;
         b = fread( bfile->buffer + bytes, 1, bfile->buffer_size - bytes,
                    bfile->file );
-        if ( b > 0 ) {
+        if ( b != 0 ) {
             bytes += b;
             bfile->ipos += b;
         } else {
@@ -274,7 +275,7 @@ void
 bf_write_buffer(
     bfile_t * bfile )
 {
-    int written, towrite;
+    size_t written, towrite;
 
     assert( bfile != NULL );
     assert( bfile->file != NULL );
@@ -283,11 +284,11 @@ bf_write_buffer(
     towrite = bfile->pos - bfile->ipos;
     written = 0;
     while ( written < towrite ) {
-        int res, bufpos;
+        size_t res, bufpos;
         bufpos = bfile->ipos % bfile->buffer_size;
         res = fwrite( bfile->buffer + bufpos + written, 1, 
                       towrite - written, bfile->file );
-        if ( res > 0 ) {
+        if ( res != 0 ) {
             written += res;
         } else {
             fprintf( stderr, "Error: fwrite() returned 0.\n" );
@@ -305,7 +306,7 @@ bf_read(
     uint8_t * buffer,
     unsigned int len )
 {
-    unsigned int toread, hasread;
+    size_t toread, hasread;
 
     assert( bfile != NULL );
     assert( (bfile->flags & BF_READABLE) != FALSE );
@@ -314,8 +315,8 @@ bf_read(
     toread = PRF_MIN( len, bfile->size - bfile->pos ); /* crop read length */
     while ( hasread < toread ) {
         if ( bfile->pos < bfile->ipos ) {
-            int bufoff;
-            int cpylen;
+            size_t bufoff;
+            size_t cpylen;
             bufoff = bfile->pos % bfile->buffer_size;
             cpylen = PRF_MIN( bfile->buffer_size - bufoff, toread - hasread );
             memcpy( buffer + hasread, bfile->buffer + bufoff, cpylen );
@@ -326,7 +327,7 @@ bf_read(
         }
     }
 
-    return hasread;
+    return (int)hasread;
 } /* bf_read() */
 
 /**************************************************************************/
@@ -337,7 +338,7 @@ bf_write(
     uint8_t * buffer,
     unsigned int len )
 {
-    unsigned int haswritten, towrite;
+    size_t haswritten, towrite;
 
     assert( bfile != NULL );
     assert( (bfile->flags & BF_WRITABLE) != FALSE );
@@ -346,7 +347,7 @@ bf_write(
     towrite = len;
     while ( haswritten < towrite ) {
         if ( (bfile->pos - bfile->ipos) < bfile->buffer_size ) {
-            int bufoff, cpylen;
+            size_t bufoff, cpylen;
             bufoff = bfile->pos % bfile->buffer_size;
             cpylen = PRF_MIN( (bfile->buffer_size - bufoff), (towrite - haswritten) );
             memcpy( bfile->buffer + bufoff, buffer + haswritten, cpylen );
@@ -357,7 +358,7 @@ bf_write(
         }
     }
 
-    return haswritten;
+    return (int)haswritten;
 } /* bf_write() */
 
 /**************************************************************************/
@@ -365,9 +366,9 @@ bf_write(
 int
 bf_rewind(
     bfile_t * bfile,
-    unsigned int num_bytes )
+    unsigned int n_bytes )
 {
-    unsigned int prevbuf, newbuf;
+    size_t prevbuf, newbuf, num_bytes = n_bytes;
     assert( bfile != NULL );
     prevbuf = bfile->pos / bfile->buffer_size;
     if ( num_bytes > bfile->pos ) {
@@ -380,11 +381,11 @@ bf_rewind(
     newbuf = bfile->pos / bfile->buffer_size;
     if ( newbuf < prevbuf ) { /* rewinded past block boundary */
         /* refresh "preloaded" buffer with old buffer */
-        bfile->ipos = (size_t)newbuf * bfile->buffer_size;
-        fseek( bfile->file, bfile->ipos, SEEK_SET );
+        bfile->ipos = newbuf * bfile->buffer_size;
+        fseek( bfile->file, (long)bfile->ipos, SEEK_SET );
         bf_read_buffer( bfile );
     }
-    return num_bytes;
+    return (int)num_bytes;
 } /* bf_rewind() */
 
 /**************************************************************************/
@@ -1140,7 +1141,7 @@ int
 bf_hex_dump(
     bfile_t * bfile,
     FILE * file,
-    unsigned int num_bytes,
+    unsigned int n_bytes,
     unsigned int unit_size )
 {
     char line[ 256 ];
@@ -1150,7 +1151,7 @@ bf_hex_dump(
     bool_t eof;
 
     unsigned int i, j;
-    unsigned int bytes, bytes_per_line;
+    size_t bytes, bytes_per_line, num_bytes = n_bytes;
 
     unit_size = 3;
 
@@ -1167,7 +1168,7 @@ bf_hex_dump(
 
     bytes = 0;
     while ( bytes < num_bytes ) {
-        sprintf( line, "0x%06x:  ", bf_get_position( bfile ) );
+        sprintf( line, "0x%06x:  ", (unsigned int)bf_get_position( bfile ) );
         i = 0;
         while ( (i < bytes_per_line) && ((bytes + i) < num_bytes) ) {
             uint32_t word;
@@ -1187,7 +1188,7 @@ bf_hex_dump(
             strcat( line, buffer );
         }
         if ( i < bytes_per_line ) {
-            unsigned int pad;
+            size_t pad;
             pad = ((bytes_per_line - i + unit_size) / unit_size) - 1 +
                   2 * (bytes_per_line - i);
             for ( j = 0; j < pad; j++ ) 
@@ -1202,9 +1203,9 @@ bf_hex_dump(
     }
     if ( eof != FALSE )
         fprintf( file, "0x%06x:  [reached end of file]\n",
-            bf_get_position( bfile ) );
+            (unsigned int)bf_get_position( bfile ) );
     
-    return num_bytes;
+    return (int)num_bytes;
 } /* bf_hex_dump() */
 
 /**************************************************************************/
