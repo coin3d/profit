@@ -701,6 +701,7 @@ profitCB(void *mystate, void *ud)
 
          if (prf_state_material_lookup(state, material_index,
                                        &data->material)) {
+             // FIXME: implement proper action
          }
          else {
            set_default_material(&data->material);

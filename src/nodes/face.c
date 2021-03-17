@@ -100,10 +100,13 @@ prf_face_get_material(
                 prf_state_color_lookup( state, data->color_name_index, 0 );
             }
         } else if ( data->light_mode == PRF_FACE_LIGHT_MODE_VERTEX_COLORS ) {
+            // FIXME: implement proper action
         } else if ( data->light_mode == 
                     PRF_FACE_LIGHT_MODE_FACE_COLOR_AND_NORMALS ) {
+            // FIXME: implement proper action
         } else if ( data->light_mode ==
                     PRF_FACE_LIGHT_MODE_VERTEX_COLORS_AND_NORMALS ) {
+            // FIXME: implement proper action
         } else {
             prf_warn( 9, "unknown face (0x%p) light mode (%d)", node,
                 data->light_mode );
