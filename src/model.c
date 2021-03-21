@@ -1408,23 +1408,21 @@ prf_model_append_node(
     assert( model != NULL && node != NULL );
 
     if ( model->header != NULL && node->opcode != 1 ) {
-        prf_node_t * node;
+        prf_node_t * anode;
         prf_nodeinfo_t * info;
         int count;
 
-        node = model->header;
-        while ( node->children != NULL ) {
-            if ( (count = prf_array_count( node->children )) > 0 )
-                node = node->children[ count - 1 ];
+        anode = model->header;
+        while ( anode->children != NULL ) {
+            if ( (count = prf_array_count( anode->children )) > 0 )
+                anode = anode->children[ count - 1 ];
         }
-        info = prf_nodeinfo_get( node->opcode );
+        info = prf_nodeinfo_get( anode->opcode );
         while ( info != NULL &&
                 (info->flags & (PRF_POP_NODE | PRF_ANCILLARY)) != 0 ) {
-            node = node->parent;
-            info = prf_nodeinfo_get( node->opcode );
+            anode = anode->parent;
+            info = prf_nodeinfo_get( anode->opcode );
         }
-
-        
     } else if ( model->header == NULL && node->opcode == 1 ) {
         model->header = node;
     } else {
