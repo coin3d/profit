@@ -116,10 +116,9 @@ pool_t
 pool_create_sized(
     int block_size )
 {
-    pool_t pool_id;
-    int cnt;
-    cnt = prf_array_count( pools );
-    for ( pool_id = 1; pool_id < cnt; pool_id++ ) {
+    pool_t pool_id, num_pools;
+    num_pools = prf_array_count( pools );
+    for ( pool_id = 1; pool_id < num_pools; pool_id++ ) {
         if ( pools[ pool_id ] == NULL ) { /* free slot */
             pools[ pool_id ] = new_pool( block_size );
             return pool_id;
