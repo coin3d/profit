@@ -16,6 +16,21 @@ matrix:
 
 environment:
   matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: macos-catalina
+      CMAKE_GENERATOR: 'Unix Makefiles'
+      CMAKE_PLATFORM: x64
+      COMPILER_ID: clang
+
+    - APPVEYOR_BUILD_WORKER_IMAGE: macos-bigsur
+      CMAKE_GENERATOR: 'Unix Makefiles'
+      CMAKE_PLATFORM: x64
+      COMPILER_ID: clang
+
+    - APPVEYOR_BUILD_WORKER_IMAGE: macos-monterey
+      CMAKE_GENERATOR: 'Unix Makefiles'
+      CMAKE_PLATFORM: x64
+      COMPILER_ID: clang
+#
 #    - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu1804
 #      CMAKE_GENERATOR: 'Unix Makefiles'
 #      CMAKE_PLATFORM: x86
@@ -106,9 +121,9 @@ environment:
 
 install:
   - sh: |
-      sudo apt-get -y update
+      if [ "$COMPILER_ID" != "clang" ]; then sudo apt-get -y update; fi
       cd $APPVEYOR_BUILD_FOLDER
-      sudo apt-get -y install gcc-multilib g++-multilib
+      if [ "$COMPILER_ID" != "clang" ]; then sudo apt-get -y install gcc-multilib g++-multilib; fi
   - cmd: |
       cd %APPVEYOR_BUILD_FOLDER%
       if "%CMAKE_GENERATOR%" == "MSYS Makefiles" set PATH=C:\msys64\%COMPILER_ID%\bin;C:\msys64\usr\bin\;%PATH%
@@ -165,7 +180,8 @@ after_build:
       appveyor DownloadFile https://ci.appveyor.com/api/buildjobs/%APPVEYOR_JOB_ID%/log -FileName %APPVEYOR_PROJECT_NAME%-%CI_REPO_VERSION%-%COMPILER_ID%-%CMAKE_PLATFORM%.log
   - sh: |
       cd $APPVEYOR_BUILD_FOLDER
-      export COMPILER_ID=$APPVEYOR_BUILD_WORKER_IMAGE-$COMPILER_ID`$COMPILER_ID -dumpversion | tr '.' '\n'`
+      if [ "$COMPILER_ID" != "clang" ]; then export COMPILER_ID=$APPVEYOR_BUILD_WORKER_IMAGE-$COMPILER_ID`$COMPILER_ID -dumpversion | tr '.' '\n'`; fi
+      if [ "$COMPILER_ID" = "clang" ]; then export COMPILER_ID=$APPVEYOR_BUILD_WORKER_IMAGE-$COMPILER_ID`$COMPILER_ID -v 2>&1 | grep version | sed 's/^.*version \([0-9]*\)\.[0-9]*\.[0-9]*.*$/\1/g'`; fi
       if [ -n "${APPVEYOR_REPO_TAG_NAME}" ]; then export CI_REPO_VERSION=${APPVEYOR_REPO_TAG_NAME:1}; else export CI_REPO_VERSION=latest; fi
       BUILD_ARCHIVE=$APPVEYOR_PROJECT_NAME-$CI_REPO_VERSION-$COMPILER_ID-$CMAKE_PLATFORM.tar.gz
       tar czf $BUILD_ARCHIVE Coin3D/*
