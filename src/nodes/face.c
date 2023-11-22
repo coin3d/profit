@@ -113,7 +113,7 @@ prf_face_get_material(
         }
 
     } else {
-#if 0 /* not impemented */
+#if 0 /* not implemented */
         float r, g, b, a;
         /* no material - create default one */
         if ( data->flags & PRF_FACE_FLAGS_NO_COLOR ) {
