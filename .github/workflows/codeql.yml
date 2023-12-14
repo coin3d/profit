@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [ "master" ]
   schedule:
-    - cron: '26 10 * * 4'
+    - cron: '21 10 * * 4'
 
 jobs:
   analyze:
@@ -25,10 +25,9 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Checkout submodules
-      run: git submodule update --init --recursive
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
