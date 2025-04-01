@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.0...3.29)
 
 set(PROFIT_MAJOR_VERSION 0)
 set(PROFIT_MINOR_VERSION 9)
